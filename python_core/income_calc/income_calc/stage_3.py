@@ -1,4 +1,5 @@
-import stage_1, stage_2
+import stage_1
+import stage_2
 
 
 def main():
@@ -9,5 +10,5 @@ def main():
     print(f"Net income: {net_income}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

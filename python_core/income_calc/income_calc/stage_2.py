@@ -11,5 +11,5 @@ def main() -> float:
     return income
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

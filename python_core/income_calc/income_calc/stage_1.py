@@ -9,5 +9,5 @@ def main():
         print(f"{k}: {v}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

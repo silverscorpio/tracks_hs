@@ -4,7 +4,7 @@ prices = {
     "Ice cream": "$5",
     "Milk chocolate": "$4",
     "Doughnut": "$2.5",
-    "Pancake": "$3.2"
+    "Pancake": "$3.2",
 }
 
 monthly_income = {
@@ -13,5 +13,5 @@ monthly_income = {
     "Ice cream": "$2250",
     "Milk chocolate": "$1680",
     "Doughnut": "$1075",
-    "Pancake": "$80"
+    "Pancake": "$80",
 }
