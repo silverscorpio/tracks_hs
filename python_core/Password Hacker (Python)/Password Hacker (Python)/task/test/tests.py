@@ -7,19 +7,18 @@ from time import sleep
 import socket
 import random
 
-CheckResult.correct = lambda: CheckResult(True, '')
+CheckResult.correct = lambda: CheckResult(True, "")
 CheckResult.wrong = lambda feedback: CheckResult(False, feedback)
 
-abc = 'abcdefghijklmnopqrstuvwxyz1234567890'
+abc = "abcdefghijklmnopqrstuvwxyz1234567890"
 
 
 def random_password():
-    '''function - generating random password of length from 2 to 3'''
-    return ''.join(random.choice(abc) for i in range(random.randint(2, 3)))
+    """function - generating random password of length from 2 to 3"""
+    return "".join(random.choice(abc) for i in range(random.randint(2, 3)))
 
 
 class Hacking(StageTest):
-
     def __init__(self, module):
         super().__init__(module)
         self.ready = False
@@ -43,10 +42,10 @@ class Hacking(StageTest):
         self.serv.join()
 
     def server(self):
-        ''' creating a server and answering clients '''
+        """creating a server and answering clients"""
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.sock.bind(('localhost', 9090))
+        self.sock.bind(("localhost", 9090))
         self.ready = True
         try:
             self.sock.listen(1)
@@ -57,8 +56,8 @@ class Hacking(StageTest):
                 data = conn.recv(1024)
                 if not data:
                     break
-                self.message.append(data.decode('utf8'))
-                conn.send('Wrong password!'.encode('utf8'))
+                self.message.append(data.decode("utf8"))
+                conn.send("Wrong password!".encode("utf8"))
             conn.close()
         except:
             pass
@@ -66,10 +65,7 @@ class Hacking(StageTest):
     def generate(self):
         self.start_server()
         test_word = random_password()
-        return [
-            TestCase(
-                args=['localhost', '9090', test_word], attach=[test_word])
-        ]
+        return [TestCase(args=["localhost", "9090", test_word], attach=[test_word])]
 
     def check(self, reply, attach):
         self.stop_server()
@@ -77,21 +73,20 @@ class Hacking(StageTest):
         if not self.connected:
             return CheckResult.wrong("You didn't connect to the server")
         if len(self.message) == 0:
-            return CheckResult.wrong('You sent nothing to the server')
+            return CheckResult.wrong("You sent nothing to the server")
         if len(reply) == 0:
+            return CheckResult.wrong("You did not print anything")
+        if reply.split("\n")[0] != "Wrong password!":
             return CheckResult.wrong(
-                'You did not print anything')
-        if reply.split('\n')[0] != 'Wrong password!':
-            return CheckResult.wrong(
-                'The line you printed is not the one sent by server')
+                "The line you printed is not the one sent by server"
+            )
 
         if self.message != attach:
-            return CheckResult.wrong(
-                'You sent the wrong information to the server')
+            return CheckResult.wrong("You sent the wrong information to the server")
         return CheckResult.correct()
 
 
-if __name__ == '__main__':
-    test = Hacking('hacking.hack')
+if __name__ == "__main__":
+    test = Hacking("hacking.hack")
     test.run_tests()
     test.stop_server()
