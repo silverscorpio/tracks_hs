@@ -152,6 +152,12 @@ files:
       if __name__ == "__main__":
           print(get_cmdline_args())
     learner_created: true
-feedback_link: https://hyperskill.org/projects/80/stages/443/implement#comment
+  - name: hacking/socket_init.py
+    visible: true
+    learner_created: true
+  - name: hacking/pwd_combi.py
+    visible: true
+    learner_created: true
+feedback_link: https://hyperskill.org/learn/step/7217#comment
 status: Unchecked
 record: 2
