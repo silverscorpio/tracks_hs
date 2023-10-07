@@ -1,10 +1,13 @@
 import string
+import json
 from random import choice
 import itertools
 
 LOWERCASE_ALPHA = string.ascii_lowercase
+UPPERCASE_ALPHA = string.ascii_uppercase
 NUM_DIGITS = "0123456789"
-ELEMENTS_LIST = LOWERCASE_ALPHA + NUM_DIGITS
+ELEMENTS_STR = LOWERCASE_ALPHA + NUM_DIGITS
+ALL_ELEMENTS_STR = LOWERCASE_ALPHA + UPPERCASE_ALPHA + NUM_DIGITS
 
 
 def get_pwd_iterator(iterator, n):
@@ -14,6 +17,10 @@ def get_pwd_iterator(iterator, n):
 
 def verify_pwd_crack(msg: str) -> bool:
     return True if msg == "Connection success!" else False
+
+
+def verify_login_crack(msg: str) -> bool:
+    return True if json.loads(msg)["result"] == "Wrong password!" else False
 
 
 def gen_case_combos_for_word(word: str) -> list:
