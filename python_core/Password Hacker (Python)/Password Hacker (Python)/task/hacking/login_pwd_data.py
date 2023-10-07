@@ -15,12 +15,16 @@ def get_pwd_iterator(iterator, n):
     return itertools.product(iterator, repeat=n)
 
 
-def verify_pwd_crack(msg: str) -> bool:
-    return True if msg == "Connection success!" else False
-
-
-def verify_login_crack(msg: str) -> bool:
-    return True if json.loads(msg)["result"] == "Wrong password!" else False
+def verify_creds_crack(msg: str) -> bool:
+    match json.loads(msg)["result"]:
+        case "Wrong password!":
+            return True
+        case "Exception happened during login":
+            return True
+        case "Connection success!":
+            return True
+        case _:
+            return False
 
 
 def gen_case_combos_for_word(word: str) -> list:
@@ -41,7 +45,8 @@ def get_user_login_data(file_path: str) -> list[str]:
 
 
 if __name__ == '__main__':
-    print(list(get_pwd_iterator(ELEMENTS_LIST, 2)))
+    print(gen_case_combos_for_word("a"))
+    # print(list(get_pwd_iterator(ELEMENTS_LIST, 2)))
     # check
     # all_elements = get_elements_list()
     # for i in range(2, 3):
