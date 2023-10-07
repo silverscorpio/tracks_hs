@@ -143,6 +143,75 @@ files:
       
       if __name__ == '__main__':    test = Hacking('hacking.hack')    test.run_tests()    test.stop_server()
     learner_created: false
+  - name: hacking/cmdline.py
+    visible: true
+    text: |
+      import argparse
+      
+      
+      def get_cmdline_args():
+          parser = argparse.ArgumentParser(description="establishes socket connection")
+          parser.add_argument("ipaddress", type=str, help="ip address of server")
+          parser.add_argument("port", type=int, help="port")
+          args = parser.parse_args()
+          return args
+      
+      
+      if __name__ == "__main__":
+          print(get_cmdline_args())
+    learner_created: true
+  - name: hacking/socket_conn.py
+    visible: true
+    text: |
+      import socket
+      
+      
+      def socket_conn(server_info: tuple) -> str:
+          with socket.socket() as client_socket:
+              client_socket.connect(server_info)
+              client_socket.send(msg_to_send.encode())
+              response_bytes = client_socket.recv(1024)
+              return response_bytes.decode()
+    learner_created: true
+  - name: hacking/pwd_combi.py
+    visible: true
+    text: |
+      import string
+      import itertools
+      
+      LOWERCASE_ALPHA = string.ascii_lowercase
+      NUM_DIGITS = "0123456789"
+      
+      
+      def get_elements_list() -> list:
+          elements = []
+          elements.extend(list(LOWERCASE_ALPHA))
+          elements.extend(list(NUM_DIGITS))
+          return elements
+      
+      
+      def get_pwd_iterator(iterator, n):
+          # repeat was the key!!!
+          return itertools.product(iterator, repeat=n)
+      
+      
+      if __name__ == '__main__':
+          # check
+          all_elements = get_elements_list()
+          for i in range(2, 3):
+              pwd_iter = get_pwd_iterator(iterator=all_elements, n=i)
+              for j in pwd_iter:
+                  print("".join(j))
+                  if "".join(j) == "a9":
+                      print("found")
+                      break
+    learner_created: true
+  - name: ./passwords.txt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/7218#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sat, 07 Oct 2023 00:09:08 UTC"
 record: -1

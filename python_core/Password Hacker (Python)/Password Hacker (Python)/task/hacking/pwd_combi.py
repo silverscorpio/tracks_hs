@@ -1,15 +1,10 @@
 import string
+from random import choice
 import itertools
 
 LOWERCASE_ALPHA = string.ascii_lowercase
 NUM_DIGITS = "0123456789"
-
-
-def get_elements_list() -> list:
-    elements = []
-    elements.extend(list(LOWERCASE_ALPHA))
-    elements.extend(list(NUM_DIGITS))
-    return elements
+ELEMENTS_LIST = LOWERCASE_ALPHA + NUM_DIGITS
 
 
 def get_pwd_iterator(iterator, n):
@@ -17,13 +12,35 @@ def get_pwd_iterator(iterator, n):
     return itertools.product(iterator, repeat=n)
 
 
+def verify_pwd_crack(msg: str) -> bool:
+    return True if msg == "Connection success!" else False
+
+
+def gen_case_combos_for_word(word: str) -> list:
+    combos = []
+    alpha_combo = list(zip(word.lower(), word.upper()))
+    while len(combos) != 2 ** len(word):
+        chosen_word = ''.join([choice(i) for i in alpha_combo])
+        if chosen_word not in combos:
+            combos.append(chosen_word)
+    return combos
+
+
+def get_pwd_data(file_path: str) -> list[str]:
+    with open(file_path, "r") as f:
+        pwd_data = f.readlines()
+    pwd_data = [i.strip("\n") for i in pwd_data]
+    return pwd_data
+
+
 if __name__ == '__main__':
+    print(list(get_pwd_iterator(ELEMENTS_LIST, 2)))
     # check
-    all_elements = get_elements_list()
-    for i in range(2, 3):
-        pwd_iter = get_pwd_iterator(iterator=all_elements, n=i)
-        for j in pwd_iter:
-            print("".join(j))
-            if "".join(j) == "a9":
-                print("found")
-                break
+    # all_elements = get_elements_list()
+    # for i in range(2, 3):
+    #     pwd_iter = get_pwd_iterator(iterator=all_elements, n=i)
+    #     for j in pwd_iter:
+    #         print("".join(j))
+    #         if "".join(j) == "a9":
+    #             print("found")
+    #             break
