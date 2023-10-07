@@ -26,7 +26,7 @@ def gen_case_combos_for_word(word: str) -> list:
     return combos
 
 
-def get_pwd_data(file_path: str) -> list[str]:
+def get_user_login_data(file_path: str) -> list[str]:
     with open(file_path, "r") as f:
         pwd_data = f.readlines()
     pwd_data = [i.strip("\n") for i in pwd_data]

@@ -3,7 +3,7 @@ from cmdline import get_cmdline_args
 from login_pwd_data import (ELEMENTS_LIST,
                             verify_pwd_crack,
                             gen_case_combos_for_word,
-                            get_pwd_data,
+                            get_user_login_data,
                             )
 from socket_conn import socket_operation
 
@@ -30,7 +30,10 @@ def main():
 if __name__ == "__main__":
     pwd_file = ("/Users/hello/Desktop/dev/tracks_hs/python_core/Password Hacker (Python)/Password Hacker ("
                 "Python)/task/passwords.txt")
-    passwords = get_pwd_data(file_path=pwd_file)
+    login_file = ("/Users/hello/Desktop/dev/tracks_hs/python_core/Password Hacker (Python)/Password Hacker ("
+                  "Python)/task/logins.txt")
+    passwords = get_user_login_data(file_path=pwd_file)
+    logins = get_user_login_data(file_path=login_file)
 
     # for stage 2
     all_elements = ELEMENTS_LIST
