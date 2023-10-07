@@ -173,7 +173,7 @@ files:
               response_bytes = client_socket.recv(1024)
               return response_bytes.decode()
     learner_created: true
-  - name: hacking/pwd_combi.py
+  - name: hacking/login_pwd_data.py
     visible: true
     text: |
       import string
@@ -214,4 +214,4 @@ status: Solved
 feedback:
   message: Congratulations!
   time: "Sat, 07 Oct 2023 00:09:08 UTC"
-record: -1
+record: 3

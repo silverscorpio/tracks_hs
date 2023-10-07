@@ -152,7 +152,7 @@ files:
       if __name__ == "__main__":
           print(get_cmdline_args())
     learner_created: true
-  - name: hacking/pwd_combi.py
+  - name: hacking/login_pwd_data.py
     visible: true
     learner_created: true
   - name: hacking/socket_conn.py

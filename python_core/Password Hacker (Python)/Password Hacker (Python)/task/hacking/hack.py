@@ -1,10 +1,10 @@
 import socket
 from cmdline import get_cmdline_args
-from pwd_combi import (ELEMENTS_LIST,
-                       verify_pwd_crack,
-                       gen_case_combos_for_word,
-                       get_pwd_data,
-                       )
+from login_pwd_data import (ELEMENTS_LIST,
+                            verify_pwd_crack,
+                            gen_case_combos_for_word,
+                            get_pwd_data,
+                            )
 from socket_conn import socket_operation
 
 
