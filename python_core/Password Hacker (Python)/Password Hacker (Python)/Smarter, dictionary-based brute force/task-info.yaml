@@ -173,7 +173,7 @@ files:
               response_bytes = client_socket.recv(1024)
               return response_bytes.decode()
     learner_created: true
-  - name: hacking/login_pwd_data.py
+  - name: hacking/pwd_combi.py
     visible: true
     text: |
       import string
