@@ -61,4 +61,4 @@ if __name__ == "__main__":
         "password": "".join(pwd_chars)
     }
     main()
-    print(cracked_creds)
+    print(json.dumps(cracked_creds))
