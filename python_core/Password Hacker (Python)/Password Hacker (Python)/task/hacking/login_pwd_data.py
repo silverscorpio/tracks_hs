@@ -46,7 +46,7 @@ def get_user_login_data(file_path: str) -> list[str]:
 
 
 if __name__ == '__main__':
-    print(gen_case_combos_for_word("u2ser13"))
+    print(gen_case_combos_for_word("12345"))
     # print(list(get_pwd_iterator(ELEMENTS_LIST, 2)))
     # check
     # all_elements = get_elements_list()

