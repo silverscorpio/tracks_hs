@@ -11,7 +11,7 @@ def socket_conn(server_info: tuple, msg_to_send=None) -> str:
             return response_bytes.decode()
 
 
-def socket_operation(socket_connection: socket, msg_to_send: str) -> str:
-    socket_connection.send(msg_to_send.encode())
-    response_bytes = socket_connection.recv(1024)
+def socket_operation(soc_con: socket, msg: str) -> str:
+    soc_con.send(msg.encode())
+    response_bytes = soc_con.recv(1024)
     return response_bytes.decode()

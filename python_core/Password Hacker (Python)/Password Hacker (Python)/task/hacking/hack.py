@@ -14,25 +14,24 @@ def check_creds(socket_conn: socket, creds_data: list[str], creds_type: str) -> 
         for val_combo in val_combos:
             if creds_type == "login":
                 cracked_creds[creds_type] = val_combo
-                response = socket_operation(socket_connection=socket_conn,
-                                            msg_to_send=json.dumps(cracked_creds))
+                response = socket_operation(soc_con=socket_conn,
+                                            msg=json.dumps(cracked_creds))
 
                 if json.loads(response)["result"] == "Wrong password!":
                     return val_combo
 
             elif creds_type == "password":
-                pwd_chars.append(val_combo)
-                response = socket_operation(socket_connection=socket_conn,
-                                            msg_to_send=json.dumps(cracked_creds))
-                if json.loads(response)["result"] == "Exception happened during login":
-                    check_creds(socket_conn=socket_conn,
-                                creds_data=ALL_ELEMENTS_STR,
-                                creds_type="password")
-                elif json.loads(response)["result"] == "Connection success!":
-                    return
-
-                else:
-                    pwd_chars.pop()
+                while True:
+                    pwd_chars.append(val_combo)
+                    response = socket_operation(soc_con=socket_conn,
+                                                msg=json.dumps(cracked_creds))
+                    if json.loads(response)["result"] == "Exception happened during login":
+                        break
+                    elif json.loads(response)["result"] == "Connection success!":
+                        break
+                    else:
+                        pwd_chars.pop()
+                return
 
 
 def main():
