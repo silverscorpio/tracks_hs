@@ -52,10 +52,6 @@ def main():
 
 
 if __name__ == "__main__":
-    # pwd_file = ("/Users/hello/Desktop/dev/tracks_hs/python_core/Password Hacker (Python)/Password Hacker ("
-    #             "Python)/task/passwords.txt")
-    # passwords = get_user_login_data(file_path=pwd_file)
-
     login_file = ("/Users/hello/Desktop/dev/tracks_hs/python_core/Password Hacker (Python)/Password Hacker ("
                   "Python)/task/logins.txt")
     logins = get_user_login_data(file_path=login_file)

@@ -1,5 +1,4 @@
 import string
-import json
 from random import choice
 import itertools
 
@@ -13,18 +12,6 @@ ALL_ELEMENTS_STR = LOWERCASE_ALPHA + UPPERCASE_ALPHA + NUM_DIGITS
 def get_pwd_iterator(iterator, n):
     # repeat was the key!!!
     return itertools.product(iterator, repeat=n)
-
-
-def verify_creds_crack(msg: str) -> bool:
-    match json.loads(msg)["result"]:
-        case "Wrong password!":
-            return True
-        case "Exception happened during login":
-            return True
-        case "Connection success!":
-            return True
-        case _:
-            return False
 
 
 def gen_case_combos_for_word(word: str) -> list:
@@ -47,13 +34,3 @@ def get_user_login_data(file_path: str) -> list[str]:
 
 if __name__ == '__main__':
     print(gen_case_combos_for_word("12345"))
-    # print(list(get_pwd_iterator(ELEMENTS_LIST, 2)))
-    # check
-    # all_elements = get_elements_list()
-    # for i in range(2, 3):
-    #     pwd_iter = get_pwd_iterator(iterator=all_elements, n=i)
-    #     for j in pwd_iter:
-    #         print("".join(j))
-    #         if "".join(j) == "a9":
-    #             print("found")
-    #             break
