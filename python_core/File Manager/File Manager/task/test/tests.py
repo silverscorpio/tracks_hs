@@ -9,45 +9,44 @@ import shutil
 # dict for creating files
 files = {
     'info.txt': {'path': ['root_folder'],
-                 'content': 'eed110d0dbd1d89d1ffea807d1d88679'},
+                 'content': 'eed110d0dbd1d89d1ffea807d1d8867'},
     'lost.json': {'path': ['root_folder'],
-                  'content': '3a70ac2ebacf4174aa11dfbd1af835bd'},
+                  'content': '3a70ac2ebacf4174aa11dfbd1af835bd' * 32},
     'phones.csv': {'path': ['root_folder'],
-                   'content': '671ab9fbf94dc377568fb7b2928960c9'},
+                   'content': '671ab9fbf94dc377568fb7b2928960c9' * 3},
     'python.txt': {'path': ['root_folder'],
-                   'content': 'd2c2ee4cbb368731f1a5399015160d7d'},
+                   'content': 'd2c2ee4cbb368731f1a5399015160d7d' * 2},
     'bikeshare.csv': {'path': ['root_folder', 'calc'],
-                      'content': 'c03285172453d7278a85a5db4d06423c'},
+                      'content': 'c03285172453d7278a85a5db4d06423c' * 7},
     'server.php': {'path': ['root_folder', 'calc'],
-                   'content': 'a5c662fe853b7ab48d68532791a86367'},
+                   'content': 'a5c662fe853b7ab48d68532791a86367' * 64},
     'db_cities.js': {'path': ['root_folder', 'files'],
                      'content': 'f2e5cf58ae9b2d2fd0ae9bf8fa1774da'},
     'some_text.txt': {'path': ['root_folder', 'files'],
                       'content': 'd2c2ee4cbb368731f1a5399015160d7d'},
     'cars.json': {'path': ['root_folder', 'files', 'stage'],
-                  'content': '3a70ac2ebacf4174aa11dfbd1af835bd'},
+                  'content': '3a70ac2ebacf4174aa11dfbd1af835bd' * 89},
     'package-lock.json': {'path': ['root_folder', 'files', 'stage'],
                           'content': 'eebf1c62a13284ea1bcfe53820e83f11'},
     'index.js': {'path': ['root_folder', 'files', 'stage', 'src'],
-                 'content': '797ac79aa6a3c2ef733fecbaff5a655f'},
+                 'content': '797ac79aa6a3c2ef733fecbaff5a655f' * 2},
     'libs.txt': {'path': ['root_folder', 'files', 'stage', 'src'],
                  'content': '4909fd0404ac7ebe1fb0c50447975a2a'},
     'reviewslider.js': {'path': ['root_folder', 'files', 'stage', 'src'],
-                        'content': 'abc96a9b62c4701f27cf7c8dbd484fdc'},
+                        'content': 'abc96a9b62c4701f27cf7c8dbd484fdc' * 33},
     'spoiler.js': {'path': ['root_folder', 'files', 'stage', 'src'],
-                   'content': 'b614ccac263d3d78b60b37bf35e860f3'},
+                   'content': 'b614ccac263d3d78b60b37bf35e860f3' * 4},
     'src.txt': {'path': ['root_folder', 'files', 'stage', 'src'],
-                'content': 'eed110d0dbd1d89d1ffea807d1d88679'},
+                'content': 'eed110d0dbd1d89d1ffea807d1d88679' * 5},
     'toggleminimenu.js': {'path': ['root_folder', 'files', 'stage', 'src'],
                           'content': '7eceb7dd5a0daaccc32739e1dcc6c3b0'},
     'extraversion.csv': {'path': ['root_folder', 'project'],
-                         'content': 'fc88cf4d79437fa06e6cfdd80bd0eed2'},
+                         'content': 'fc88cf4d79437fa06e6cfdd80bd0eed2' * 8},
     'index.html': {'path': ['root_folder', 'project'],
                    'content': '3f0f7b61205b863d2051845037541835'},
     'python_copy.txt': {'path': ['root_folder', 'project'],
-                        'content': 'd2c2ee4cbb368731f1a5399015160d7d'}
+                        'content': 'd2c2ee4cbb368731f1a5399015160d7d' * 1}
 }
-
 
 root_dir_path = os.path.join('module', 'root_folder')
 
@@ -71,8 +70,8 @@ class FileManagerTest(StageTest):
 
     @dynamic_test()
     def test1(self):
-        x = '4'
-        expected_result = 'Invalid command'
+        x = 'cd calc'
+        expected_result = 'calc'
         pr = TestedProgram()
         pr.start()
         output = pr.execute(stdin=x)
@@ -81,51 +80,90 @@ class FileManagerTest(StageTest):
         expected_result_cleaned = expected_result.lower().strip().replace(' ', '')
         output_cleaned = output.lower().strip().replace(' ', '')
         check = expected_result_cleaned in output_cleaned
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe printed {expected_result}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe printed {expected_result}')
 
     @dynamic_test()
     def test2(self):
-        x = 'cd files'
-        expected_result = 'files'
+        x = 'ls'
+        expected_result_list = ['calc',
+                                'files',
+                                'project',
+                                'info.txt',
+                                'lost.json',
+                                'phones.csv',
+                                'python.txt']
         pr = TestedProgram()
         pr.start()
         output = pr.execute(stdin=x)
         if not output:
             raise WrongAnswer('Your program did not print anything.')
-        expected_result_cleaned = expected_result.lower().strip().replace(' ', '')
+        subs_before_files_check = 0
+        for i in output.split():
+            if '.' not in i:
+                if subs_before_files_check == 0:
+                    continue
+                else:
+                    raise WrongAnswer('Please print all subdirectories before printing files.')
+            else:
+                subs_before_files_check = 1  # a file extension has been printed
         output_cleaned = output.lower().strip().replace(' ', '')
-        check = expected_result_cleaned in output_cleaned
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe printed {expected_result}')
+        check = all(n in output_cleaned for n in expected_result_list)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected the contents of root_folder: 3 directories and 4 files.')
 
     @dynamic_test()
     def test3(self):
-        x = 'cd project\npwd'
-        expected_result_a = 'root_folder\project'
-        expected_result_b = 'root_folder/project'
+        x = 'cd calc\nls -l'
+        expected_result_list = ['bikeshare.csv 224',
+                                'server.php 2048']
         pr = TestedProgram()
         pr.start()
         output = pr.execute(stdin=x)
         if not output:
             raise WrongAnswer('Your program did not print anything.')
-        expected_result_a_cleaned = expected_result_a.lower().strip().replace(' ', '')
-        expected_result_b_cleaned = expected_result_b.lower().strip().replace(' ', '')
         output_cleaned = output.lower().strip().replace(' ', '')
-        check = (expected_result_a_cleaned in output_cleaned) or (expected_result_b_cleaned in output_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected the absolute path to the correct folder.')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test4(self):
-        x = 'cd module\ncd root_folder\ncd ..'
-        expected_result = 'module'
+        x = 'ls -lh'
+        expected_result_list = ['calc',
+                                'files',
+                                'project',
+                                'info.txt 31B',
+                                'lost.json 1KB',
+                                'phones.csv 96B',
+                                'python.txt 64B']
         pr = TestedProgram()
         pr.start()
         output = pr.execute(stdin=x)
         if not output:
             raise WrongAnswer('Your program did not print anything.')
-        expected_result_cleaned = expected_result.lower().strip().replace(' ', '')
         output_cleaned = output.lower().strip().replace(' ', '')
-        check = (expected_result_cleaned in output_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result}')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test5(self):
+        x = 'cd calc\nls -lh'
+        expected_result_list = ['bikeshare.csv 224B',
+                                'server.php 2KB']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     def after_all_tests(self):
         try:
