@@ -1,8 +1,8 @@
 import os
 
-
 # run the user's program in our generated folders
-# os.chdir('module/root_folder')
+os.chdir('module/root_folder')
+
 
 def sort_dirs_first(dir_contents: list[str]) -> list:
     return sorted(dir_contents, key=lambda x: "." in x)
