@@ -207,6 +207,9 @@ files:
       if __name__ == '__main__':
           FileManagerTest().run_tests()
     learner_created: false
+  - name: utils.py
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/378/stages/2254/implement#comment
 check_profile: hyperskill_python
 status: Unchecked
