@@ -89,7 +89,18 @@ def main():
             case "mv":
                 pass
             case "mkdir":
-                pass
+                if len(user_cmd_list) == 1:
+                    print("Specify the name of the directory to be made")
+                elif len(user_cmd_list) == 2:
+                    given_path = user_cmd_list[1]
+                    if not os.path.exists(given_path):
+                        if os.path.isabs(given_path):
+                            os.mkdir(given_path)
+                        else:
+                            complete_path = os.path.join(os.getcwd(), given_path)
+                            os.mkdir(complete_path)
+                    else:
+                        print("The directory already exists")
             case "quit":
                 break
             case _:
