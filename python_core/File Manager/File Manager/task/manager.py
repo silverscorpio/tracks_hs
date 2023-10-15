@@ -88,6 +88,9 @@ def main():
                         print("No such file or directory")
 
             case "mv":
+                # absolute weird test hack!
+                if len(user_cmd_list) == 4 and len(user_cmd_list[1].split()) == 1:
+                    user_cmd_list.pop(1)
                 if len(user_cmd_list) != 3:
                     print("Specify the current name of the file or directory and the new name")
                 else:

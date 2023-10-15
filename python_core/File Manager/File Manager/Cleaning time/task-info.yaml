@@ -321,18 +321,8 @@ files:
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/34449#comment
 check_profile: hyperskill_python
-status: Failed
+status: Solved
 feedback:
-  message: "Wrong answer in test #9\n\nWrong message returned. \nInput message: cd\
-    \ project\nls\nmv db extraversion.csv index.html \nYou printed: project\nindex.html\n\
-    python_copy.txt\nextraversion.csv\n['mv', 'db', 'extraversion.csv', 'index.html']\n\
-    Specify the current name of the file or directory and the new name\n \nWe expected\
-    \ ['The file or directory already exists']\n\nPlease find below the output of\
-    \ your program during this failed test.\nNote that the '>' character indicates\
-    \ the beginning of the input line.\n\n---\n\nInput the command\n> cd project\n\
-    project\n> ls\nindex.html\npython_copy.txt\nextraversion.csv\n> mv db extraversion.csv\
-    \ index.html\n['mv', 'db', 'extraversion.csv', 'index.html']\nSpecify the current\
-    \ name of the file or directory and the new name\n\n----------------------------------------------------------------------\n\
-    Ran 1 test in 0.024s\n\nFAILED (failures=1)"
-  time: "Sun, 15 Oct 2023 22:31:55 UTC"
+  message: <html>Correct solution</html>
+  time: "Sun, 15 Oct 2023 22:48:16 UTC"
 record: -1
