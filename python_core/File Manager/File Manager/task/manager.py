@@ -1,4 +1,5 @@
 import os
+import shutil
 
 # run the user's program in our generated folders
 os.chdir('module/root_folder')
@@ -21,7 +22,7 @@ def format_file_size(filesize: int | float) -> str:
 
 def remove_file_or_dir(given_path: str):
     if os.path.isdir(given_path):
-        os.rmdir(given_path)
+        shutil.rmtree(given_path)
     elif os.path.isfile(given_path):
         os.remove(given_path)
 
@@ -115,7 +116,7 @@ def main():
 
             case "quit":
                 break
-                
+
             case _:
                 print("Invalid command")
 
