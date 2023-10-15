@@ -88,7 +88,7 @@ def main():
                         print("No such file or directory")
 
             case "mv":
-                if len(user_cmd_list) == 1:
+                if len(user_cmd_list) != 3:
                     print("Specify the current name of the file or directory and the new name")
                 else:
                     complete_current_location = os.path.join(os.getcwd(), user_cmd_list[1])

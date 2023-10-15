@@ -324,16 +324,14 @@ check_profile: hyperskill_python
 status: Failed
 feedback:
   message: |-
-    Exception in test #5
+    Exception in test #8
 
     Traceback (most recent call last):
-      File "manager.py", line 124, in <module>
+      File "manager.py", line 126, in <module>
         main()
-      File "manager.py", line 85, in main
-        remove_file_or_dir(given_path=complete_path)
-      File "manager.py", line 24, in remove_file_or_dir
-        os.rmdir(given_path)
-    OSError: [Errno 39] Directory not empty: '/sandbox/module/root_folder/files/stage'
+      File "manager.py", line 96, in main
+        complete_new_location = os.path.join(os.getcwd(), user_cmd_list[2])
+    IndexError: list index out of range
 
     Please find below the output of your program during this failed test.
     Note that the '>' character indicates the beginning of the input line.
@@ -344,14 +342,13 @@ feedback:
     > cd files
     files
     > ls
-    stage
-    some_text.txt
     db_cities.js
-    > rm stage
+    > mv flower
+    ['mv', 'flower']
 
     ----------------------------------------------------------------------
-    Ran 1 test in 0.019s
+    Ran 1 test in 0.024s
 
     FAILED (failures=1)
-  time: "Sun, 15 Oct 2023 22:22:28 UTC"
+  time: "Sun, 15 Oct 2023 22:30:46 UTC"
 record: -1
