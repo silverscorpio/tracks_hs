@@ -314,7 +314,12 @@ files:
       if __name__ == '__main__':
           FileManagerTest().run_tests()
     learner_created: false
-feedback_link: https://hyperskill.org/projects/378/stages/2255/implement#comment
+  - name: utils.py
+    visible: true
+    text: |2+
+    
+    learner_created: true
+feedback_link: https://hyperskill.org/learn/step/34449#comment
 check_profile: hyperskill_python
 status: Unchecked
 record: -1

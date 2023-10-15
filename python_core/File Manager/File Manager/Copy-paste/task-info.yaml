@@ -439,7 +439,7 @@ files:
       if __name__ == '__main__':
           FileManagerTest().run_tests()
     learner_created: false
-feedback_link: https://hyperskill.org/projects/378/stages/2256/implement#comment
+feedback_link: https://hyperskill.org/learn/step/34450#comment
 check_profile: hyperskill_python
 status: Unchecked
 record: -1

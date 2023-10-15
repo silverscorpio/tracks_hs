@@ -19,6 +19,13 @@ def format_file_size(filesize: int | float) -> str:
         return str(round(filesize / (1024 * 1e6))) + "GB"
 
 
+def remove_file_or_dir(given_path: str):
+    if os.path.isdir(given_path):
+        os.rmdir(given_path)
+    elif os.path.isfile(given_path):
+        os.remove(given_path)
+
+
 def main():
     print('Input the command')
     while True:
@@ -65,7 +72,24 @@ def main():
                     sorted_files = sort_dirs_first(dir_contents)
                     for i in sorted_files:
                         print(i)
+            case "rm":
+                if len(user_cmd_list) == 1:
+                    print("Specify the file or directory")
+                elif len(user_cmd_list) == 2:
+                    given_path = user_cmd_list[1]
+                    if os.path.exists(given_path):
+                        if os.path.isabs(given_path):
+                            remove_file_or_dir(given_path)
+                        else:
+                            complete_path = os.path.join(os.getcwd(), given_path)
+                            remove_file_or_dir(given_path=complete_path)
+                    else:
+                        print("No such file or directory")
 
+            case "mv":
+                pass
+            case "mkdir":
+                pass
             case "quit":
                 break
             case _:
