@@ -93,7 +93,7 @@ def main():
                 else:
                     complete_current_location = os.path.join(os.getcwd(), user_cmd_list[1])
                     complete_new_location = os.path.join(os.getcwd(), user_cmd_list[2])
-                    if not os.path.exists(complete_new_location):
+                    if not os.path.exists(complete_current_location):
                         print("No such file or directory")
                     elif os.path.exists(complete_new_location):
                         print("The file or directory already exists")
