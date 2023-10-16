@@ -446,18 +446,8 @@ files:
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/34450#comment
 check_profile: hyperskill_python
-status: Failed
+status: Solved
 feedback:
-  message: "Wrong answer in test #10\n\nWrong message returned. \nInput message: cd\
-    \ files\nls\nmv db_cities.js db_skylines.js\nmkdir stage\nmv stage stages\nmv\
-    \ stages stag\nls \nYou printed: files\ndb_cities.js\nNo such file or directory\n\
-    No such file or directory\nNo such file or directory\nstage\ndb_cities.js\n \n\
-    We expected ['stag', 'db_skylines.js']\n\nPlease find below the output of your\
-    \ program during this failed test.\nNote that the '>' character indicates the\
-    \ beginning of the input line.\n\n---\n\nInput the command\n> cd files\nfiles\n\
-    > ls\ndb_cities.js\n> mv db_cities.js db_skylines.js\nNo such file or directory\n\
-    > mkdir stage\n> mv stage stages\nNo such file or directory\n> mv stages stag\n\
-    No such file or directory\n> ls\nstage\ndb_cities.js\n\n----------------------------------------------------------------------\n\
-    Ran 1 test in 0.026s\n\nFAILED (failures=1)"
-  time: "Mon, 16 Oct 2023 21:19:06 UTC"
+  message: <html>Correct solution</html>
+  time: "Mon, 16 Oct 2023 22:47:14 UTC"
 record: -1
