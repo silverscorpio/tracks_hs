@@ -31,6 +31,10 @@ def process_paths(command_str: list[str, str]) -> list[str, str]:
     return [i if os.path.isabs(i) else os.path.join(os.getcwd(), i) for i in command_str[1:]]
 
 
+def get_file_and_ext(filename: str) -> list:
+    return filename.split(".")
+
+
 def main():
     print('Input the command')
     while True:
@@ -82,14 +86,18 @@ def main():
                     print("Specify the file or directory")
                 elif len(user_cmd_list) == 2:
                     given_path = user_cmd_list[1]
-                    if os.path.exists(given_path):
-                        if os.path.isabs(given_path):
-                            remove_file_or_dir(given_path)
+                    file, ext = get_file_and_ext(filename=given_path)
+                    if given_path in os.listdir(given_path):
+                        if os.path.exists(given_path):
+                            if os.path.isabs(given_path):
+                                remove_file_or_dir(given_path)
+                            else:
+                                complete_path = os.path.join(os.getcwd(), given_path)
+                                remove_file_or_dir(given_path=complete_path)
                         else:
-                            complete_path = os.path.join(os.getcwd(), given_path)
-                            remove_file_or_dir(given_path=complete_path)
+                            print("No such file or directory")
                     else:
-                        print("No such file or directory")
+                        print(f"File extension {ext} not found in this directory")
 
             case "mv":
                 # absolute weird test hack - like above
