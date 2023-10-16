@@ -35,6 +35,18 @@ def get_file_and_ext(filename: str) -> list:
     return filename.split(".")
 
 
+# operations
+def rm_operation(given_path: str):
+    if os.path.exists(given_path):
+        if os.path.isabs(given_path):
+            remove_file_or_dir(given_path)
+        else:
+            complete_path = os.path.join(os.getcwd(), given_path)
+            remove_file_or_dir(given_path=complete_path)
+    else:
+        print("No such file or directory")
+
+
 def main():
     print('Input the command')
     while True:
@@ -86,18 +98,15 @@ def main():
                     print("Specify the file or directory")
                 elif len(user_cmd_list) == 2:
                     given_path = user_cmd_list[1]
-                    file, ext = get_file_and_ext(filename=given_path)
-                    if given_path in os.listdir(given_path):
-                        if os.path.exists(given_path):
-                            if os.path.isabs(given_path):
-                                remove_file_or_dir(given_path)
-                            else:
-                                complete_path = os.path.join(os.getcwd(), given_path)
-                                remove_file_or_dir(given_path=complete_path)
+                    if given_path.startswith("."):
+                        req_files = [f for f in os.listdir(os.getcwd()) if f.endswith(given_path)]
+                        if req_files:
+                            for f in req_files:
+                                rm_operation(given_path=f)
                         else:
-                            print("No such file or directory")
+                            print(f"File extension {given_path} not found in this directory")
                     else:
-                        print(f"File extension {ext} not found in this directory")
+                        rm_operation(given_path=given_path)
 
             case "mv":
                 # absolute weird test hack - like above
