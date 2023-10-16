@@ -48,7 +48,6 @@ files = {
                         'content': 'd2c2ee4cbb368731f1a5399015160d7d' * 1}
 }
 
-
 root_dir_path = os.path.join('module', 'root_folder')
 
 
@@ -95,12 +94,13 @@ class FileManagerTest(StageTest):
                 subs_before_files_check = 1  # a file extension has been printed
         output_cleaned = output.lower().strip().replace(' ', '')
         check = all(n in output_cleaned for n in expected_result_list)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected the contents of root_folder: 3 directories and 4 files.')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected the contents of root_folder: 3 directories and 4 files.')
 
     @dynamic_test()
     def test2(self):
-        x = 'cd files\nls\nrm'
-        expected_result_list = ['Specify the file or directory']
+        x = 'cp'
+        expected_result_list = ['Specify the file']
         pr = TestedProgram()
         pr.start()
         output = pr.execute(stdin=x)
@@ -109,7 +109,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test3(self):
@@ -123,7 +124,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test4(self):
@@ -137,7 +139,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test5(self):
@@ -152,12 +155,13 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_removals_cleaned = [s.lower().strip().replace(' ', '') for s in expected_removals_list]
         check = all(n not in output_cleaned[-1] for n in expected_removals_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected the removal of {expected_removals_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected the removal of {expected_removals_list}')
 
     @dynamic_test()
     def test6(self):
         x = 'mv'
-        expected_result_list = ['Specify the current name of the file or directory and the new name']
+        expected_result_list = ['Specify the current name of the file or directory and the new location and/or name']
         pr = TestedProgram()
         pr.start()
         output = pr.execute(stdin=x)
@@ -166,7 +170,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test7(self):
@@ -180,7 +185,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test8(self):
@@ -194,11 +200,12 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test9(self):
-        x = 'cd project\nls\nmv db extraversion.csv index.html'
+        x = 'cd project\nls\nmv extraversion.csv index.html'
         expected_result_list = ['The file or directory already exists']
         pr = TestedProgram()
         pr.start()
@@ -208,7 +215,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test10(self):
@@ -222,7 +230,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test11(self):
@@ -236,7 +245,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test12(self):
@@ -250,7 +260,8 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     @dynamic_test()
     def test13(self):
@@ -267,7 +278,141 @@ class FileManagerTest(StageTest):
         output_cleaned = output.lower().strip().replace(' ', '')
         expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
         check = all(n in output_cleaned for n in expected_results_cleaned)
-        return CheckResult(check, f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test14(self):
+        # copy with no commands following it
+        x = 'cp'
+        expected_result_list = ['Specify the file']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test15(self):
+        # copy with too many commands following it
+        x = 'cp calc files info.txt'
+        expected_result_list = ['Specify the current name of the file or directory and the new name']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test16(self):
+        # copy relative path
+        x = 'cd calc\ncp bikeshare.csv ..\ncd ..\nls'
+        expected_result_list = ['bikeshare.csv']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list} in root_folder')
+
+    @dynamic_test()
+    def test17(self):
+        # copy a specified file that doesn't exist
+        x = 'cp bark.wav dog_sounds'
+        expected_result_list = ['No such file or directory']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test18(self):
+        # copy a file to a directory where it already exists, in this case info.txt
+        x = 'cp info.txt .'
+        expected_result_list = ['info.txt already exists in this directory']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test19(self):
+        # move a file with relative paths
+        x = 'mv python.txt files\ncd files\nls'
+        expected_result_list = ['python.txt']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        # ensuring file was deleted
+        os.chdir('..')
+        root_list = os.listdir()
+        if 'python.txt' in root_list:
+            raise WrongAnswer('The mv command did not remove the file from its starting location.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test20(self):
+        # rename a file
+        x = 'pwd\nmv lost.json files/loss.json\ncd files\nls'
+        expected_result_list = ['loss.json']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
+
+    @dynamic_test()
+    def test21(self):
+        # rename a file as a file that already exists
+        x = 'mv phones.csv bikeshare.csv\nmv calc files'
+        expected_result_list = ['The file or directory already exists']
+        pr = TestedProgram()
+        pr.start()
+        output = pr.execute(stdin=x)
+        if not output:
+            raise WrongAnswer('Your program did not print anything.')
+        output_cleaned = output.lower().strip().replace(' ', '')
+        expected_results_cleaned = [s.lower().strip().replace(' ', '') for s in expected_result_list]
+        check = all(n in output_cleaned for n in expected_results_cleaned)
+        return CheckResult(check,
+                           f'Wrong message returned. \nInput message: {x} \nYou printed: {output} \nWe expected {expected_result_list}')
 
     def after_all_tests(self):
         try:

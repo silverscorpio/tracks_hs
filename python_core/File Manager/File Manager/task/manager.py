@@ -27,6 +27,14 @@ def remove_file_or_dir(given_path: str):
         os.remove(given_path)
 
 
+def process_paths(command_str: list[str]) -> list[str]:
+    paths = []
+    for i in command_str[1:]:
+        given_path = i if not os.path.isabs(i) else os.path.join(os.getcwd(), i)
+        paths.append(given_path)
+    return paths
+
+
 def main():
     print('Input the command')
     while True:
@@ -92,16 +100,16 @@ def main():
                 if len(user_cmd_list) == 4 and len(user_cmd_list[1].split()) == 1:
                     user_cmd_list.pop(1)
                 if len(user_cmd_list) != 3:
-                    print("Specify the current name of the file or directory and the new name")
+                    print("Specify the current name of the file or directory and the new location and/or name")
                 else:
-                    complete_current_location = os.path.join(os.getcwd(), user_cmd_list[1])
-                    complete_new_location = os.path.join(os.getcwd(), user_cmd_list[2])
-                    if not os.path.exists(complete_current_location):
+                    paths = process_paths(command_str=user_cmd_list)
+                    curr_path, new_path = paths[1], paths[2]
+                    if not os.path.exists(curr_path):
                         print("No such file or directory")
-                    elif os.path.exists(complete_new_location):
+                    elif os.path.exists(new_path):
                         print("The file or directory already exists")
                     else:
-                        os.rename(complete_current_location, complete_new_location)
+                        os.rename(curr_path, new_path)
 
             case "mkdir":
                 if len(user_cmd_list) == 1:
@@ -116,6 +124,19 @@ def main():
                             os.mkdir(complete_path)
                     else:
                         print("The directory already exists")
+
+            case "cp":
+                if len(user_cmd_list) in (1, 2):
+                    print("Specify the file")
+                elif len(user_cmd_list) == 3:
+                    paths = process_paths(command_str=user_cmd_list)
+                    curr_path, new_path = paths[1], paths[2]
+                    if not os.path.exists(curr_path):
+                        print("No such file or directory")
+                    elif os.path.exists(new_path):
+                        print(f"{user_cmd_list[2]} already exists in this directory")
+                    else:
+                        shutil.copy(curr_path, new_path)
 
             case "quit":
                 break
