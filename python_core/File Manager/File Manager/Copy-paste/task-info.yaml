@@ -448,14 +448,31 @@ feedback_link: https://hyperskill.org/learn/step/34450#comment
 check_profile: hyperskill_python
 status: Failed
 feedback:
-  message: "Wrong answer in test #8\n\nWrong message returned. \nInput message: cd\
-    \ files\nls\nmv flower \nYou printed: files\ndb_cities.js\nSpecify the current\
-    \ name of the file or directory and the new location and/or name\n \nWe expected\
-    \ ['Specify the current name of the file or directory and the new name']\n\nPlease\
-    \ find below the output of your program during this failed test.\nNote that the\
-    \ '>' character indicates the beginning of the input line.\n\n---\n\nInput the\
-    \ command\n> cd files\nfiles\n> ls\ndb_cities.js\n> mv flower\nSpecify the current\
-    \ name of the file or directory and the new location and/or name\n\n----------------------------------------------------------------------\n\
-    Ran 1 test in 0.024s\n\nFAILED (failures=1)"
-  time: "Mon, 16 Oct 2023 19:05:46 UTC"
+  message: |-
+    Exception in test #7
+
+    Traceback (most recent call last):
+      File "manager.py", line 149, in <module>
+        main()
+      File "manager.py", line 106, in main
+        curr_path, new_path = paths[1], paths[2]
+    IndexError: list index out of range
+
+    Please find below the output of your program during this failed test.
+    Note that the '>' character indicates the beginning of the input line.
+
+    ---
+
+    Input the command
+    > cd files
+    files
+    > ls
+    db_cities.js
+    > mv pork bork
+
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.022s
+
+    FAILED (failures=1)
+  time: "Mon, 16 Oct 2023 19:16:33 UTC"
 record: -1
