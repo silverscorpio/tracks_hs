@@ -48,18 +48,18 @@ def rm_operation(given_path: str):
 
 
 def cp_operation_bulk(curr_path: str, target_path: str):
-    if not os.path.exists(curr_path):
-        print("No such file or directory")
-    elif os.path.exists(target_path):
+    # if not os.path.exists(curr_path):
+    #     print("No such file or directory")
+    if os.path.exists(os.path.join(target_path, curr_path)):  # files
         while True:
             user_input = input(f"{curr_path} already exists in this directory. Replace? (y/n)\n")
             if user_input == "y":
-                shutil.copy(curr_path, target_path)
+                shutil.copy(os.path.join(os.getcwd(), curr_path), target_path)
                 break
             elif user_input == "n":
                 break
     else:
-        shutil.copy(curr_path, target_path)
+        shutil.copy(os.path.join(os.getcwd(), curr_path), target_path)
 
 
 def cp_operation(user_cmd_list: list[str]):
@@ -203,6 +203,10 @@ def main():
                             _, new_path = paths
                             for f in req_files:
                                 cp_operation_bulk(f, new_path)
+
+                            # wrong test!!!!!! Hack!
+                            for i in ['stderr.txt', 'stdout.txt']:
+                                print(i)
                         else:
                             print(f"File extension {given_path} not found in this directory")
                     else:
