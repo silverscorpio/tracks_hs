@@ -583,12 +583,9 @@ check_profile: hyperskill_python
 status: Failed
 feedback:
   message: |-
-    Exception in test #24
+    Wrong answer in test #25
 
-    Traceback (most recent call last):
-      File " File "/sandbox/manager.py", line 221, in <module>
-        main()
-    FileNotFoundError: [Errno 2] No such file or directory: '/sandbox/module/root_folder/.json'
+    Your program did not print anything.
 
     Please find below the output of your program during this failed test.
     Note that the '>' character indicates the beginning of the input line.
@@ -596,11 +593,11 @@ feedback:
     ---
 
     Input the command
-    > mv .json project
+    > rm .elf project
 
     ----------------------------------------------------------------------
     Ran 1 test in 0.054s
 
     FAILED (failures=1)
-  time: "Tue, 17 Oct 2023 01:17:31 UTC"
+  time: "Tue, 17 Oct 2023 02:10:19 UTC"
 record: -1

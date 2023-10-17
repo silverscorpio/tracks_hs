@@ -74,6 +74,79 @@ def cp_operation(user_cmd_list: list[str]):
         shutil.copy(curr_path, new_path)
 
 
+def mv_operation_bulk(given_curr_path: str, given_new_path: str):
+    curr_path = os.path.join(given_new_path, given_curr_path)
+    if os.path.exists(curr_path):
+        while True:
+            user_input = input(f"{curr_path} already exists in this directory. Replace? (y/n)\n")
+            if user_input == "y":
+                shutil.move(curr_path, given_new_path)
+                break
+            elif user_input == "n":
+                break
+    else:
+        shutil.move(curr_path, given_new_path)
+
+    # if not os.path.isabs(given_curr_path):
+    #     while True:
+    #         if os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and os.path.exists(
+    #                 given_new_path):
+    #             print("The file or directory already exists")
+    #         if not os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and not os.path.exists(
+    #                 os.path.join(given_new_path, given_curr_path)):
+    #             shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
+    #         elif ((os.path.isdir(given_new_path) and os.path.exists(
+    #                 os.path.join(given_new_path, given_curr_path)
+    #         )) or (os.path.exists(given_new_path) and not os.path.isdir(given_new_path))):
+    #             print("The file or directory already exists")
+    #
+    #         elif not os.path.exists(os.path.join(os.getcwd(), given_curr_path)):
+    #             print("No such file or directory")
+    #         else:
+    #             shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
+
+    # elif os.path.isabs(given_curr_path):
+    #     while True:
+    #         if os.path.exists(given_new_path):
+    #             print("The file or directory already exists")
+    #         elif not os.path.exists(given_curr_path):
+    #             print("No such file or directory")
+    #         else:
+    #             shutil.move(given_curr_path, given_new_path)
+
+
+def mv_operation(user_cmd_list: list[str]):
+    # file -> folder
+    given_curr_path = user_cmd_list[1]  # file
+    given_new_path = os.path.join(os.getcwd(), user_cmd_list[2])  # folder
+
+    # file abs or rel path
+    if not os.path.isabs(given_curr_path):
+        if os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and os.path.exists(
+                given_new_path):
+            print("The file or directory already exists")
+        if not os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and not os.path.exists(
+                os.path.join(given_new_path, given_curr_path)):
+            shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
+        elif ((os.path.isdir(given_new_path) and os.path.exists(
+                os.path.join(given_new_path, given_curr_path)
+        )) or (os.path.exists(given_new_path) and not os.path.isdir(given_new_path))):
+            print("The file or directory already exists")
+
+        elif not os.path.exists(os.path.join(os.getcwd(), given_curr_path)):
+            print("No such file or directory")
+        else:
+            shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
+
+    elif os.path.isabs(given_curr_path):
+        if os.path.exists(given_new_path):
+            print("The file or directory already exists")
+        elif not os.path.exists(given_curr_path):
+            print("No such file or directory")
+        else:
+            shutil.move(given_curr_path, given_new_path)
+
+
 def main():
     print('Input the command')
     while True:
@@ -145,34 +218,19 @@ def main():
                     print('Specify the current name of the file or directory and the new name')
                 else:
                     # file -> folder
-                    given_curr_path = user_cmd_list[1]  # file
-                    given_new_path = os.path.join(os.getcwd(), user_cmd_list[2])  # folder
-
-                    # file abs or rel path
-                    if not os.path.isabs(given_curr_path):
-                        if os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and os.path.exists(
-                                given_new_path):
-                            print("The file or directory already exists")
-                        if not os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and not os.path.exists(
-                                os.path.join(given_new_path, given_curr_path)):
-                            shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
-                        elif ((os.path.isdir(given_new_path) and os.path.exists(
-                                os.path.join(given_new_path, given_curr_path)
-                        )) or (os.path.exists(given_new_path) and not os.path.isdir(given_new_path))):
-                            print("The file or directory already exists")
-
-                        elif not os.path.exists(os.path.join(os.getcwd(), given_curr_path)):
-                            print("No such file or directory")
+                    given_curr_path = user_cmd_list[1]  # file to move
+                    # given_new_path = os.path.join(os.getcwd(), user_cmd_list[2])  # folder to move to
+                    if given_curr_path.startswith("."):
+                        req_files = [f for f in os.listdir(os.getcwd()) if f.endswith(given_curr_path)]
+                        if req_files:
+                            paths = process_paths(command_str=user_cmd_list)
+                            _, new_path = paths
+                            for f in req_files:
+                                mv_operation_bulk(f, new_path)
                         else:
-                            shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
-
-                    elif os.path.isabs(given_curr_path):
-                        if os.path.exists(given_new_path):
-                            print("The file or directory already exists")
-                        elif not os.path.exists(given_curr_path):
-                            print("No such file or directory")
-                        else:
-                            shutil.move(given_curr_path, given_new_path)
+                            print(f"File extension {given_curr_path} not found in this directory")
+                    else:
+                        mv_operation(user_cmd_list)
 
             case "mkdir":
                 if len(user_cmd_list) == 1:
