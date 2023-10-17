@@ -47,6 +47,33 @@ def rm_operation(given_path: str):
         print("No such file or directory")
 
 
+def cp_operation_bulk(curr_path: str, target_path: str):
+    if not os.path.exists(curr_path):
+        print("No such file or directory")
+    elif os.path.exists(target_path):
+        while True:
+            user_input = input(f"{curr_path} already exists in this directory. Replace? (y/n)")
+            if user_input == "y":
+                shutil.copy(curr_path, target_path)
+                break
+            elif user_input == "n":
+                break
+    else:
+        shutil.copy(curr_path, target_path)
+
+
+def cp_operation(user_cmd_list: list[str]):
+    paths = process_paths(command_str=user_cmd_list)
+    curr_path, new_path = paths
+    if not os.path.exists(curr_path):
+        print("No such file or directory")
+    elif os.path.exists(new_path):
+        filename_to_display = user_cmd_list[1] if user_cmd_list[2] in (".", "..") else user_cmd_list[2]
+        print(f"{filename_to_display} already exists in this directory")
+    else:
+        shutil.copy(curr_path, new_path)
+
+
 def main():
     print('Input the command')
     while True:
@@ -168,16 +195,19 @@ def main():
                 if len(user_cmd_list) in (1, 2):
                     print("Specify the file")
                 elif len(user_cmd_list) == 3:
-                    paths = process_paths(command_str=user_cmd_list)
-                    curr_path, new_path = paths
-                    if not os.path.exists(curr_path):
-                        print("No such file or directory")
-                    elif os.path.exists(new_path):
-                        filename_to_display = user_cmd_list[1] if user_cmd_list[2] in (".", "..") else user_cmd_list[2]
-                        print(f"{filename_to_display} already exists in this directory")
+                    given_path = user_cmd_list[1]
+                    if given_path.startswith("."):
+                        req_files = [f for f in os.listdir(os.getcwd()) if f.endswith(given_path)]
+                        if req_files:
+                            paths = process_paths(command_str=user_cmd_list)
+                            _, new_path = paths
+                            for f in req_files:
+                                cp_operation_bulk(f, new_path)
+                        else:
+                            print(f"File extension {given_path} not found in this directory")
                     else:
-                        shutil.copy(curr_path, new_path)
-
+                        cp_operation(user_cmd_list)
+                        
             case "quit":
                 break
 
