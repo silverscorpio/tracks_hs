@@ -52,7 +52,7 @@ def cp_operation_bulk(curr_path: str, target_path: str):
         print("No such file or directory")
     elif os.path.exists(target_path):
         while True:
-            user_input = input(f"{curr_path} already exists in this directory. Replace? (y/n)")
+            user_input = input(f"{curr_path} already exists in this directory. Replace? (y/n)\n")
             if user_input == "y":
                 shutil.copy(curr_path, target_path)
                 break
@@ -207,7 +207,7 @@ def main():
                             print(f"File extension {given_path} not found in this directory")
                     else:
                         cp_operation(user_cmd_list)
-                        
+
             case "quit":
                 break
 

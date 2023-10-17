@@ -580,5 +580,18 @@ files:
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/34451#comment
 check_profile: hyperskill_python
-status: Unchecked
+status: Failed
+feedback:
+  message: "Wrong answer in test #23\n\nWrong message returned. \nInput message: cp\
+    \ .txt files\ncd files\nls \nYou printed: called\ninfo.txt already exists in this\
+    \ directory. Replace? (y/n)\ninfo.txt already exists in this directory. Replace?\
+    \ (y/n)\ninfo.txt already exists in this directory. Replace? (y/n)\n \nWe expected\
+    \ ['stdout.txt', 'stderr.txt']\n\nPlease find below the output of your program\
+    \ during this failed test.\nNote that the '>' character indicates the beginning\
+    \ of the input line.\n\n---\n\nInput the command\n> cp .txt files\ncalled\ninfo.txt\
+    \ already exists in this directory. Replace? (y/n)\n> cd files\ninfo.txt already\
+    \ exists in this directory. Replace? (y/n)\n> ls\ninfo.txt already exists in this\
+    \ directory. Replace? (y/n)\n\n----------------------------------------------------------------------\n\
+    Ran 1 test in 0.051s\n\nFAILED (failures=1)"
+  time: "Tue, 17 Oct 2023 00:22:20 UTC"
 record: -1
