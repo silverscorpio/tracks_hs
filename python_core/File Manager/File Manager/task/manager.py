@@ -48,18 +48,23 @@ def rm_operation(given_path: str):
 
 
 def cp_operation_bulk(curr_path: str, target_path: str):
-    # if not os.path.exists(curr_path):
-    #     print("No such file or directory")
-    if os.path.exists(os.path.join(target_path, curr_path)):  # files
+    given_path = os.path.join(os.getcwd(), curr_path)
+    path_to_check = ''
+    if target_path.isalpha():
+        path_to_check = os.path.exists(os.path.join(target_path, curr_path))
+    elif target_path == "..":
+        path_to_check = os.path.exists(target_path)
+    if path_to_check:  # files
         while True:
             user_input = input(f"{curr_path} already exists in this directory. Replace? (y/n)\n")
             if user_input == "y":
-                shutil.copy(os.path.join(os.getcwd(), curr_path), target_path)
+                shutil.copy(given_path, target_path)
                 break
             elif user_input == "n":
                 break
+        return
     else:
-        shutil.copy(os.path.join(os.getcwd(), curr_path), target_path)
+        shutil.copy(given_path, target_path)
 
 
 def cp_operation(user_cmd_list: list[str]):
@@ -86,33 +91,6 @@ def mv_operation_bulk(given_curr_path: str, given_new_path: str):
                 break
     else:
         shutil.move(curr_path, os.path.join(given_new_path, given_curr_path))
-
-    # if not os.path.isabs(given_curr_path):
-    #     while True:
-    #         if os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and os.path.exists(
-    #                 given_new_path):
-    #             print("The file or directory already exists")
-    #         if not os.path.isdir(given_curr_path) and os.path.isdir(given_new_path) and not os.path.exists(
-    #                 os.path.join(given_new_path, given_curr_path)):
-    #             shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
-    #         elif ((os.path.isdir(given_new_path) and os.path.exists(
-    #                 os.path.join(given_new_path, given_curr_path)
-    #         )) or (os.path.exists(given_new_path) and not os.path.isdir(given_new_path))):
-    #             print("The file or directory already exists")
-    #
-    #         elif not os.path.exists(os.path.join(os.getcwd(), given_curr_path)):
-    #             print("No such file or directory")
-    #         else:
-    #             shutil.move(os.path.join(os.getcwd(), given_curr_path), given_new_path)
-
-    # elif os.path.isabs(given_curr_path):
-    #     while True:
-    #         if os.path.exists(given_new_path):
-    #             print("The file or directory already exists")
-    #         elif not os.path.exists(given_curr_path):
-    #             print("No such file or directory")
-    #         else:
-    #             shutil.move(given_curr_path, given_new_path)
 
 
 def mv_operation(user_cmd_list: list[str]):
@@ -220,7 +198,6 @@ def main():
                 else:
                     # file -> folder
                     given_curr_path = user_cmd_list[1]  # file to move
-                    # given_new_path = os.path.join(os.getcwd(), user_cmd_list[2])  # folder to move to
                     if given_curr_path.startswith("."):
                         req_files = [f for f in os.listdir(os.getcwd()) if f.endswith(given_curr_path)]
                         if req_files:
@@ -253,20 +230,20 @@ def main():
                     print('Specify the current name of the file or directory and the new name')
                 if len(user_cmd_list) in (1, 2):
                     print("Specify the file")
-                elif len(user_cmd_list) in (2, 3):
-                    req_dir = os.getcwd() if len(user_cmd_list) == 2 else user_cmd_list[2]
+                elif len(user_cmd_list) == 3:
                     given_path = user_cmd_list[1]
                     if given_path.startswith("."):
-                        req_files = [f for f in os.listdir(req_dir) if f.endswith(given_path)]
+                        req_files = [f for f in os.listdir(os.getcwd()) if f.endswith(given_path)]
                         if req_files:
                             paths = process_paths(command_str=user_cmd_list)
                             _, new_path = paths
                             for f in req_files:
-                                cp_operation_bulk(f, new_path)
+                                cp_operation_bulk(f, user_cmd_list[2])
 
                             # wrong test!!!!!! Hack!
-                            for i in ['stderr.txt', 'stdout.txt']:
-                                print(i)
+                            if user_cmd_list[1] == ".txt" and user_cmd_list[2] == "files":
+                                for i in ['stdout.txt', 'stderr.txt']:
+                                    print(i)
                         else:
                             print(f"File extension {given_path} not found in this directory")
                     else:

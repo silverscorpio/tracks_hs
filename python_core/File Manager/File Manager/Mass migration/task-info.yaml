@@ -580,20 +580,8 @@ files:
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/34451#comment
 check_profile: hyperskill_python
-status: Failed
+status: Solved
 feedback:
-  message: "Wrong answer in test #29\n\nWrong message returned. \nInput message: cd\
-    \ project\ncp .txt ..\n cp .txt ..\ny\ny\ncd .. \nYou printed: project\ninfo.txt\
-    \ already exists in this directory. Replace? (y/n)\ninfo.txt already exists in\
-    \ this directory. Replace? (y/n)\nstderr.txt\nstdout.txt\nInvalid command\nroot_folder\n\
-    \ \nWe expected ['info.txt already exists in this directory. Replace? (y/n)',\
-    \ 'python_copy.txt already exists in this directory. Replace? (y/n)']\n\nPlease\
-    \ find below the output of your program during this failed test.\nNote that the\
-    \ '>' character indicates the beginning of the input line.\n\n---\n\nInput the\
-    \ command\n> cd project\nproject\n> cp .txt ..\ninfo.txt already exists in this\
-    \ directory. Replace? (y/n)\n>  cp .txt ..\ninfo.txt already exists in this directory.\
-    \ Replace? (y/n)\n> y\nstderr.txt\nstdout.txt\n> y\nInvalid command\n> cd ..\n\
-    root_folder\n\n----------------------------------------------------------------------\n\
-    Ran 1 test in 0.061s\n\nFAILED (failures=1)"
-  time: "Tue, 17 Oct 2023 02:33:35 UTC"
+  message: <html>Correct solution</html>
+  time: "Tue, 17 Oct 2023 04:17:48 UTC"
 record: -1
