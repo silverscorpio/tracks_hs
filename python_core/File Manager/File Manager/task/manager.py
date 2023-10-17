@@ -78,14 +78,14 @@ def mv_operation_bulk(given_curr_path: str, given_new_path: str):
     curr_path = os.path.join(given_new_path, given_curr_path)
     if os.path.exists(curr_path):
         while True:
-            user_input = input(f"{curr_path} already exists in this directory. Replace? (y/n)\n")
+            user_input = input(f"{given_curr_path} already exists in this directory. Replace? (y/n)\n")
             if user_input == "y":
-                shutil.move(curr_path, given_new_path)
+                shutil.move(curr_path, os.path.join(given_new_path, given_curr_path))
                 break
             elif user_input == "n":
                 break
     else:
-        shutil.move(curr_path, given_new_path)
+        shutil.move(curr_path, os.path.join(given_new_path, given_curr_path))
 
     # if not os.path.isabs(given_curr_path):
     #     while True:
@@ -151,7 +151,7 @@ def main():
     print('Input the command')
     while True:
         user_cmd = input()
-        user_cmd_list = user_cmd.split()
+        user_cmd_list = [i.strip() for i in user_cmd.split()]
         match user_cmd_list[0]:
             case "pwd":
                 print(os.getcwd())
@@ -253,10 +253,11 @@ def main():
                     print('Specify the current name of the file or directory and the new name')
                 if len(user_cmd_list) in (1, 2):
                     print("Specify the file")
-                elif len(user_cmd_list) == 3:
+                elif len(user_cmd_list) in (2, 3):
+                    req_dir = os.getcwd() if len(user_cmd_list) == 2 else user_cmd_list[2]
                     given_path = user_cmd_list[1]
                     if given_path.startswith("."):
-                        req_files = [f for f in os.listdir(os.getcwd()) if f.endswith(given_path)]
+                        req_files = [f for f in os.listdir(req_dir) if f.endswith(given_path)]
                         if req_files:
                             paths = process_paths(command_str=user_cmd_list)
                             _, new_path = paths
