@@ -196,10 +196,11 @@ def main():
             case "rm":
                 if len(user_cmd_list) == 1:
                     print("Specify the file or directory")
-                elif len(user_cmd_list) == 2:
+                elif len(user_cmd_list) in (2, 3):
                     given_path = user_cmd_list[1]
+                    req_dir = os.getcwd() if len(user_cmd_list) == 2 else user_cmd_list[2]
                     if given_path.startswith("."):
-                        req_files = [f for f in os.listdir(os.getcwd()) if f.endswith(given_path)]
+                        req_files = [f for f in os.listdir(req_dir) if f.endswith(given_path)]
                         if req_files:
                             for f in req_files:
                                 rm_operation(given_path=f)

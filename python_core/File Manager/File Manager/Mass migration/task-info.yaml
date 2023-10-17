@@ -583,9 +583,12 @@ check_profile: hyperskill_python
 status: Failed
 feedback:
   message: |-
-    Wrong answer in test #25
+    Exception in test #28
 
-    Your program did not print anything.
+    Traceback (most recent call last):
+      File " File "/sandbox/manager.py", line 282, in <module>
+        main()
+    shutil.Error: Destination path '/sandbox/module/root_folder/project/info.txt' already exists
 
     Please find below the output of your program during this failed test.
     Note that the '>' character indicates the beginning of the input line.
@@ -593,11 +596,16 @@ feedback:
     ---
 
     Input the command
-    > rm .elf project
+    > cp .txt project
+    stderr.txt
+    stdout.txt
+    >  mv .txt project
+    /sandbox/module/root_folder/project/info.txt already exists in this directory. Replace? (y/n)
+    > y
 
     ----------------------------------------------------------------------
-    Ran 1 test in 0.054s
+    Ran 1 test in 0.060s
 
     FAILED (failures=1)
-  time: "Tue, 17 Oct 2023 02:10:19 UTC"
+  time: "Tue, 17 Oct 2023 02:17:20 UTC"
 record: -1
