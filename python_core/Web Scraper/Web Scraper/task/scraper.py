@@ -1,29 +1,20 @@
 import requests
-from bs4 import BeautifulSoup
 
 
-def invalid_msg():
-    print("Invalid page!")
+def save_binary_file(data_to_store: bytes, file_name: str = 'source.html') -> None:
+    with open(file_name, 'wb') as f:
+        f.write(data_to_store)
+    print("Content saved.")
 
 
 def main():
     url = input("Input the URL:\n")
-    url_keywords = ['articles', 'nature']
-    if not all([i in url for i in url_keywords]):
-        invalid_msg()
+    r = requests.get(url)
+    if r.status_code == 200:
+        content = r.content
+        save_binary_file(data_to_store=content)
     else:
-        url_headers = {'Accept-Language': 'en-US,en;q=0.5'}
-        r = requests.get(url, headers=url_headers)
-        if r.status_code == 200:
-            soup = BeautifulSoup(r.content, 'html.parser')
-            article_heading = soup.find('title').text
-            article_summary = soup.find('meta', {'name': 'description'}).get("content")
-            print({
-                "title": article_heading,
-                "description": article_summary
-            })
-        else:
-            invalid_msg()
+        print(f"The URL returned {r.status_code}")
 
 
 if __name__ == '__main__':
