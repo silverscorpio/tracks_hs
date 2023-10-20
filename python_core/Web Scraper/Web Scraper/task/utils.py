@@ -51,8 +51,8 @@ def get_user_inputs():
     return num_pages, article_type
 
 
-def get_query_params(no_pages) -> dict:
+def get_query_params(page_no) -> dict:
     return {
         'year': 2020,
-        'page': no_pages
+        'page': page_no
     }
