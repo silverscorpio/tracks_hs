@@ -48,7 +48,7 @@ def main():
         soup = BeautifulSoup(r.content, 'html.parser')
         articles = soup.find_all("article")
         for article in articles:
-            if "News" == article.find("span", {"class": "c-meta__type"}).text:
+            if article.find("span", {"class": "c-meta__type"}).text == "News":
                 # title
                 title_article = get_article_title(article)
                 articles_info["title"].append(title_article)
