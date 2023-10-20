@@ -31,7 +31,9 @@ def get_article_url(article: bs4.Tag):
 def get_article_contents(article_path: str) -> str:
     article_r = requests.get(article_path)
     article_soup = BeautifulSoup(article_r.content, 'html.parser')
-    return article_soup.find("p", {"class": "article__teaser"}).text
+    if article_soup.find("p", {"class": "article__teaser"}):
+        return article_soup.find("p", {"class": "article__teaser"}).text
+    return ""
 
 
 def save_file(data_to_store: str,
