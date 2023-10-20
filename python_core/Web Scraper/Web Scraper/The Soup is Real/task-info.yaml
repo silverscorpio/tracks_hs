@@ -131,6 +131,15 @@ files:
   - name: stuff/The_lightning_fast_quest_for_COVID_vaccines___and_what_it_means_for_other_diseases.txt
     visible: true
     learner_created: true
+  - name: stuff/Is_lightning_striking_the_Arctic_more_than_ever_before_.txt
+    visible: true
+    learner_created: true
+  - name: stuff/Moderna_COVID_vaccine_becomes_second_to_get_US_authorization.txt
+    visible: true
+    learner_created: true
+  - name: stuff/Biden’s_pick_to_head_US_environment_agency_heartens_scientists.txt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/145/stages/784/implement#comment
 status: Unchecked
 record: -1

@@ -37,8 +37,8 @@ def get_article_contents(article_path: str) -> str:
 
 def save_file(data_to_store: str,
               filename: str) -> None:
-    complete_filename = os.path.join(os.getcwd(), "stuff", filename)
-    with open(complete_filename, 'wb') as f:
+    # filename = os.path.join(os.getcwd(), "stuff", filename)
+    with open(filename, 'wb') as f:
         f.write(data_to_store.encode())
     print("Content saved.")
 
