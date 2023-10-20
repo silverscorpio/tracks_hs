@@ -18,8 +18,6 @@ def clean_article_name(name: str) -> str:
 
 
 def get_article_title(article: bs4.Tag) -> str:
-    # article.find("a", {"data-track-action": "view article"}).text
-    # 'The lightning-fast quest for COVID vaccines — and what it means for other diseases'
     title = article.find("a", {"data-track-action": "view article"}).text
     return clean_article_name(title)
 

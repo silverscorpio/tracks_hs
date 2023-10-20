@@ -128,18 +128,21 @@ files:
       
       if __name__ == '__main__':    WebScraperTest().run_tests()
     learner_created: false
-  - name: stuff/The_lightning_fast_quest_for_COVID_vaccines___and_what_it_means_for_other_diseases.txt
+  - name: Is_lightning_striking_the_Arctic_more_than_ever_before_.txt
     visible: true
     learner_created: true
-  - name: stuff/Is_lightning_striking_the_Arctic_more_than_ever_before_.txt
+  - name: Moderna_COVID_vaccine_becomes_second_to_get_US_authorization.txt
     visible: true
     learner_created: true
-  - name: stuff/Moderna_COVID_vaccine_becomes_second_to_get_US_authorization.txt
+  - name: Biden’s_pick_to_head_US_environment_agency_heartens_scientists.txt
     visible: true
     learner_created: true
-  - name: stuff/Biden’s_pick_to_head_US_environment_agency_heartens_scientists.txt
+  - name: The_lightning_fast_quest_for_COVID_vaccines___and_what_it_means_for_other_diseases.txt
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/projects/145/stages/784/implement#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: "Wrong answer in test #1"
+  time: "Fri, 20 Oct 2023 20:37:14 UTC"
 record: -1
