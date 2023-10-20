@@ -28,12 +28,13 @@ def get_question_ans(question: str) -> int:
 
 def main():
     given_question = generate_question()
-    user_ans = input()
-    if get_question_ans(question=given_question) == get_question_ans(question=user_ans):
+    print(given_question)
+    user_ans = int(input())
+    if user_ans == get_question_ans(question=given_question):
         print("Right!")
     else:
         print("Wrong!")
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
