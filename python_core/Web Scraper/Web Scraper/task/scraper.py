@@ -35,11 +35,11 @@ def get_article_contents(article_path: str) -> str:
     return article_soup.find("p", {"class": "article__teaser"}).text
 
 
-def save_file(data_to_store,
+def save_file(data_to_store: str,
               filename: str) -> None:
     complete_filename = os.path.join(os.getcwd(), "stuff", filename)
     with open(complete_filename, 'wb') as f:
-        f.write(data_to_store)
+        f.write(data_to_store.encode())
     print("Content saved.")
 
 
