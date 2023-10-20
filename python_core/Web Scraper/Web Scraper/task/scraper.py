@@ -7,13 +7,15 @@ from utils import (get_article_title,
                    get_article_url,
                    get_article_contents,
                    save_file,
-                   URL
+                   URL_ARTICLES,
+                   get_user_inputs
                    )
 
 
 def main():
     articles_info = defaultdict(list)
-    r = requests.get(URL)
+    pages_to_search, type_article = get_user_inputs()
+    r = requests.get(URL_ARTICLES)
     if r.status_code == 200:
         soup = BeautifulSoup(r.content, 'html.parser')
         articles = soup.find_all("article")
