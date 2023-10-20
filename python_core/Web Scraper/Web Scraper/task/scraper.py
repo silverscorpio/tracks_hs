@@ -10,6 +10,7 @@ from utils import (get_article_title,
                    URL_ARTICLES,
                    get_user_inputs,
                    get_query_params,
+                   create_folder_when_no_articles,
                    )
 
 
@@ -40,6 +41,8 @@ def main():
                     save_file(data_to_store=contents_article,
                               page_num=p,
                               filename=title_article + ".txt")
+
+                create_folder_when_no_articles(page_num=p)
 
         else:
             print(f"The URL returned {r.status_code}")

@@ -58,3 +58,8 @@ def get_query_params(page_no) -> dict:
         'year': 2020,
         'page': page_no
     }
+
+
+def create_folder_when_no_articles(page_num: int):
+    if not os.path.exists(os.path.join(os.getcwd(), f"Page_{page_num}")):
+        os.mkdir(os.path.join(os.getcwd(), f"Page_{page_num}"))
