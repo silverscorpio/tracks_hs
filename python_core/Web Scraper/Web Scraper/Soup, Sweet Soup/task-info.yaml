@@ -154,8 +154,9 @@ files:
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/projects/145/stages/785/implement#comment
-status: Failed
+status: Solved
 feedback:
-  message: "Wrong answer in test #2"
-  time: "Fri, 20 Oct 2023 22:26:58 UTC"
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Fri, 20 Oct 2023 22:39:32 UTC"
 record: -1
