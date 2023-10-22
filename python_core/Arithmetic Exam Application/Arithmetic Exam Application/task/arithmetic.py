@@ -9,7 +9,7 @@ LEVEL_OPTIONS = {
 def save_results_to_file(data: dict):
     with open("results.txt", "a") as f:
         f.write(
-            f"{data["name"]}: {data["score"]}/5 in level {data["option"]} {LEVEL_OPTIONS[data["user_choice"]]}.")
+            f"{data["name"]}: {data["score"]}/5 in level {data["option"]} {LEVEL_OPTIONS[data["option"]]}.")
 
     print("The results are saved in 'results.txt'")
 
