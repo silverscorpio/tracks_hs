@@ -98,7 +98,7 @@ def main():
         user_name = input("What is your name?\n")
         user_data = {
             "name": user_name,
-            "option": user_choice,
+            "option": str(user_choice),
             "score": score
         }
         save_results_to_file(data=user_data)
