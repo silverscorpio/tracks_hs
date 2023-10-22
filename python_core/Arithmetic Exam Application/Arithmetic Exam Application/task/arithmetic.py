@@ -44,7 +44,7 @@ def main():
         print(given_question)
         question_count += 1
         while True:
-            user_ans = input()  # value error
+            user_ans = input()
             ans_validate = validate_user_ans(ans=user_ans)
             if ans_validate:
                 break
