@@ -26,14 +26,36 @@ def get_question_ans(question: str) -> int:
             return num1 * num2
 
 
-def main():
-    given_question = generate_question()
-    print(given_question)
-    user_ans = int(input())
-    if user_ans == get_question_ans(question=given_question):
-        print("Right!")
+def validate_user_ans(ans: str) -> bool:
+    try:
+        _ = int(ans)
+    except ValueError:
+        print("Incorrect format.")
+        return False
     else:
-        print("Wrong!")
+        return True
+
+
+def main():
+    score = 0
+    question_count = 0
+    while question_count != 5:
+        given_question = generate_question()
+        print(given_question)
+        question_count += 1
+        while True:
+            user_ans = input()  # value error
+            ans_validate = validate_user_ans(ans=user_ans)
+            if ans_validate:
+                break
+        user_ans = int(user_ans)
+        if user_ans == get_question_ans(question=given_question):
+            print("Right!")
+            score += 1
+        else:
+            print("Wrong!")
+
+    print(f"Your mark is {score}/5.")
 
 
 if __name__ == '__main__':

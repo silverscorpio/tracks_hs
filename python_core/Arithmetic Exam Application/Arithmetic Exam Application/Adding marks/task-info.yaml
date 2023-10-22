@@ -405,6 +405,6 @@ files:
       
       if __name__ == '__main__':    ExamTest().run_tests()
     learner_created: false
-feedback_link: https://hyperskill.org/projects/173/stages/896/implement#comment
+feedback_link: https://hyperskill.org/learn/step/12805#comment
 status: Unchecked
 record: -1

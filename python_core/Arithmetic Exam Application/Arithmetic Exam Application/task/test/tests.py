@@ -1,5 +1,6 @@
+from typing import Optional
+
 from hstest import StageTest, TestedProgram, CheckResult, dynamic_test, WrongAnswer
-import re
 
 operations = ["+", "-", "*"]
 wrong_format_msg = 'The task should have the following format: "number operation number"\n' \
@@ -11,9 +12,12 @@ corr_as_incorr_msg = 'The correct answer was given to the equation.\n' \
 incorr_as_corr_msg = 'An incorrect answer was given to the equation.\n' \
                      'The app should print \'Wrong!\'. \n' \
                      'However, this word was not found in the output.'
+typo_msg = "The app should inform the user that there's a typo in the answer by outputting a message: \'Wrong format\'."
+incorrect_number_correct_answers_msg = "The number of correct answers is calculated incorrectly: \n"
+no_mark_msg = "The final output doesn't contain count of correct answers: "
 
 
-def calc(task):
+def calc(task: str) -> Optional[int]:
     original_task = task
     task = task.strip()
     op = None
@@ -43,95 +47,102 @@ def calc(task):
     return ans
 
 
+def check_and_solve_task(task):
+    if not any([i in task for i in operations]):
+        raise WrongAnswer(wrong_format_msg + task)
+
+    correct_ans = calc(task)
+
+    if correct_ans is None:
+        raise WrongAnswer(wrong_format_msg + task)
+
+    return correct_ans
+
+
 class ExamTest(StageTest):
     @dynamic_test
-    def test_correct_answer(self):
+    def test_correct(self):
+
         pr = TestedProgram()
+
+        # 1 - ok
         task = pr.start()
-        if not any([i in task for i in operations]):
-            raise WrongAnswer('The app\'s first output should contain the task. \n'
-                              'Task should contain one of the operations: "+", "-" or "*".\n'
-                              'The following output was found:' + task)
+        correct_ans = str(check_and_solve_task(task))
+        result = pr.execute(correct_ans).strip().lower()
+        if "right" not in result or "wrong" in result:
+            raise WrongAnswer(corr_as_incorr_msg + "\nThe task: " + task + '\nThe answer: ' + str(correct_ans))
 
-        correct_ans = calc(task)
+        # 2 - wrong format + ok
+        task = result.split('\n')
+        if len(task) < 2:
+            raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                              "Please make sure you output the result of the task and the new task on separate lines.")
+        task = task[1].strip()
+        correct_ans = check_and_solve_task(task)
 
-        if correct_ans is None:
-            raise WrongAnswer(wrong_format_msg + task)
+        result = pr.execute("11r").strip().lower()
+        if "format" not in result:
+            raise WrongAnswer(typo_msg)
 
-        output = pr.execute(str(correct_ans)).lower().strip()
+        result = pr.execute("").strip().lower()
+        if "format" not in result:
+            raise WrongAnswer(typo_msg)
 
-        return CheckResult("right" in output and "wrong" not in output,
-                           corr_as_incorr_msg + "\nTask: " + task + '\nTested answer: ' + str(correct_ans))
+        result = pr.execute(str(correct_ans)).strip().lower()
+        if "right" not in result or "wrong" in result:
+            raise WrongAnswer(corr_as_incorr_msg + "\nThe task: " + task + '\nThe answer: ' + str(correct_ans))
 
-    @dynamic_test
-    def test_incorrect_answer(self):
-        pr = TestedProgram()
-        task = pr.start()
-        if not any(['+' in task, '-' in task, '*' in task]):
-            raise WrongAnswer('The app\'s first output should contain the task. \n'
-                              'Task should contain one of the operations: "+", "-" or "*".\n'
-                              'The following output was found:' + task)
+        # 3 - wrong answer
+        task = result.split('\n')
+        if len(task) < 2:
+            raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                              "Please make sure you output the result of the task and the new task on separate lines.")
+        task = task[1].strip()
+        incorrect_ans = check_and_solve_task(task) + 3
+        result = pr.execute(str(incorrect_ans)).strip().lower()
+        if "wrong" not in result:
+            raise WrongAnswer(incorr_as_corr_msg + "\nThe task: " + task + '\nThe answer: ' + str(incorrect_ans))
 
-        incorrect_ans = calc(task)
+        # 4 - ok
+        task = result.split('\n')
+        if len(task) < 2:
+            raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                              "Please make sure you output the result of the task and the new task on separate lines.")
+        task = task[1].strip()
+        correct_ans = check_and_solve_task(task)
+        result = pr.execute(str(correct_ans)).strip().lower()
+        if "right" not in result:
+            raise WrongAnswer(corr_as_incorr_msg + "\nThe task: " + task + 'The answer: ' + str(correct_ans))
 
-        if incorrect_ans is None:
-            raise WrongAnswer(wrong_format_msg + task)
+        # 5 - wrong
+        task = result.split('\n')
+        if len(task) < 2:
+            raise WrongAnswer("The number of lines in the output is less than expected.\n"
+                              "Please make sure you output the result of the task and the new task on separate lines.")
+        task = task[1].strip()
+        incorrect_ans = check_and_solve_task(task) + 3
+        result = pr.execute(str(incorrect_ans)).strip().lower()
+        if "wrong" not in result:
+            raise WrongAnswer(incorr_as_corr_msg + "\nThe task:  " + task + '\nThe answer: ' + str(incorrect_ans))
+        final_output = result
+        result = result.replace(' ', '')
 
-        incorrect_ans += 3
-
-        output = pr.execute(str(incorrect_ans)).lower().strip()
-
-        return CheckResult("wrong" in output and "right" not in output, incorr_as_corr_msg + '\nThe task: ' + task +
-                           '\nThe answer: ' + str(incorrect_ans))
-
-    @dynamic_test
-    def test_random_generation(self):
-        pr = TestedProgram()
-        task = pr.start()
-        for i in range(10):
-            pr1 = TestedProgram()
-            task1 = pr1.start()
-            if task != task1:
-                return CheckResult.correct()
-        return CheckResult.wrong("Your app should generate different (random) tasks.\n"
-                                 "The same task was repeated twice in a row. Make sure you generate random tasks.\n"
-                                 "If you are sure that your program works correctly, re-run the tests.")
-
-    @dynamic_test
-    def test_generation_operation(self):
-        ops = []
-        for i in range(30):
-            pr = TestedProgram()
-            task = pr.start().replace('\n', '')
-            ops.append(re.sub(r'[\d\s]', '', task))
-        if len(set(ops)) == 3 and all(i in ops for i in operations):
+        if "3/5" in result:
             return CheckResult.correct()
+        elif "/5" in result:
+            return CheckResult.wrong(incorrect_number_correct_answers_msg + final_output)
         else:
-            return CheckResult.wrong("The app should generate tasks with all 3 types of operations, \n"
-                                     "and use no other operations. \n"
-                                     "However, the following operations were found:\n" + str(set(ops)))
+            return CheckResult.wrong(no_mark_msg + final_output)
 
-    nums = []
-    numbers = [str(i) for i in range(2, 10)]
-
-    @dynamic_test(repeat=50)
-    def test_generation_numbers(self):
+    @dynamic_test
+    def test_negative_numbers(self):
+        # in case wrong using "isDigit()"
         pr = TestedProgram()
-        task = pr.start().strip()
-        task = re.split(r'[-+*\s]+', task)
-        self.nums.extend(task)
+        pr.start()
+        result = pr.execute('-5').strip().lower()
+        if "format" in result:
+            raise WrongAnswer('The application says that a negative number has incorrect format.')
         return CheckResult.correct()
-
-    @dynamic_test
-    def test_generation_numbers_after(self):
-        if len(set(self.nums)) == len(self.numbers) and all(i in self.nums for i in self.numbers):
-            return CheckResult.correct()
-        else:
-            return CheckResult.wrong('The app should use all numbers from 2 to 9\n'
-                                     'and shouldn\'t use any other numbers.\n'
-                                     'The following numbers were found:\n' + str(set(self.nums)) +
-                                     '\nMake sure you use all numbers from 2 to 9. \n'
-                                     'If you are sure that your program works correctly, re-run the tests.')
 
 
 if __name__ == '__main__':

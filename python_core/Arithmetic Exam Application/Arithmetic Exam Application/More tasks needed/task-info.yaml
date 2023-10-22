@@ -170,6 +170,9 @@ files:
       
       if __name__ == '__main__':    ExamTest().run_tests()
     learner_created: false
-feedback_link: https://hyperskill.org/projects/173/stages/895/implement#comment
-status: Unchecked
+feedback_link: https://hyperskill.org/learn/step/12804#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sun, 22 Oct 2023 22:12:09 UTC"
 record: -1
