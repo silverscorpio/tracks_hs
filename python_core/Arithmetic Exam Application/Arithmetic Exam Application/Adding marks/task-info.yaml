@@ -405,6 +405,9 @@ files:
       
       if __name__ == '__main__':    ExamTest().run_tests()
     learner_created: false
+  - name: results.txt
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/12805#comment
 status: Unchecked
 record: -1
