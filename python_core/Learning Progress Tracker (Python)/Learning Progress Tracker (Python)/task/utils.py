@@ -37,6 +37,7 @@ class Student:
 
 
 class RegexParser:
+    # TODO add the re.ASCII flag
     EMAIL_REGEX = r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}"
     NAME_REGEX = r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}"
 
