@@ -1,3 +1,6 @@
+import re
+
+
 # funcs
 
 def exit_cmd():
@@ -34,7 +37,7 @@ class Student:
 
 
 class RegexParser:
-    EMAIL_REGEX = ""
+    EMAIL_REGEX = r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}"
     NAME_REGEX = ""
 
     def email_parser(self):
