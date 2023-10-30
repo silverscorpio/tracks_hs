@@ -96,9 +96,9 @@ files:
     text: |
       print("Learning progress tracker")
     learner_created: false
-feedback_link: https://hyperskill.org/projects/326/stages/1829/implement#comment
+feedback_link: https://hyperskill.org/learn/step/26935#comment
 status: Solved
 feedback:
   message: Congratulations!
   time: "Mon, 30 Oct 2023 18:00:26 UTC"
-record: -1
+record: 1
