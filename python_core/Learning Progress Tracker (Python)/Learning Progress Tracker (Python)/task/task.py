@@ -1,4 +1,4 @@
-from utils import exit_cmd, add_cmd, back_cmd, no_input, sanitize_input
+from utils import exit_cmd, add_cmd, back_cmd, no_input, sanitize_input, unknown_cmd
 
 STUDENT_DATA = {}
 CMD_DICT = {
@@ -6,6 +6,7 @@ CMD_DICT = {
     "add students": add_cmd,
     "back": back_cmd,
     "blank": no_input,
+    "unknown": unknown_cmd,
 }
 
 
@@ -17,6 +18,8 @@ def main():
         if user_input:
             if user_input in CMD_DICT:
                 CMD_DICT.get(user_input)()
+            else:
+                CMD_DICT.get("unknown")()
         else:
             CMD_DICT.get("blank")()
 

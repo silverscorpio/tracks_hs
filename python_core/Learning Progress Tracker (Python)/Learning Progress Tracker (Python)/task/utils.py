@@ -8,6 +8,10 @@ def no_input():
     pass
 
 
+def unknown_cmd():
+    print("Unknown command!")
+
+
 def add_cmd():
     print("Enter student credentials or 'back' to return")
 
