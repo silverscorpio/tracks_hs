@@ -1,4 +1,4 @@
-# functions
+# funcs
 
 def exit_cmd():
     print("Bye!")
@@ -16,8 +16,15 @@ def back_cmd():
     print("Enter 'exit' to exit the program.")
 
 
-# classes
+def check_blank_input(usr_val: str) -> bool:
+    return True if usr_val.strip() else False
 
+
+def sanitize_input(usr_val: str) -> str:
+    return usr_val.strip()
+
+
+# classes
 class Student:
     pass
 
