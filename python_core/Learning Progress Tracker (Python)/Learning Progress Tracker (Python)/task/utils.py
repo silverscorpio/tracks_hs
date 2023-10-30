@@ -38,7 +38,7 @@ class Student:
 
 class RegexParser:
     EMAIL_REGEX = r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}"
-    NAME_REGEX = ""
+    NAME_REGEX = r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}"
 
     def email_parser(self):
         pass
