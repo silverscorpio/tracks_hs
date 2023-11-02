@@ -1,3 +1,4 @@
+import re
 import uuid
 from pprint import pprint
 from collections import defaultdict
@@ -63,17 +64,29 @@ class Student:
 
 class RegexParser:
     # TODO add the re.ASCII flag
-    EMAIL_REGEX = r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}"
-    NAME_REGEX = r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}"
+    EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}", flags=re.ASCII)
+    NAME_REGEX = re.compile(r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}", flags=re.ASCII)
 
-    def __init__(self, regex_type: str):
-        self.regex_type = regex_type
+    def __init__(self):
+        self.user_input: str
+        self.input_type: str
 
-    def name_parser(self):
-        pass
+    @staticmethod
+    def process_regex(self, regex_type: str, input_str: str):
+        match regex_type:
+            case "name":
+                RegexParser.match_regex(template=RegexParser.NAME_REGEX, str_to_match=input_str)
+            case "email":
+                RegexParser.match_regex(template=RegexParser.EMAIL_REGEX, str_to_match=input_str)
+            case _:
+                raise ValueError("Invalid input for Regex Parser")
 
-    def email_parser(self):
-        pass
+    @staticmethod
+    def match_regex(template, str_to_match) -> bool:
+        match = re.match(template, str_to_match)
+        if match:
+            return True
+        return False
 
 
 if __name__ == '__main__':
