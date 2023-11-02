@@ -63,16 +63,33 @@ class Student:
 
 
 class RegexParser:
-    # TODO add the re.ASCII flag
     EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}", flags=re.ASCII)
     NAME_REGEX = re.compile(r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}", flags=re.ASCII)
 
     def __init__(self):
-        self.user_input: str
-        self.input_type: str
+        self._user_input = None
+        self._input_type = None
+
+    @property
+    def user_input(self):
+        return self._user_input
+
+    @user_input.setter
+    def user_input(self, user_input_val):
+        # TODO add check for the value
+        self._user_input = user_input_val
+
+    @property
+    def input_type(self):
+        return self._input_type
+
+    @input_type.setter
+    def input_type(self, input_type_val):
+        # TODO add check for the value
+        self._user_input = input_type_val
 
     @staticmethod
-    def process_regex(self, regex_type: str, input_str: str):
+    def process_regex(regex_type: str, input_str: str):
         match regex_type:
             case "name":
                 return RegexParser.match_regex(template=RegexParser.NAME_REGEX, str_to_match=input_str)
