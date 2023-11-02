@@ -19,6 +19,10 @@ def unknown_cmd():
     print("Unknown command!")
 
 
+def invalid_cmd():
+    print("Incorrect credentials")
+
+
 def add_cmd():
     print("Enter student credentials or 'back' to return")
 
