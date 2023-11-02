@@ -75,9 +75,9 @@ class RegexParser:
     def process_regex(self, regex_type: str, input_str: str):
         match regex_type:
             case "name":
-                RegexParser.match_regex(template=RegexParser.NAME_REGEX, str_to_match=input_str)
+                return RegexParser.match_regex(template=RegexParser.NAME_REGEX, str_to_match=input_str)
             case "email":
-                RegexParser.match_regex(template=RegexParser.EMAIL_REGEX, str_to_match=input_str)
+                return RegexParser.match_regex(template=RegexParser.EMAIL_REGEX, str_to_match=input_str)
             case _:
                 raise ValueError("Invalid input for Regex Parser")
 
