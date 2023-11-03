@@ -27,7 +27,21 @@ def main():
         # non-blank input
         if user_input:
             if user_input in CMD_DICT:
-                CMD_DICT.get(user_input)()
+                # TODO complete the implementation below
+                match user_input:
+                    case "exit":
+                        CMD_DICT.get(user_input)()
+                        break
+                    case "add students":
+                        CMD_DICT.get(user_input)()
+                        current_student_count += 1
+                    case "back":
+                        CMD_DICT.get(user_input)()
+                        if current_student_count > 1:
+                            print(f"Total {current_student_count} students have been added.")
+                        else:
+                            print("Enter 'exit' to exit the program.")
+
             else:
                 CMD_DICT.get("invalid")()
 
