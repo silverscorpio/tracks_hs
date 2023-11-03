@@ -8,31 +8,30 @@ STUDENT_DATA: defaultdict = defaultdict(dict)
 
 # funcs
 def exit_cmd():
+    # TODO break the loop
     print("Bye!")
 
 
-def no_input():
-    pass
+def add_cmd():
+    # TODO enter student record
+    print("Enter student credentials or 'back' to return")
+
+
+def back_cmd():
+    # TODO print the students added
+    print("Enter 'exit' to exit the program.")
 
 
 def unknown_cmd():
     print("Unknown command!")
 
 
+def no_input():
+    print("No input")
+
+
 def invalid_cmd():
     print("Incorrect credentials")
-
-
-def add_cmd():
-    print("Enter student credentials or 'back' to return")
-
-
-def back_cmd():
-    print("Enter 'exit' to exit the program.")
-
-
-def check_blank_input(usr_val: str) -> bool:
-    return True if usr_val.strip() else False
 
 
 def sanitize_input(usr_val: str) -> str:
@@ -101,6 +100,8 @@ class InputParser:
             if regex_return:
                 email, span_indices = regex_return
                 self.email = email.strip()
+
+                # TODO validate names using the regex
                 self.first_name, self.last_name = self._user_input[:span_indices(0)].split(maxsplit=1)
             else:
                 print("No regex match")
