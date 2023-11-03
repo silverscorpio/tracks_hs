@@ -33,7 +33,7 @@ def main():
                         CMD_DICT.get(user_input)()
                         break
                     case "add students":
-                        CMD_DICT.get(user_input)()
+                        CMD_DICT.get(user_input)(user_input)
                         current_student_count += 1
                     case "back":
                         CMD_DICT.get(user_input)()

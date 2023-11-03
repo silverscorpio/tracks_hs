@@ -1,4 +1,5 @@
 import re
+from re import Pattern
 import uuid
 from pprint import pprint
 from collections import defaultdict
@@ -8,17 +9,15 @@ STUDENT_DATA: defaultdict = defaultdict(dict)
 
 # funcs
 def exit_cmd():
-    # TODO break the loop
     print("Bye!")
 
 
-def add_cmd():
+def add_cmd(input_str: str):
     # TODO enter student record
     print("Enter student credentials or 'back' to return")
 
 
 def back_cmd():
-    # TODO print the students added
     print("Enter 'exit' to exit the program.")
 
 
@@ -88,21 +87,28 @@ class InputParser:
     def user_input(self, user_input_val):
         self._user_input = user_input_val
 
-    def extract_email(self) -> bool | tuple[str, tuple[int, int]]:
-        match = re.search(InputParser.EMAIL_REGEX, self._user_input)
+    @staticmethod
+    def match_regex(template: Pattern[str], given_str: str) -> bool | tuple[str, tuple[int, int]]:
+        match = re.search(template, given_str)
         if match:
             return match.group(), match.span()
         return False
 
     def process(self):
         if self._user_input:
-            regex_return = self.extract_email()
+            regex_return = InputParser.match_regex(InputParser.EMAIL_REGEX, self._user_input)
             if regex_return:
                 email, span_indices = regex_return
                 self.email = email.strip()
 
                 # TODO validate names using the regex
-                self.first_name, self.last_name = self._user_input[:span_indices(0)].split(maxsplit=1)
+                first_name, last_name = self._user_input[:span_indices(0)].split(maxsplit=1)
+                names_check = InputParser.match_regex(first_name, last_name)
+                if names_check:
+                    self.first_name, self.last_name = first_name.strip(), last_name.strip()
+                elif not names_check:
+                    pass
+
             else:
                 print("No regex match")
         raise ValueError("User input string needs to be set first")
