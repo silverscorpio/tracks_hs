@@ -24,6 +24,7 @@ def add_cmd(creds: str):
         # saving data
         student = Student(**student_data)
         student.save_student()
+        # pprint(STUDENT_DATA, indent=2)
 
 
 def back_cmd():
