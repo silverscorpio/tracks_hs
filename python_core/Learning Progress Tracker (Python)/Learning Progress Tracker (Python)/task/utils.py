@@ -131,7 +131,7 @@ class InputParser:
                 self.email_validated = True
                 email, span_indices = regex_return
                 self.email = email.strip()
-                first_name, last_name = self._user_input[:span_indices(0)].split(maxsplit=1)
+                first_name, last_name = self._user_input[:span_indices[0]].split(maxsplit=1)
                 self._validate_names(names=(first_name, last_name))
             else:
                 print("Incorrect email.")
