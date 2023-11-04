@@ -152,8 +152,8 @@ class InputParser:
 
 if __name__ == '__main__':
     x = Student("panda", "dodo", "chaku@gmail.com")
-    y = Student("chu", "champi", "alpha@gmail.com")
-    z = Student("werwer", "lulu", "psider@gmail.com")
+    y = Student("chu", "champ", "alpha@gmail.com")
+    z = Student("dragon", "lulu", "psider@gmail.com")
     x.save_student()
     y.save_student()
     z.save_student()
