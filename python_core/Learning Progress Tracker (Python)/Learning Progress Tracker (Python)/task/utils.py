@@ -78,6 +78,9 @@ class InputParser:
         self.email = None
         self.first_name = None
         self.last_name = None
+        self.email_validated = None
+        self.first_name_validated = None
+        self.last_name_validated = None
 
     @property
     def user_input(self):
@@ -98,20 +101,30 @@ class InputParser:
         if self._user_input:
             regex_return = InputParser.match_regex(InputParser.EMAIL_REGEX, self._user_input)
             if regex_return:
+                self.email_validated = True
                 email, span_indices = regex_return
                 self.email = email.strip()
-
-                # TODO validate names using the regex
                 first_name, last_name = self._user_input[:span_indices(0)].split(maxsplit=1)
-                names_check = InputParser.match_regex(first_name, last_name)
-                if names_check:
-                    self.first_name, self.last_name = first_name.strip(), last_name.strip()
-                elif not names_check:
-                    pass
-
+                self.validate_names(names=(first_name, last_name))
             else:
                 print("No regex match")
         raise ValueError("User input string needs to be set first")
+
+    def validate_names(self, names: tuple[str, str]):
+        first_name, last_name = names
+        first_name_check = InputParser.match_regex(InputParser.NAME_REGEX, first_name)
+        last_name_check = InputParser.match_regex(InputParser.NAME_REGEX, last_name)
+        if not first_name_check and last_name_check:
+            self.first_name_validated = False
+        elif first_name_check and not last_name_check:
+            self.last_name_validated = False
+        elif first_name_check and last_name_check:
+            self.first_name, self.last_name = first_name.strip(), last_name.strip()
+            self.first_name_validated = True
+            self.last_name_validated = True
+        else:
+            self.first_name_validated = False
+            self.last_name_validated = False
 
     def get_data(self) -> dict:
         return {
