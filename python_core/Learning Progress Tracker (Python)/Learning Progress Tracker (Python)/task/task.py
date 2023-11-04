@@ -32,9 +32,14 @@ def main():
                         CMD_DICT.get(user_input)()
                         break
                     case "add students":
-                        CMD_DICT.get(user_input)(user_input)
-                        current_student_count += 1
-                        print("The student has been added.")
+                        print("Enter student credentials or 'back' to return")
+                        creds = input()
+                        if creds != "back":
+                            CMD_DICT.get(user_input)(creds)
+                            current_student_count += 1
+                            print("The student has been added.")
+                        elif creds == "back":
+                            continue
                     case "back":
                         CMD_DICT.get(user_input)()
                         if current_student_count > 1:

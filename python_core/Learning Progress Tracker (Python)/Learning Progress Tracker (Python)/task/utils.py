@@ -12,12 +12,10 @@ def exit_cmd():
     print("Bye!")
 
 
-def add_cmd(input_str: str):
-    print("Enter student credentials or 'back' to return")
-
+def add_cmd(creds: str):
     # regex stuff
     parser_obj = InputParser()
-    parser_obj.user_input = input_str
+    parser_obj.user_input = creds
     parser_obj.process()
 
     # get parsed info
