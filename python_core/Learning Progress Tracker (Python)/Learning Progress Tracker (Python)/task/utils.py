@@ -66,6 +66,7 @@ class Student:
             "last_name": self.last_name,
             "email": self.email
         }
+        print("The student has been added.")
 
     @staticmethod
     def total_students() -> int:
@@ -79,7 +80,9 @@ class InputParser:
     """
     extract the email (easier) from the input string and use the match to split and get the name
     """
-    NAME_REGEX = re.compile(r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}", flags=re.ASCII)
+    FIRST_NAME_REGEX = re.compile(r"^[A-Za-z'-]{2,}", flags=re.ASCII)
+    LAST_NAME_REGEX = re.compile(r" [A-Za-z' -]{2,}$", flags=re.ASCII)
+    FULL_NAME_REGEX = re.compile(r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}", flags=re.ASCII)
     EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}", flags=re.ASCII)
 
     def __init__(self):
@@ -106,10 +109,9 @@ class InputParser:
             return match.group(), match.span()
         return False
 
-    def _validate_names(self, names: tuple[str, str]):
-        first_name, last_name = names
-        first_name_check = InputParser.match_regex(InputParser.NAME_REGEX, first_name)
-        last_name_check = InputParser.match_regex(InputParser.NAME_REGEX, last_name)
+    def _validate_names(self, name_str: str):
+        first_name_check = InputParser.match_regex(InputParser.FIRST_NAME_REGEX, name_str)
+        last_name_check = InputParser.match_regex(InputParser.LAST_NAME_REGEX, name_str)
         if not first_name_check and last_name_check:
             self.first_name_validated = False
             print("Incorrect first name.")
@@ -117,7 +119,7 @@ class InputParser:
             self.last_name_validated = False
             print("Incorrect last name.")
         elif first_name_check and last_name_check:
-            self.first_name, self.last_name = first_name.strip(), last_name.strip()
+            self.first_name, self.last_name = [i.strip() for i in name_str.split(maxsplit=1)]
             self.first_name_validated = True
             self.last_name_validated = True
         else:
@@ -131,8 +133,8 @@ class InputParser:
                 self.email_validated = True
                 email, span_indices = regex_return
                 self.email = email.strip()
-                first_name, last_name = self._user_input[:span_indices[0]].split(maxsplit=1)
-                self._validate_names(names=(first_name, last_name))
+                names = self._user_input[:span_indices[0]]
+                self._validate_names(name_str=names)
             else:
                 print("Incorrect email.")
         else:

@@ -37,7 +37,6 @@ def main():
                         if creds != "back":
                             CMD_DICT.get(user_input)(creds)
                             current_student_count += 1
-                            print("The student has been added.")
                         elif creds == "back":
                             continue
                     case "back":
