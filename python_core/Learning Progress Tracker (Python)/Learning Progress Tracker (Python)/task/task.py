@@ -27,7 +27,6 @@ def main():
         # non-blank input
         if user_input:
             if user_input in CMD_DICT:
-                # TODO complete the implementation below
                 match user_input:
                     case "exit":
                         CMD_DICT.get(user_input)()
@@ -35,6 +34,7 @@ def main():
                     case "add students":
                         CMD_DICT.get(user_input)(user_input)
                         current_student_count += 1
+                        print("The student has been added.")
                     case "back":
                         CMD_DICT.get(user_input)()
                         if current_student_count > 1:

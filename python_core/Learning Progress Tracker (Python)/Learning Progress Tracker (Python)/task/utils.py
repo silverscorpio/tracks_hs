@@ -13,8 +13,19 @@ def exit_cmd():
 
 
 def add_cmd(input_str: str):
-    # TODO enter student record
     print("Enter student credentials or 'back' to return")
+
+    # regex stuff
+    parser_obj = InputParser()
+    parser_obj.user_input = input_str
+    parser_obj.process()
+
+    # get parsed info
+    if parser_obj.get_data():
+        student_data: dict = parser_obj.get_data()
+        # saving data
+        student = Student(**student_data)
+        student.save_student()
 
 
 def back_cmd():
@@ -103,8 +114,10 @@ class InputParser:
         last_name_check = InputParser.match_regex(InputParser.NAME_REGEX, last_name)
         if not first_name_check and last_name_check:
             self.first_name_validated = False
+            print("Incorrect first name.")
         elif first_name_check and not last_name_check:
             self.last_name_validated = False
+            print("Incorrect last name.")
         elif first_name_check and last_name_check:
             self.first_name, self.last_name = first_name.strip(), last_name.strip()
             self.first_name_validated = True
@@ -123,15 +136,18 @@ class InputParser:
                 first_name, last_name = self._user_input[:span_indices(0)].split(maxsplit=1)
                 self._validate_names(names=(first_name, last_name))
             else:
-                print("No regex match")
-        raise ValueError("User input string needs to be set first")
+                print("Incorrect email.")
+        else:
+            raise ValueError("User input string needs to be set first")
 
-    def get_data(self) -> dict:
-        return {
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "email": self.email
-        }
+    def get_data(self) -> dict | bool:
+        if all([self.first_name, self.last_name, self.email]):
+            return {
+                "first_name": self.first_name,
+                "last_name": self.last_name,
+                "email": self.email
+            }
+        return False
 
 
 if __name__ == '__main__':
