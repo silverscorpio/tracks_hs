@@ -21,7 +21,6 @@ def main():
     print("Learning Progress Tracker")
     current_student_count = 0
     while True:
-
         # non-blank input
         if user_input := sanitize_input(input()):
             if user_input in CMD_DICT:
@@ -32,20 +31,21 @@ def main():
                     case "add students":
                         print("Enter student credentials or 'back' to return")
                         while True:
-                            creds = input()
-                            if creds != "back":
-                                cmd_status = CMD_DICT.get(user_input)(creds)
+                            creds_str = input()
+                            if creds_str != "back":
+                                cmd_status = CMD_DICT.get(user_input)(creds_str)
                                 if cmd_status:
                                     current_student_count += 1
                                 else:
                                     CMD_DICT.get("invalid")()
                                     break
-                            elif creds == "back":
-                                CMD_DICT.get("back")(current_student_count)
+                            elif creds_str == "back":
+                                print(f"Total {current_student_count} students have been added.")
                                 break
-                    case "back":
-                        CMD_DICT.get(user_input)(current_student_count)
 
+                    case "back":
+                        print(f"Total {current_student_count} students have been added.")
+                        CMD_DICT.get(user_input)()
             else:
                 CMD_DICT.get("unknown")()
 

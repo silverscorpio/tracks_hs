@@ -221,9 +221,18 @@ feedback_link: https://hyperskill.org/learn/step/26936#comment
 status: Failed
 feedback:
   message: |-
-    Wrong answer in test #16
+    Exception in test #18
 
-    Expected output: "Incorrect credentials.", but your output was: Incorrect email.
+    Traceback (most recent call last):
+      File "task.py", line 58, in <module>
+        main()
+      File "task.py", line 36, in main
+        cmd_status = CMD_DICT.get(user_input)(creds_str)
+      File "utils.py", line 19, in add_cmd
+        parser_obj.process()
+      File "utils.py", line 145, in process
+        raise ValueError("User input string needs to be set first")
+    ValueError: User input string needs to be set first
 
     Please find below the output of your program during this failed test.
     Note that the '>' character indicates the beginning of the input line.
@@ -233,7 +242,6 @@ feedback:
     Learning Progress Tracker
     > add students
     Enter student credentials or 'back' to return
-    > exit
-    Incorrect email.
-  time: "Sun, 05 Nov 2023 03:15:51 UTC"
+    >
+  time: "Sun, 05 Nov 2023 06:03:24 UTC"
 record: -1

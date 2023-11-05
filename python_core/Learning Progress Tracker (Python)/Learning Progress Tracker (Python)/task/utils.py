@@ -25,17 +25,14 @@ def add_cmd(creds: str):
         # saving data
         student = Student(**student_data)
         student.save_student()
-        pprint(STUDENT_DATA, indent=2)
+        # pprint(STUDENT_DATA, indent=2)
         return True
 
     return False
 
 
-def back_cmd(curr_count: int):
-    if not curr_count:
-        print("Enter 'exit' to exit the program.")
-    else:
-        print(f"Total {curr_count} students have been added.")
+def back_cmd():
+    print("Enter 'exit' to exit the program.")
 
 
 def unknown_cmd():
@@ -91,7 +88,7 @@ class InputParser:
     FIRST_NAME_REGEX = re.compile(r"^[A-Za-z'-]{2,}", flags=re.ASCII)
     LAST_NAME_REGEX = re.compile(r" [A-Za-z' -]{2,}$", flags=re.ASCII)
     FULL_NAME_REGEX = re.compile(r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}", flags=re.ASCII)
-    EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z]{2,3}", flags=re.ASCII)
+    EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z0-9]{1,3}", flags=re.ASCII)
 
     def __init__(self):
         self._user_input = None
