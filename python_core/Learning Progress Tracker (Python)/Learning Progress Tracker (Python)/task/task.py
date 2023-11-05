@@ -4,7 +4,8 @@ from utils import (exit_cmd,
                    sanitize_input,
                    invalid_cmd,
                    unknown_cmd,
-                   no_input
+                   no_input,
+                   pre_check_add_cmd_input,
                    )
 
 CMD_DICT = {
@@ -33,12 +34,16 @@ def main():
                         while True:
                             creds_str = input()
                             if creds_str and creds_str != "back":
-                                cmd_status = CMD_DICT.get(user_input)(creds_str)
-                                if cmd_status:
-                                    current_student_count += 1
-                                elif cmd_status is None:
-                                    CMD_DICT.get("invalid")()
+                                if pre_check_add_cmd_input(add_cmd_str=creds_str):
+                                    cmd_status = CMD_DICT.get(user_input)(creds_str)
+                                    if cmd_status:
+                                        current_student_count += 1
+                                    elif cmd_status is None:
+                                        CMD_DICT.get("invalid")()
+                                    else:
+                                        continue
                                 else:
+                                    CMD_DICT.get("invalid")()
                                     continue
                             elif creds_str == "back":
                                 print(f"Total {current_student_count} students have been added.")

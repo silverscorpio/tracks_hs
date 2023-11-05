@@ -50,6 +50,10 @@ def sanitize_input(usr_val: str) -> str:
     return usr_val.strip()
 
 
+def pre_check_add_cmd_input(add_cmd_str: str) -> bool:
+    return True if len(add_cmd_str.split()) >= 3 else False
+
+
 # classes
 class Student:
     student_count: int = 0
@@ -84,11 +88,10 @@ class InputParser:
     """
     extract the email (easier) from the input string and use the match to split and get the name
     """
-    FIRST_NAME_REGEX = re.compile(r"^[^-'][A-Za-z'-]{1,}[^-']", flags=re.ASCII)
-    # FIRST_NAME_REGEX = re.compile(r"^[A-Za-z'-]{2,}", flags=re.ASCII)
-    LAST_NAME_REGEX = re.compile(r" [A-Za-z' -]{2,}$", flags=re.ASCII)
-    FULL_NAME_REGEX = re.compile(r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}", flags=re.ASCII)
-    EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z0-9]{1,3}", flags=re.ASCII)
+
+    FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
+    LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
+    EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
 
     def __init__(self):
         self._user_input = None
@@ -137,7 +140,7 @@ class InputParser:
                 self.email_validated = True
                 email, span_indices = regex_return
                 self.email = email.strip()
-                names = self._user_input[:span_indices[0]]
+                names = self._user_input[:span_indices[0] + 1]
                 self._validate_names(name_str=names)
             else:
                 self.email_validated = False
@@ -150,9 +153,9 @@ class InputParser:
                          self.email_validated)
         match fields:
             # wrong email
-            # case (None, None, False):
-            #     print("Incorrect email.")
-            #     return False
+            case (None, None, False):
+                print("Incorrect email.")
+                return False
 
             # wrong first name
             case (False, True | None, True):
@@ -160,7 +163,7 @@ class InputParser:
                 return False
 
             # wrong last name
-            case (True, False, True):
+            case (True | None, False, True):
                 print("Incorrect last name.")
                 return False
 

@@ -218,16 +218,8 @@ files:
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/26936#comment
-status: Failed
+status: Solved
 feedback:
-  message: "Wrong answer in test #18\n\nExpected output: \"Incorrect first name.\"\
-    , but your output was: The student has been added.\n\nPlease find below the output\
-    \ of your program during this failed test.\nNote that the '>' character indicates\
-    \ the beginning of the input line.\n\n---\n\nLearning Progress Tracker\n> add\
-    \ students\nEnter student credentials or 'back' to return\n> \nIncorrect credentials.\n\
-    >  \t\nIncorrect credentials.\n> name surname\nIncorrect credentials.\n> n surname\
-    \ email@email.xyz\nIncorrect first name.\n> 'name surname email@email.xyz\nIncorrect\
-    \ first name.\n> -name surname email@email.xyz\nIncorrect first name.\n> name-\
-    \ surname email@email.xyz\nThe student has been added."
-  time: "Sun, 05 Nov 2023 07:26:09 UTC"
+  message: Congratulations!
+  time: "Sun, 05 Nov 2023 20:56:17 UTC"
 record: -1
