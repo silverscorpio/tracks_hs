@@ -6,10 +6,10 @@ from hstest.stage_test import *
 import re
 from hstest.testing.tested_program import TestedProgram
 
-
 CheckResult.correct = lambda: CheckResult(True, '')
 CheckResult.wrong = lambda feedback: CheckResult(False, feedback)
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+
 
 def any_missing_keywords(output: str, *keywords):
     tokens = re.split("\\W+", output.lower())

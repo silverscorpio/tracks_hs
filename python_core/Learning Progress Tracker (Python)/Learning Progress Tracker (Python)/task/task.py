@@ -35,8 +35,11 @@ def main():
                         print("Enter student credentials or 'back' to return")
                         creds = input()
                         if creds != "back":
-                            CMD_DICT.get(user_input)(creds)
-                            current_student_count += 1
+                            cmd_status = CMD_DICT.get(user_input)(creds)
+                            if cmd_status:
+                                current_student_count += 1
+                            else:
+                                CMD_DICT.get("invalid")()
                         elif creds == "back":
                             continue
                     case "back":
@@ -47,15 +50,11 @@ def main():
                             print("Enter 'exit' to exit the program.")
 
             else:
-                CMD_DICT.get("invalid")()
+                CMD_DICT.get("unknown")()
 
         # blank input
         elif not user_input:
             CMD_DICT.get("blank")()
-
-        # unknown cmd
-        else:
-            CMD_DICT.get("unknown")()
 
 
 if __name__ == '__main__':

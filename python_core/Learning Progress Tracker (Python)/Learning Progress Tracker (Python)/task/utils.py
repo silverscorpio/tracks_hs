@@ -17,14 +17,18 @@ def add_cmd(creds: str):
     parser_obj = InputParser()
     parser_obj.user_input = creds
     parser_obj.process()
+    parser_obj.evaluate_fields()
 
     # get parsed info
-    if parser_obj.get_data():
+    if parser_obj.all_fields_validated:
         student_data: dict = parser_obj.get_data()
         # saving data
         student = Student(**student_data)
         student.save_student()
-        # pprint(STUDENT_DATA, indent=2)
+        pprint(STUDENT_DATA, indent=2)
+        return True
+
+    return False
 
 
 def back_cmd():
@@ -40,7 +44,7 @@ def no_input():
 
 
 def invalid_cmd():
-    print("Incorrect credentials")
+    print("Incorrect credentials.")
 
 
 def sanitize_input(usr_val: str) -> str:
@@ -94,6 +98,7 @@ class InputParser:
         self.email_validated = None
         self.first_name_validated = None
         self.last_name_validated = None
+        self.all_fields_validated = None
 
     @property
     def user_input(self):
@@ -115,10 +120,8 @@ class InputParser:
         last_name_check = InputParser.match_regex(InputParser.LAST_NAME_REGEX, name_str)
         if not first_name_check and last_name_check:
             self.first_name_validated = False
-            print("Incorrect first name.")
         elif first_name_check and not last_name_check:
             self.last_name_validated = False
-            print("Incorrect last name.")
         elif first_name_check and last_name_check:
             self.first_name, self.last_name = [i.strip() for i in name_str.split(maxsplit=1)]
             self.first_name_validated = True
@@ -137,18 +140,38 @@ class InputParser:
                 names = self._user_input[:span_indices[0]]
                 self._validate_names(name_str=names)
             else:
-                print("Incorrect email.")
+                self.email_validated = False
         else:
             raise ValueError("User input string needs to be set first")
 
-    def get_data(self) -> dict | bool:
-        if all([self.first_name, self.last_name, self.email]):
+    def evaluate_fields(self):
+        fields: tuple = (self.first_name_validated,
+                         self.last_name_validated,
+                         self.email_validated)
+        match fields:
+            # invalid creds
+            case (False, False, False):
+                invalid_cmd()
+
+            # wrong first name
+            case (False, True, True):
+                print("Incorrect first name.")
+
+            # wrong last name
+            case (True, False, True):
+                print("Incorrect last name.")
+
+            case (True, True, True):
+                self.all_fields_validated = True
+
+    def get_data(self) -> dict:
+        if self.all_fields_validated:
             return {
                 "first_name": self.first_name,
                 "last_name": self.last_name,
                 "email": self.email
             }
-        return False
+        raise ValueError("Some field(s) have not been validated")
 
 
 if __name__ == '__main__':
