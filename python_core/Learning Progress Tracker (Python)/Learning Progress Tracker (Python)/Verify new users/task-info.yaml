@@ -220,28 +220,14 @@ files:
 feedback_link: https://hyperskill.org/learn/step/26936#comment
 status: Failed
 feedback:
-  message: |-
-    Exception in test #18
-
-    Traceback (most recent call last):
-      File "task.py", line 58, in <module>
-        main()
-      File "task.py", line 36, in main
-        cmd_status = CMD_DICT.get(user_input)(creds_str)
-      File "utils.py", line 19, in add_cmd
-        parser_obj.process()
-      File "utils.py", line 145, in process
-        raise ValueError("User input string needs to be set first")
-    ValueError: User input string needs to be set first
-
-    Please find below the output of your program during this failed test.
-    Note that the '>' character indicates the beginning of the input line.
-
-    ---
-
-    Learning Progress Tracker
-    > add students
-    Enter student credentials or 'back' to return
-    >
-  time: "Sun, 05 Nov 2023 06:03:24 UTC"
+  message: "Wrong answer in test #18\n\nExpected output: \"Incorrect first name.\"\
+    , but your output was: The student has been added.\n\nPlease find below the output\
+    \ of your program during this failed test.\nNote that the '>' character indicates\
+    \ the beginning of the input line.\n\n---\n\nLearning Progress Tracker\n> add\
+    \ students\nEnter student credentials or 'back' to return\n> \nIncorrect credentials.\n\
+    >  \t\nIncorrect credentials.\n> name surname\nIncorrect credentials.\n> n surname\
+    \ email@email.xyz\nIncorrect first name.\n> 'name surname email@email.xyz\nIncorrect\
+    \ first name.\n> -name surname email@email.xyz\nIncorrect first name.\n> name-\
+    \ surname email@email.xyz\nThe student has been added."
+  time: "Sun, 05 Nov 2023 07:26:09 UTC"
 record: -1

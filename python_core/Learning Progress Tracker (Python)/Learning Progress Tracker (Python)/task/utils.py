@@ -17,17 +17,16 @@ def add_cmd(creds: str):
     parser_obj = InputParser()
     parser_obj.user_input = creds
     parser_obj.process()
-    parser_obj.evaluate_fields()
-
-    # get parsed info
-    if parser_obj.all_fields_validated:
+    eval_result = parser_obj.evaluate_fields()
+    if eval_result is None:
+        return
+    elif eval_result:
+        # get parsed info
         student_data: dict = parser_obj.get_data()
-        # saving data
         student = Student(**student_data)
         student.save_student()
         # pprint(STUDENT_DATA, indent=2)
         return True
-
     return False
 
 
@@ -85,7 +84,8 @@ class InputParser:
     """
     extract the email (easier) from the input string and use the match to split and get the name
     """
-    FIRST_NAME_REGEX = re.compile(r"^[A-Za-z'-]{2,}", flags=re.ASCII)
+    FIRST_NAME_REGEX = re.compile(r"^[^-'][A-Za-z'-]{1,}[^-']", flags=re.ASCII)
+    # FIRST_NAME_REGEX = re.compile(r"^[A-Za-z'-]{2,}", flags=re.ASCII)
     LAST_NAME_REGEX = re.compile(r" [A-Za-z' -]{2,}$", flags=re.ASCII)
     FULL_NAME_REGEX = re.compile(r"[A-Za-z' -]+[ '-]{1}[A-Za-z' -]{2,}", flags=re.ASCII)
     EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_\.]+@[a-zA-Z0-9_]+\.[a-z0-9]{1,3}", flags=re.ASCII)
@@ -149,20 +149,33 @@ class InputParser:
                          self.last_name_validated,
                          self.email_validated)
         match fields:
-            # invalid creds
-            case (False, False, False):
-                invalid_cmd()
+            # wrong email
+            # case (None, None, False):
+            #     print("Incorrect email.")
+            #     return False
 
             # wrong first name
-            case (False, True, True):
+            case (False, True | None, True):
                 print("Incorrect first name.")
+                return False
 
             # wrong last name
             case (True, False, True):
                 print("Incorrect last name.")
+                return False
 
+            # all invalid creds
+            case (False, False, False):
+                return
+
+            # all valid
             case (True, True, True):
                 self.all_fields_validated = True
+                return True
+
+            # no match - invalid
+            case _:
+                return
 
     def get_data(self) -> dict:
         if self.all_fields_validated:

@@ -32,16 +32,19 @@ def main():
                         print("Enter student credentials or 'back' to return")
                         while True:
                             creds_str = input()
-                            if creds_str != "back":
+                            if creds_str and creds_str != "back":
                                 cmd_status = CMD_DICT.get(user_input)(creds_str)
                                 if cmd_status:
                                     current_student_count += 1
-                                else:
+                                elif cmd_status is None:
                                     CMD_DICT.get("invalid")()
-                                    break
+                                else:
+                                    continue
                             elif creds_str == "back":
                                 print(f"Total {current_student_count} students have been added.")
                                 break
+                            else:
+                                CMD_DICT.get("invalid")()
 
                     case "back":
                         print(f"Total {current_student_count} students have been added.")
