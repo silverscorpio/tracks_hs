@@ -21,11 +21,9 @@ def main():
     print("Learning Progress Tracker")
     current_student_count = 0
     while True:
-        raw_user_input = input()
-        user_input = sanitize_input(usr_val=raw_user_input)
 
         # non-blank input
-        if user_input:
+        if user_input := sanitize_input(input()):
             if user_input in CMD_DICT:
                 match user_input:
                     case "exit":
@@ -33,26 +31,26 @@ def main():
                         break
                     case "add students":
                         print("Enter student credentials or 'back' to return")
-                        creds = input()
-                        if creds != "back":
-                            cmd_status = CMD_DICT.get(user_input)(creds)
-                            if cmd_status:
-                                current_student_count += 1
-                            else:
-                                CMD_DICT.get("invalid")()
-                        elif creds == "back":
-                            continue
+                        while True:
+                            creds = input()
+                            if creds != "back":
+                                cmd_status = CMD_DICT.get(user_input)(creds)
+                                if cmd_status:
+                                    current_student_count += 1
+                                else:
+                                    CMD_DICT.get("invalid")()
+                                    break
+                            elif creds == "back":
+                                CMD_DICT.get("back")(current_student_count)
+                                break
                     case "back":
-                        if current_student_count > 1:
-                            print(f"Total {current_student_count} students have been added.")
-                        else:
-                            CMD_DICT.get(user_input)()
+                        CMD_DICT.get(user_input)(current_student_count)
 
             else:
                 CMD_DICT.get("unknown")()
 
         # blank input
-        elif not user_input:
+        else:
             CMD_DICT.get("blank")()
 
 

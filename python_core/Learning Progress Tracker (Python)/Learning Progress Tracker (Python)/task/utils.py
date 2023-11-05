@@ -31,8 +31,11 @@ def add_cmd(creds: str):
     return False
 
 
-def back_cmd():
-    print("Enter 'exit' to exit the program.")
+def back_cmd(curr_count: int):
+    if not curr_count:
+        print("Enter 'exit' to exit the program.")
+    else:
+        print(f"Total {curr_count} students have been added.")
 
 
 def unknown_cmd():
