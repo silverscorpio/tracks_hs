@@ -43,11 +43,10 @@ def main():
                         elif creds == "back":
                             continue
                     case "back":
-                        CMD_DICT.get(user_input)()
                         if current_student_count > 1:
                             print(f"Total {current_student_count} students have been added.")
                         else:
-                            print("Enter 'exit' to exit the program.")
+                            CMD_DICT.get(user_input)()
 
             else:
                 CMD_DICT.get("unknown")()

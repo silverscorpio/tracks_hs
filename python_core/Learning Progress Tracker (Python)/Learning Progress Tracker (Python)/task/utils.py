@@ -171,7 +171,7 @@ class InputParser:
                 "last_name": self.last_name,
                 "email": self.email
             }
-        raise ValueError("Some field(s) have not been validated")
+        raise ValueError("Some field(s) are not validated")
 
 
 if __name__ == '__main__':
