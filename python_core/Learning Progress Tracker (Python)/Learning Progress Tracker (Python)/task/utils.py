@@ -5,6 +5,7 @@ from pprint import pprint
 from collections import defaultdict
 
 STUDENT_DATA: defaultdict = defaultdict(dict)
+STUDENT_ID_MAPPER: defaultdict = defaultdict(uuid.uuid1)
 
 
 # funcs
@@ -58,18 +59,26 @@ def pre_check_add_cmd_input(add_cmd_str: str) -> bool:
 class Student:
     student_count: int = 0
 
-    def __new__(cls, first_name, last_name, email):
+    def __new__(cls, student_id, first_name, last_name, email):
         cls.student_count += 1
         return super().__new__(cls)
 
-    def __init__(self, first_name, last_name, email):
+    def __init__(self, student_id, first_name, last_name, email):
         self.first_name: str = first_name
         self.last_name: str = last_name
         self.email: str = email
-        self.id: uuid = uuid.uuid1()
+        self.student_id: int = student_id
+        self.total_score = 0
+        self.map_id_uuid()
+
+    def map_id_uuid(self):
+        STUDENT_ID_MAPPER[self.student_id] = uuid.uuid1()
+
+    def get_uuid_from_id(self):
+        return STUDENT_ID_MAPPER[self.student_id]
 
     def save_student(self) -> None:
-        STUDENT_DATA[self.id] = {
+        STUDENT_DATA[self.get_uuid_from_id()] = {
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email
@@ -81,7 +90,7 @@ class Student:
         return Student.student_count
 
     def __str__(self):
-        return f"{self.id} - {self.first_name} {self.last_name}"
+        return f"{self.get_uuid_from_id()} - {self.first_name} {self.last_name}"
 
 
 class InputParser:

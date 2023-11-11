@@ -12,7 +12,6 @@ CheckResult.correct = lambda: CheckResult(True, '')
 CheckResult.wrong = lambda feedback: CheckResult(False, feedback)
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
-
 def any_missing_keywords(output: str, *keywords):
     tokens = re.split("\\W+", output.lower())
     return not all(el in tokens for el in keywords)
