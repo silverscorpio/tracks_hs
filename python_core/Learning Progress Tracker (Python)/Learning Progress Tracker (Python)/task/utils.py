@@ -68,8 +68,12 @@ class Student:
         self.last_name: str = last_name
         self.email: str = email
         self.student_id: int = student_id
-        self.total_score = 0
+        self.scores: dict = {}
         self.map_id_uuid()
+
+    @staticmethod
+    def check_if_email_exists(email_to_check: str):
+        return True if email_to_check in [record["email"] for record in STUDENT_DATA.values()] else False
 
     def map_id_uuid(self):
         STUDENT_ID_MAPPER[self.student_id] = uuid.uuid1()
@@ -81,7 +85,8 @@ class Student:
         STUDENT_DATA[self.get_uuid_from_id()] = {
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "email": self.email
+            "email": self.email,
+            "scores": self.scores
         }
         print("The student has been added.")
 
@@ -101,6 +106,7 @@ class InputParser:
     FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
     LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
     EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
+    STUDENT_DATA_REGEX = re.compile()
 
     def __init__(self):
         self._user_input = None
