@@ -55,6 +55,13 @@ def pre_check_add_cmd_input(add_cmd_str: str) -> bool:
     return True if len(add_cmd_str.split()) >= 3 else False
 
 
+def get_all_students():
+    if STUDENT_DATA:
+        print("Students:\n")
+        for student_uuid in STUDENT_ID_MAPPER.keys():
+            print(student_uuid)
+
+
 # classes
 class Student:
     student_count: int = 0
