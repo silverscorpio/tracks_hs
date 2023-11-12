@@ -59,6 +59,8 @@ def get_all_students():
         print("Students:\n")
         for student_uuid in STUDENT_ID_MAPPER.keys():
             print(student_uuid)
+            return
+    print("No students found.")
 
 
 def check_if_email_exists(email_to_check: str) -> bool:
@@ -178,7 +180,7 @@ class InputParser:
             case (None, None, None):
                 print("This email is already taken.")
                 return False
-            
+
             # wrong email
             case (None, None, False):
                 print("Incorrect email.")

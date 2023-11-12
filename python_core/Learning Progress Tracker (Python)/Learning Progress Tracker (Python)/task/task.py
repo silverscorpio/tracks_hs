@@ -6,6 +6,7 @@ from utils import (exit_cmd,
                    unknown_cmd,
                    no_input,
                    pre_check_add_cmd_input,
+                   get_all_students,
                    )
 
 CMD_DICT = {
@@ -15,6 +16,7 @@ CMD_DICT = {
     "blank": no_input,
     "invalid": invalid_cmd,
     "unknown": unknown_cmd,
+    "list": get_all_students
 }
 
 
@@ -53,6 +55,9 @@ def main():
 
                     case "back":
                         print(f"Total {current_student_count} students have been added.")
+                        CMD_DICT.get(user_input)()
+
+                    case "list":
                         CMD_DICT.get(user_input)()
             else:
                 CMD_DICT.get("unknown")()
