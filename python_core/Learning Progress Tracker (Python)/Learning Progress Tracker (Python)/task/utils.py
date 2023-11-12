@@ -26,7 +26,6 @@ def add_cmd(creds: str):
         student_data: dict = parser_obj.get_data()
         student = Student(**student_data)
         student.save_student()
-        # pprint(STUDENT_DATA, indent=2)
         return True
     return False
 
@@ -62,6 +61,10 @@ def get_all_students():
             print(student_uuid)
 
 
+def check_if_email_exists(email_to_check: str) -> bool:
+    return True if email_to_check in [record["email"] for record in STUDENT_DATA.values()] else False
+
+
 # classes
 class Student:
     student_count: int = 0
@@ -77,10 +80,6 @@ class Student:
         self.student_id: int = student_id
         self.scores: dict = {}
         self.map_id_uuid()
-
-    @staticmethod
-    def check_if_email_exists(email_to_check: str):
-        return True if email_to_check in [record["email"] for record in STUDENT_DATA.values()] else False
 
     def map_id_uuid(self):
         STUDENT_ID_MAPPER[self.student_id] = uuid.uuid1()
@@ -174,6 +173,12 @@ class InputParser:
                          self.last_name_validated,
                          self.email_validated)
         match fields:
+
+            # email already taken
+            case (None, None, None):
+                print("This email is already taken.")
+                return False
+            
             # wrong email
             case (None, None, False):
                 print("Incorrect email.")
@@ -213,9 +218,9 @@ class InputParser:
 
 
 if __name__ == '__main__':
-    x = Student("panda", "dodo", "chaku@gmail.com")
-    y = Student("chu", "champ", "alpha@gmail.com")
-    z = Student("dragon", "lulu", "psider@gmail.com")
+    x = Student(1000, "panda", "dodo", "chaku@gmail.com")
+    y = Student(1001, "chu", "champ", "alpha@gmail.com")
+    z = Student(1002, "dragon", "lulu", "psider@gmail.com")
     x.save_student()
     y.save_student()
     z.save_student()
