@@ -4,8 +4,15 @@ import uuid
 from pprint import pprint
 from collections import defaultdict
 
+# student info
 STUDENT_DATA: defaultdict = defaultdict(dict)
 STUDENT_ID_MAPPER: defaultdict = defaultdict(uuid.uuid1)
+
+# regex patterns
+FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
+LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
+EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
+SCORES_REGEX = re.compile(r"\d{5} \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
 
 
 # funcs
@@ -67,6 +74,10 @@ def check_if_email_exists(email_to_check: str) -> bool:
     return True if email_to_check in [record["email"] for record in STUDENT_DATA.values()] else False
 
 
+def process_scores(score_str: str):
+    pass
+
+
 # classes
 class Student:
     student_count: int = 0
@@ -111,11 +122,6 @@ class InputParser:
     extract the email (easier) from the input string and use the match to split and get the name
     """
 
-    FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
-    LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
-    EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
-    STUDENT_DATA_REGEX = re.compile()
-
     def __init__(self):
         self._user_input = None
         self.email = None
@@ -142,8 +148,8 @@ class InputParser:
         return False
 
     def _validate_names(self, name_str: str):
-        first_name_check = InputParser.match_regex(InputParser.FIRST_NAME_REGEX, name_str)
-        last_name_check = InputParser.match_regex(InputParser.LAST_NAME_REGEX, name_str)
+        first_name_check = InputParser.match_regex(FIRST_NAME_REGEX, name_str)
+        last_name_check = InputParser.match_regex(LAST_NAME_REGEX, name_str)
         if not first_name_check and last_name_check:
             self.first_name_validated = False
         elif first_name_check and not last_name_check:
@@ -158,7 +164,7 @@ class InputParser:
 
     def process(self):
         if self._user_input:
-            regex_return = InputParser.match_regex(InputParser.EMAIL_REGEX, self._user_input)
+            regex_return = InputParser.match_regex(EMAIL_REGEX, self._user_input)
             if regex_return:
                 self.email_validated = True
                 email, span_indices = regex_return

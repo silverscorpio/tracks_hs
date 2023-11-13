@@ -7,6 +7,7 @@ from utils import (exit_cmd,
                    no_input,
                    pre_check_add_cmd_input,
                    get_all_students,
+                   process_scores,
                    )
 
 CMD_DICT = {
@@ -16,7 +17,8 @@ CMD_DICT = {
     "blank": no_input,
     "invalid": invalid_cmd,
     "unknown": unknown_cmd,
-    "list": get_all_students
+    "list": get_all_students,
+    "add points": process_scores,
 }
 
 
@@ -59,6 +61,11 @@ def main():
 
                     case "list":
                         CMD_DICT.get(user_input)()
+
+                    case "add points":
+                        print("Enter an id and points or 'back' to return")
+                        CMD_DICT.get(user_input)(input())
+
             else:
                 CMD_DICT.get("unknown")()
 
