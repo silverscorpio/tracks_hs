@@ -13,6 +13,7 @@ FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b
 LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
 EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
 SCORES_REGEX = re.compile(r"\d{5} \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
+ID_REGEX = re.compile(r"\d{5}", flags=re.ASCII)
 
 
 # funcs
@@ -95,7 +96,7 @@ def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
 
 def store_scores(scores_str: str, student_id: str) -> None:
     subjects = ["py", "dsa", "db", "flask"]
-    scores_int = [int(i) for i in scores_str.split()]
+    scores_int = [int(i.strip()) for i in scores_str.split()]
     for sub, score in zip(subjects, scores_int):
         STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"][sub] = score
     print("Points updated.")
@@ -107,11 +108,23 @@ def process_id_scores(score_str: str) -> bool:
         print("Incorrect points format.")
         return False
     student_id, scores = regex_result
+    student_id = student_id.strip()
     if not check_if_id_exists(id_to_check=student_id):
         print(f"No student is found for id={student_id}")
         return False
     store_scores(scores_str=scores, student_id=student_id)
 
+
+def check_id(given_id: str):
+    id_match = match_regex(template=ID_REGEX, given_str=given_id)
+    if id_match:
+        student_id = id_match[0]
+        if not check_if_id_exists(id_to_check=student_id):
+            print(f"No student is found for id={student_id}")
+            return
+        sc1, sc2, sc3, sc4 = STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"]
+        print(f"id points: Python={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
+        
 
 # classes
 class Student:

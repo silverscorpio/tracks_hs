@@ -7,7 +7,8 @@ from utils import (exit_cmd,
                    no_input,
                    pre_check_add_cmd_input,
                    get_all_students,
-                   process_scores,
+                   process_id_scores,
+                   check_id,
                    )
 
 CMD_DICT = {
@@ -18,7 +19,8 @@ CMD_DICT = {
     "invalid": invalid_cmd,
     "unknown": unknown_cmd,
     "list": get_all_students,
-    "add points": process_scores,
+    "add points": process_id_scores,
+    "find": check_id,
 }
 
 
@@ -67,7 +69,12 @@ def main():
                         id_scores_str = input()
                         if id_scores_str == "back":
                             continue
-                        CMD_DICT.get(user_input)(input())
+                        CMD_DICT.get(user_input)(id_scores_str)
+
+                    case "find":
+                        print("Enter an id or 'back' to return.")
+                        find_input_str = input()
+                        CMD_DICT.get(user_input)(find_input_str)
 
             else:
                 CMD_DICT.get("unknown")()
