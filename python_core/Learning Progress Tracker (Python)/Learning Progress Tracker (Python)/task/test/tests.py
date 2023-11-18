@@ -109,6 +109,9 @@ class LearningProgressTrackerTest(StageTest):
     ]
     incorrect_points = ["", "-1 1 1 1", "1 1 2 A", "1 1 1", "1 1 1 1 1", "-1 -1 -1 -1", "2.5 2.5 2.4 1.8"]
 
+    def __init__(self):
+        super().__init__(source='task.py')
+
     @dynamic_test(order=1)
     def test_and_exit(self):
         main = TestedProgram()

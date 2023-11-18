@@ -74,8 +74,43 @@ def check_if_email_exists(email_to_check: str) -> bool:
     return True if email_to_check in [record["email"] for record in STUDENT_DATA.values()] else False
 
 
-def process_scores(score_str: str):
-    pass
+def check_if_id_exists(id_to_check: str) -> bool:
+    return True if id_to_check in STUDENT_ID_MAPPER.keys() else False
+
+
+def match_regex(template: Pattern[str], given_str: str) -> bool | tuple[str, tuple[int, int]]:
+    match = re.search(template, given_str)
+    if match:
+        return match.group(), match.span()
+    return False
+
+
+def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
+    regex_match = match_regex(template=SCORES_REGEX, given_str=score_str)
+    if regex_match:
+        student_id, scores = score_str.split(maxsplit=1)[0], score_str.split(maxsplit=1)[1]
+        return student_id, scores
+    return False
+
+
+def store_scores(scores_str: str, student_id: str) -> None:
+    subjects = ["py", "dsa", "db", "flask"]
+    scores_int = [int(i) for i in scores_str.split()]
+    for sub, score in zip(subjects, scores_int):
+        STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"][sub] = score
+    print("Points updated.")
+
+
+def process_id_scores(score_str: str) -> bool:
+    regex_result = check_id_scores_regex(score_str=score_str)
+    if not regex_result:
+        print("Incorrect points format.")
+        return False
+    student_id, scores = regex_result
+    if not check_if_id_exists(id_to_check=student_id):
+        print(f"No student is found for id={student_id}")
+        return False
+    store_scores(scores_str=scores, student_id=student_id)
 
 
 # classes
@@ -140,16 +175,9 @@ class InputParser:
     def user_input(self, user_input_val):
         self._user_input = user_input_val
 
-    @staticmethod
-    def match_regex(template: Pattern[str], given_str: str) -> bool | tuple[str, tuple[int, int]]:
-        match = re.search(template, given_str)
-        if match:
-            return match.group(), match.span()
-        return False
-
     def _validate_names(self, name_str: str):
-        first_name_check = InputParser.match_regex(FIRST_NAME_REGEX, name_str)
-        last_name_check = InputParser.match_regex(LAST_NAME_REGEX, name_str)
+        first_name_check = match_regex(FIRST_NAME_REGEX, name_str)
+        last_name_check = match_regex(LAST_NAME_REGEX, name_str)
         if not first_name_check and last_name_check:
             self.first_name_validated = False
         elif first_name_check and not last_name_check:
@@ -164,7 +192,7 @@ class InputParser:
 
     def process(self):
         if self._user_input:
-            regex_return = InputParser.match_regex(EMAIL_REGEX, self._user_input)
+            regex_return = match_regex(EMAIL_REGEX, self._user_input)
             if regex_return:
                 self.email_validated = True
                 email, span_indices = regex_return
