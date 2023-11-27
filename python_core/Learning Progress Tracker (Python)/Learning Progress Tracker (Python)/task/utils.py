@@ -12,7 +12,7 @@ STUDENT_ID_MAPPER: defaultdict = defaultdict(uuid.uuid1)
 FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
 LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
 EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
-SCORES_REGEX = re.compile(r"\d{5} \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
+SCORES_REGEX = re.compile(r"\d+ \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
 ID_REGEX = re.compile(r"\d{5}", flags=re.ASCII)
 
 
