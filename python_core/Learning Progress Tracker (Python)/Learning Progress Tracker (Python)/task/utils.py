@@ -124,23 +124,23 @@ def check_id(given_id: str):
             return
         sc1, sc2, sc3, sc4 = STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"]
         print(f"id points: Python={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
-        
+
 
 # classes
 class Student:
     student_count: int = 0
 
-    def __new__(cls, student_id, first_name, last_name, email):
+    def __new__(cls, first_name, last_name, email):
         cls.student_count += 1
         return super().__new__(cls)
 
-    def __init__(self, student_id, first_name, last_name, email):
+    def __init__(self, first_name, last_name, email):
         self.first_name: str = first_name
         self.last_name: str = last_name
         self.email: str = email
-        self.student_id: int = student_id
         self.scores: dict = {}
-        self.map_id_uuid()
+        self.student_id = uuid.uuid1()
+        # self.map_id_uuid()
 
     def map_id_uuid(self):
         STUDENT_ID_MAPPER[self.student_id] = uuid.uuid1()
@@ -149,7 +149,8 @@ class Student:
         return STUDENT_ID_MAPPER[self.student_id]
 
     def save_student(self) -> None:
-        STUDENT_DATA[self.get_uuid_from_id()] = {
+        # key get uuid from id changed to self student id
+        STUDENT_DATA[self.student_id] = {
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
@@ -162,7 +163,8 @@ class Student:
         return Student.student_count
 
     def __str__(self):
-        return f"{self.get_uuid_from_id()} - {self.first_name} {self.last_name}"
+        # key get uuid from id changed to self student id
+        return f"{self.student_id} - {self.first_name} {self.last_name}"
 
 
 class InputParser:
@@ -207,11 +209,13 @@ class InputParser:
         if self._user_input:
             regex_return = match_regex(EMAIL_REGEX, self._user_input)
             if regex_return:
-                self.email_validated = True
                 email, span_indices = regex_return
-                self.email = email.strip()
-                names = self._user_input[:span_indices[0] + 1]
-                self._validate_names(name_str=names)
+                # check for existing email
+                if not check_if_email_exists(email_to_check=email.strip()):
+                    self.email_validated = True
+                    self.email = email.strip()
+                    names = self._user_input[:span_indices[0] + 1]
+                    self._validate_names(name_str=names)
             else:
                 self.email_validated = False
         else:
