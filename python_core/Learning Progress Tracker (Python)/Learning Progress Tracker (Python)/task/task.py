@@ -66,10 +66,11 @@ def main():
 
                     case "add points":
                         print("Enter an id and points or 'back' to return")
-                        id_scores_str = input()
-                        if id_scores_str == "back":
-                            continue
-                        CMD_DICT.get(user_input)(id_scores_str)
+                        while True:
+                            id_scores_str = input()
+                            if id_scores_str == "back":
+                                break
+                            CMD_DICT.get(user_input)(id_scores_str)
 
                     case "find":
                         print("Enter an id or 'back' to return.")

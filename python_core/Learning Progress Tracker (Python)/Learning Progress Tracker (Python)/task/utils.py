@@ -12,7 +12,8 @@ STUDENT_ID_MAPPER: defaultdict = defaultdict(uuid.uuid1)
 FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
 LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
 EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
-SCORES_REGEX = re.compile(r"\d+ \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
+# SCORES_REGEX = re.compile(r"\d+ \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
+SCORES_REGEX = re.compile(r"((\d{1,})( {1}\d{1,2}){4})[^ \d]", flags=re.ASCII)
 ID_REGEX = re.compile(r"\d{5}", flags=re.ASCII)
 
 
@@ -64,7 +65,7 @@ def pre_check_add_cmd_input(add_cmd_str: str) -> bool:
 
 def get_all_students():
     if STUDENT_DATA:
-        print("Students:\n")
+        print("Students:")
         for id_student in STUDENT_DATA.keys():
             # for student_uuid in STUDENT_ID_MAPPER.keys():
             print(id_student)
