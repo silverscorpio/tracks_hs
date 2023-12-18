@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://cogniterra.org/media/attachments/lesson/27528/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: "Mon, 11 Dec 2023 18:13:47 UTC"
+update_date: "Mon, 18 Dec 2023 13:16:32 UTC"
 stages:
   - id: 1829
     step: 26935
@@ -65,18 +65,18 @@ topics:
       theory_id: 6019
     - title: What is object-oriented programming
       theory_id: 3614
-    - title: Class
-      theory_id: 6661
-    - title: Class instances
-      theory_id: 6669
-    - title: Methods
-      theory_id: 6931
     - title: What are bugs
       theory_id: 5504
     - title: Functional testing
       theory_id: 13438
     - title: Unit testing
       theory_id: 7545
+    - title: Class
+      theory_id: 6661
+    - title: Class instances
+      theory_id: 6669
+    - title: Methods
+      theory_id: 6931
     - title: Program execution
       theory_id: 6047
     - title: Errors
@@ -116,14 +116,14 @@ topics:
       theory_id: 20084
     - title: Data structures
       theory_id: 16927
+    - title: Immutability
+      theory_id: 7929
     - title: Pseudocode
       theory_id: 15090
     - title: Pseudocode basics
       theory_id: 19510
     - title: Complex constructions in pseudocode
       theory_id: 20922
-    - title: Immutability
-      theory_id: 7929
     - title: "Hashing: overview"
       theory_id: 9831
     - title: Hash function
