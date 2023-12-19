@@ -6,15 +6,12 @@ from collections import defaultdict
 
 # student info
 STUDENT_DATA: defaultdict = defaultdict(dict)
-STUDENT_ID_MAPPER: defaultdict = defaultdict(uuid.uuid1)
 
 # regex patterns
 FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
 LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
 EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
 SCORES_REGEX = re.compile(r"^\d{1,}( \d{1,}){4}$", flags=re.ASCII)
-# SCORES_REGEX = re.compile(r"\d+ \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
-# SCORES_REGEX = re.compile(r"((\d{1,})( {1}\d{1,2}){4})[^ \d]", flags=re.ASCII)
 ID_REGEX = re.compile(r"\d{1,}", flags=re.ASCII)
 
 
@@ -68,7 +65,6 @@ def get_all_students():
     if STUDENT_DATA:
         print("Students:")
         for id_student in STUDENT_DATA.keys():
-            # for student_uuid in STUDENT_ID_MAPPER.keys():
             print(id_student)
         return
     print("No students found.")
@@ -97,13 +93,12 @@ def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
     return False
 
 
-def store_scores(scores_str: str, student_id: str) -> None:
-    # subjects = ["py", "dsa", "db", "flask"]
+def store_scores(scores_str: str, student_id: str) -> bool:
     scores_int = [int(i.strip()) for i in scores_str.split()]
     for sub, score in zip(STUDENT_DATA[student_id]["scores"].keys(), scores_int):
         STUDENT_DATA[student_id]["scores"][sub] += score
-        # STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"][sub] = score
     print("Points updated.")
+    return True
 
 
 def process_id_scores(score_str: str) -> bool:
@@ -134,8 +129,10 @@ def check_id(given_id: str):
             print(f"No student is found for id={student_id}")
             return
         sc1, sc2, sc3, sc4 = STUDENT_DATA[student_id]["scores"].values()
-        # sc1, sc2, sc3, sc4 = STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"]
         print(f"{student_id} points: Python={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
+    elif not id_match:
+        print(f"No student is found for id={given_id}")
+        return
 
 
 # classes
@@ -152,14 +149,6 @@ class Student:
         self.email: str = email
         self.scores: dict = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
         self.student_id = str(Student.student_count)
-        # self.student_id = uuid.uuid1()
-        # self.map_id_uuid()
-
-    # def map_id_uuid(self):
-    #     STUDENT_ID_MAPPER[self.student_id] = uuid.uuid1()
-    #
-    # def get_uuid_from_id(self):
-    #     return STUDENT_ID_MAPPER[self.student_id]
 
     def save_student(self) -> None:
         # key get uuid from id changed to self student id
