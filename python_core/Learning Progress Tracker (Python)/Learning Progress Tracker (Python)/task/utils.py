@@ -98,10 +98,10 @@ def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
 
 
 def store_scores(scores_str: str, student_id: str) -> None:
-    subjects = ["py", "dsa", "db", "flask"]
+    # subjects = ["py", "dsa", "db", "flask"]
     scores_int = [int(i.strip()) for i in scores_str.split()]
-    for sub, score in zip(subjects, scores_int):
-        STUDENT_DATA[student_id]["scores"][sub] = score
+    for sub, score in zip(STUDENT_DATA[student_id]["scores"].keys(), scores_int):
+        STUDENT_DATA[student_id]["scores"][sub] += score
         # STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"][sub] = score
     print("Points updated.")
 
@@ -150,7 +150,7 @@ class Student:
         self.first_name: str = first_name
         self.last_name: str = last_name
         self.email: str = email
-        self.scores: dict = {}
+        self.scores: dict = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
         self.student_id = str(Student.student_count)
         # self.student_id = uuid.uuid1()
         # self.map_id_uuid()
