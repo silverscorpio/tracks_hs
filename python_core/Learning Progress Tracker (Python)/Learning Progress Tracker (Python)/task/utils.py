@@ -135,6 +135,31 @@ def check_id(given_id: str):
         return
 
 
+def stats():
+    if not STUDENT_DATA:
+        print("""
+Most popular: n/a
+Least popular: n/a
+Highest activity: n/a
+Lowest activity: n/a
+Easiest course: n/a
+Hardest course: n/a
+        """)
+
+    # most popular - sum over each subjects (max)
+    # least popular - min
+
+    # highest activity -
+    # lowest activity
+
+    # easiest course
+    # hardest course
+
+
+def subject_stats(subject: str):
+    pass
+
+
 # classes
 class Student:
     student_count: int = 0
@@ -274,8 +299,8 @@ class InputParser:
 
 if __name__ == '__main__':
     x = Student("panda", "dodo", "chaku@gmail.com")
-    y = Student( "chu", "champ", "alpha@gmail.com")
-    z = Student( "dragon", "lulu", "psider@gmail.com")
+    y = Student("chu", "champ", "alpha@gmail.com")
+    z = Student("dragon", "lulu", "psider@gmail.com")
     print(x.student_id)
     print(y.student_id)
     print(z.student_id)

@@ -9,6 +9,8 @@ from utils import (exit_cmd,
                    get_all_students,
                    process_id_scores,
                    check_id,
+                   stats,
+                   subject_stats,
                    )
 
 CMD_DICT = {
@@ -21,6 +23,7 @@ CMD_DICT = {
     "list": get_all_students,
     "add points": process_id_scores,
     "find": check_id,
+    "statistics": stats,
 }
 
 
@@ -79,6 +82,18 @@ def main():
                             if find_input_str == "back":
                                 break
                             CMD_DICT.get(user_input)(find_input_str)
+
+                    case "statistics":
+                        print("Type the name of a course to see details or 'back' to quit")
+                        while True:
+                            CMD_DICT.get(user_input)()
+                            subject = input()
+                            if subject == "back":
+                                break
+                            elif subject not in ("Python", "DSA", "Databases", "Flask"):
+                                print("Unknown course")
+                            else:
+                                subject_stats(subject)
 
             else:
                 CMD_DICT.get("unknown")()
