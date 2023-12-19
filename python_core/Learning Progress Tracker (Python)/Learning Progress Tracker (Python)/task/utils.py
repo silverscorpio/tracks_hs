@@ -15,7 +15,7 @@ EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})
 SCORES_REGEX = re.compile(r"^\d{1,}( \d{1,}){4}$", flags=re.ASCII)
 # SCORES_REGEX = re.compile(r"\d+ \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
 # SCORES_REGEX = re.compile(r"((\d{1,})( {1}\d{1,2}){4})[^ \d]", flags=re.ASCII)
-ID_REGEX = re.compile(r"\d{5}", flags=re.ASCII)
+ID_REGEX = re.compile(r"\d{1,}", flags=re.ASCII)
 
 
 # funcs
@@ -78,7 +78,7 @@ def check_if_email_exists(email_to_check: str) -> bool:
     return True if email_to_check in [record["email"] for record in STUDENT_DATA.values()] else False
 
 
-def check_if_id_exists(id_to_check: int) -> bool:
+def check_if_id_exists(id_to_check: str) -> bool:
     return True if id_to_check in STUDENT_DATA.keys() else False
 
 
@@ -97,7 +97,7 @@ def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
     return False
 
 
-def store_scores(scores_str: str, student_id: int) -> None:
+def store_scores(scores_str: str, student_id: str) -> None:
     subjects = ["py", "dsa", "db", "flask"]
     scores_int = [int(i.strip()) for i in scores_str.split()]
     for sub, score in zip(subjects, scores_int):
@@ -107,12 +107,19 @@ def store_scores(scores_str: str, student_id: int) -> None:
 
 
 def process_id_scores(score_str: str) -> bool:
+    raw_student_id = score_str.split()[0]
+    try:
+        raw_student_id = int(raw_student_id)
+    except ValueError:
+        print(f"No student is found for id={raw_student_id}")
+        return False
+
     regex_result = check_id_scores_regex(score_str=score_str)
     if not regex_result:
         print("Incorrect points format.")
         return False
     student_id, scores = regex_result
-    student_id = int(student_id.strip())
+    student_id = student_id.strip()
     if not check_if_id_exists(id_to_check=student_id):
         print(f"No student is found for id={student_id}")
         return False
@@ -122,12 +129,13 @@ def process_id_scores(score_str: str) -> bool:
 def check_id(given_id: str):
     id_match = match_regex(template=ID_REGEX, given_str=given_id)
     if id_match:
-        student_id = int(id_match[0])
+        student_id = id_match[0]
         if not check_if_id_exists(id_to_check=student_id):
             print(f"No student is found for id={student_id}")
             return
-        sc1, sc2, sc3, sc4 = STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"]
-        print(f"id points: Python={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
+        sc1, sc2, sc3, sc4 = STUDENT_DATA[student_id]["scores"].values()
+        # sc1, sc2, sc3, sc4 = STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"]
+        print(f"{student_id} points: Python={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
 
 
 # classes
@@ -143,7 +151,7 @@ class Student:
         self.last_name: str = last_name
         self.email: str = email
         self.scores: dict = {}
-        self.student_id = Student.student_count
+        self.student_id = str(Student.student_count)
         # self.student_id = uuid.uuid1()
         # self.map_id_uuid()
 

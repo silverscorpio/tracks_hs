@@ -66,7 +66,6 @@ def main():
 
                     case "add points":
                         print("Enter an id and points or 'back' to return")
-                        # TODO check for a valid id if points are saved, change id format 1000 temporarily
                         while True:
                             id_scores_str = input()
                             if id_scores_str == "back":
@@ -75,8 +74,11 @@ def main():
 
                     case "find":
                         print("Enter an id or 'back' to return.")
-                        find_input_str = input()
-                        CMD_DICT.get(user_input)(find_input_str)
+                        while True:
+                            find_input_str = input()
+                            if find_input_str == "back":
+                                break
+                            CMD_DICT.get(user_input)(find_input_str)
 
             else:
                 CMD_DICT.get("unknown")()

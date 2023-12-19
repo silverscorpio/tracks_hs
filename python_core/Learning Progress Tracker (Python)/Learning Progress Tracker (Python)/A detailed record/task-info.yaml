@@ -690,20 +690,52 @@ files:
 feedback_link: https://hyperskill.org/learn/step/26937#comment
 status: Failed
 feedback:
-  message: "Wrong answer in test #23\n\nExpected output was: \"No student is found\
-    \ for id=imsurethereisnosuchstudentid\", but your output was: Incorrect points\
-    \ format.\n\nPlease find below the output of your program during this failed test.\n\
-    Note that the '>' character indicates the beginning of the input line.\n\n---\n\
-    \nLearning Progress Tracker\n> add students\nEnter student credentials or 'back'\
-    \ to return\n> Natka Herculie address2@mail.com\nThe student has been added.\n\
-    > Roxi Hett address3@mail.com\nThe student has been added.\n> Toby Bleier address4@mail.com\n\
-    The student has been added.\n> Emelia Annnora address5@mail.com\nThe student has\
-    \ been added.\n> back\nTotal 4 students have been added.\n> list\nStudents:\n\
-    1\n2\n3\n4\n> add points\nEnter an id and points or 'back' to return\n> 1 \nIncorrect\
-    \ points format.\n> 1 -1 1 1 1\nIncorrect points format.\n> 1 1 1 2 A\nIncorrect\
-    \ points format.\n> 1 1 1 1\nIncorrect points format.\n> 1 1 1 1 1 1\nIncorrect\
-    \ points format.\n> 1 -1 -1 -1 -1\nIncorrect points format.\n> 1 2.5 2.5 2.4 1.8\n\
-    Incorrect points format.\n> imsurethereisnosuchstudentid 1 1 1 1\nIncorrect points\
-    \ format."
-  time: "Tue, 19 Dec 2023 00:52:37 UTC"
+  message: |-
+    Wrong answer in test #26
+
+    Expected output: 2 points: Python=2; DSA=2; Databases=2; Flask=2, but your output was: 2 points: Python=1; DSA=1; Databases=1; Flask=1
+
+    Please find below the output of your program during this failed test.
+    Note that the '>' character indicates the beginning of the input line.
+
+    ---
+
+    Learning Progress Tracker
+    > add students
+    Enter student credentials or 'back' to return
+    > Shoshana Utica address2@mail.com
+    The student has been added.
+    > Starlin Griz address3@mail.com
+    The student has been added.
+    > Marisa Firman address4@mail.com
+    The student has been added.
+    > back
+    Total 3 students have been added.
+    > list
+    Students:
+    1
+    2
+    3
+    > add points
+    Enter an id and points or 'back' to return
+    > 1 0 0 0 0
+    Points updated.
+    > 1 0 0 0 0
+    Points updated.
+    > 2 1 1 1 1
+    Points updated.
+    > 2 1 1 1 1
+    Points updated.
+    > 3 2 2 2 2
+    Points updated.
+    > 3 2 2 2 2
+    Points updated.
+    > back
+    > find
+    Enter an id or 'back' to return.
+    > 1
+    1 points: Python=0; DSA=0; Databases=0; Flask=0
+    > 2
+    2 points: Python=1; DSA=1; Databases=1; Flask=1
+  time: "Tue, 19 Dec 2023 01:48:07 UTC"
 record: -1
