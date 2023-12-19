@@ -695,19 +695,15 @@ feedback:
     \ format.\n\nPlease find below the output of your program during this failed test.\n\
     Note that the '>' character indicates the beginning of the input line.\n\n---\n\
     \nLearning Progress Tracker\n> add students\nEnter student credentials or 'back'\
-    \ to return\n> Gwenette Anagnos address2@mail.com\nThe student has been added.\n\
-    > Shoshana Utica address3@mail.com\nThe student has been added.\n> Ricki Trovillion\
-    \ address4@mail.com\nThe student has been added.\n> Annecorinne Ause address5@mail.com\n\
-    The student has been added.\n> back\nTotal 4 students have been added.\n> list\n\
-    Students:\naf0c119e-9da7-11ee-92cc-baebf56d4d5c\naf0c15ea-9da7-11ee-92cc-baebf56d4d5c\n\
-    af0c1964-9da7-11ee-92cc-baebf56d4d5c\naf0c1dba-9da7-11ee-92cc-baebf56d4d5c\n>\
-    \ add points\nEnter an id and points or 'back' to return\n> af0c119e-9da7-11ee-92cc-baebf56d4d5c\
-    \ \nIncorrect points format.\n> af0c119e-9da7-11ee-92cc-baebf56d4d5c -1 1 1 1\n\
-    Incorrect points format.\n> af0c119e-9da7-11ee-92cc-baebf56d4d5c 1 1 2 A\nIncorrect\
-    \ points format.\n> af0c119e-9da7-11ee-92cc-baebf56d4d5c 1 1 1\nIncorrect points\
-    \ format.\n> af0c119e-9da7-11ee-92cc-baebf56d4d5c 1 1 1 1 1\nIncorrect points\
-    \ format.\n> af0c119e-9da7-11ee-92cc-baebf56d4d5c -1 -1 -1 -1\nIncorrect points\
-    \ format.\n> af0c119e-9da7-11ee-92cc-baebf56d4d5c 2.5 2.5 2.4 1.8\nIncorrect points\
-    \ format.\n> imsurethereisnosuchstudentid 1 1 1 1\nIncorrect points format."
-  time: "Mon, 18 Dec 2023 13:16:41 UTC"
+    \ to return\n> Natka Herculie address2@mail.com\nThe student has been added.\n\
+    > Roxi Hett address3@mail.com\nThe student has been added.\n> Toby Bleier address4@mail.com\n\
+    The student has been added.\n> Emelia Annnora address5@mail.com\nThe student has\
+    \ been added.\n> back\nTotal 4 students have been added.\n> list\nStudents:\n\
+    1\n2\n3\n4\n> add points\nEnter an id and points or 'back' to return\n> 1 \nIncorrect\
+    \ points format.\n> 1 -1 1 1 1\nIncorrect points format.\n> 1 1 1 2 A\nIncorrect\
+    \ points format.\n> 1 1 1 1\nIncorrect points format.\n> 1 1 1 1 1 1\nIncorrect\
+    \ points format.\n> 1 -1 -1 -1 -1\nIncorrect points format.\n> 1 2.5 2.5 2.4 1.8\n\
+    Incorrect points format.\n> imsurethereisnosuchstudentid 1 1 1 1\nIncorrect points\
+    \ format."
+  time: "Tue, 19 Dec 2023 00:52:37 UTC"
 record: -1

@@ -12,8 +12,9 @@ STUDENT_ID_MAPPER: defaultdict = defaultdict(uuid.uuid1)
 FIRST_NAME_REGEX = re.compile(r"^(?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^-']", flags=re.ASCII)
 LAST_NAME_REGEX = re.compile(r" (?![-'])(?:(([A-Za-z])|((['-])(?![-'])))){2,}\b[^'-]$", flags=re.ASCII)
 EMAIL_REGEX = re.compile(r" (?:[a-zA-Z0-9_\.])+@(?:[a-zA-Z0-9_]+\.[a-z0-9]{1,3})", flags=re.ASCII)
+SCORES_REGEX = re.compile(r"^\d{1,}( \d{1,}){4}$", flags=re.ASCII)
 # SCORES_REGEX = re.compile(r"\d+ \d{1,2} \d{1,2} \d{1,2} \d{1,2}", flags=re.ASCII)
-SCORES_REGEX = re.compile(r"((\d{1,})( {1}\d{1,2}){4})[^ \d]", flags=re.ASCII)
+# SCORES_REGEX = re.compile(r"((\d{1,})( {1}\d{1,2}){4})[^ \d]", flags=re.ASCII)
 ID_REGEX = re.compile(r"\d{5}", flags=re.ASCII)
 
 
@@ -77,8 +78,8 @@ def check_if_email_exists(email_to_check: str) -> bool:
     return True if email_to_check in [record["email"] for record in STUDENT_DATA.values()] else False
 
 
-def check_if_id_exists(id_to_check: str) -> bool:
-    return True if id_to_check in STUDENT_ID_MAPPER.keys() else False
+def check_if_id_exists(id_to_check: int) -> bool:
+    return True if id_to_check in STUDENT_DATA.keys() else False
 
 
 def match_regex(template: Pattern[str], given_str: str) -> bool | tuple[str, tuple[int, int]]:
@@ -96,11 +97,12 @@ def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
     return False
 
 
-def store_scores(scores_str: str, student_id: str) -> None:
+def store_scores(scores_str: str, student_id: int) -> None:
     subjects = ["py", "dsa", "db", "flask"]
     scores_int = [int(i.strip()) for i in scores_str.split()]
     for sub, score in zip(subjects, scores_int):
-        STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"][sub] = score
+        STUDENT_DATA[student_id]["scores"][sub] = score
+        # STUDENT_DATA[STUDENT_ID_MAPPER[student_id]]["scores"][sub] = score
     print("Points updated.")
 
 
@@ -110,7 +112,7 @@ def process_id_scores(score_str: str) -> bool:
         print("Incorrect points format.")
         return False
     student_id, scores = regex_result
-    student_id = student_id.strip()
+    student_id = int(student_id.strip())
     if not check_if_id_exists(id_to_check=student_id):
         print(f"No student is found for id={student_id}")
         return False
@@ -120,7 +122,7 @@ def process_id_scores(score_str: str) -> bool:
 def check_id(given_id: str):
     id_match = match_regex(template=ID_REGEX, given_str=given_id)
     if id_match:
-        student_id = id_match[0]
+        student_id = int(id_match[0])
         if not check_if_id_exists(id_to_check=student_id):
             print(f"No student is found for id={student_id}")
             return
@@ -141,14 +143,15 @@ class Student:
         self.last_name: str = last_name
         self.email: str = email
         self.scores: dict = {}
-        self.student_id = uuid.uuid1()
+        self.student_id = Student.student_count
+        # self.student_id = uuid.uuid1()
         # self.map_id_uuid()
 
-    def map_id_uuid(self):
-        STUDENT_ID_MAPPER[self.student_id] = uuid.uuid1()
-
-    def get_uuid_from_id(self):
-        return STUDENT_ID_MAPPER[self.student_id]
+    # def map_id_uuid(self):
+    #     STUDENT_ID_MAPPER[self.student_id] = uuid.uuid1()
+    #
+    # def get_uuid_from_id(self):
+    #     return STUDENT_ID_MAPPER[self.student_id]
 
     def save_student(self) -> None:
         # key get uuid from id changed to self student id
@@ -273,11 +276,14 @@ class InputParser:
 
 
 if __name__ == '__main__':
-    x = Student(1000, "panda", "dodo", "chaku@gmail.com")
-    y = Student(1001, "chu", "champ", "alpha@gmail.com")
-    z = Student(1002, "dragon", "lulu", "psider@gmail.com")
-    x.save_student()
-    y.save_student()
-    z.save_student()
-    print(Student.total_students())
-    pprint(STUDENT_DATA, indent=2)
+    x = Student("panda", "dodo", "chaku@gmail.com")
+    y = Student( "chu", "champ", "alpha@gmail.com")
+    z = Student( "dragon", "lulu", "psider@gmail.com")
+    print(x.student_id)
+    print(y.student_id)
+    print(z.student_id)
+    # x.save_student()
+    # y.save_student()
+    # z.save_student()
+    # print(Student.total_students())
+    # pprint(STUDENT_DATA, indent=2)
