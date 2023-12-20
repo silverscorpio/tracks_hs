@@ -11,6 +11,7 @@ from utils import (exit_cmd,
                    check_id,
                    stats,
                    subject_stats,
+                   get_student_data,
                    )
 
 CMD_DICT = {
@@ -24,6 +25,7 @@ CMD_DICT = {
     "add points": process_id_scores,
     "find": check_id,
     "statistics": stats,
+    "data": get_student_data,
 }
 
 
@@ -94,6 +96,9 @@ def main():
                                 print("Unknown course")
                             else:
                                 subject_stats(subject)
+
+                    case "data":
+                        CMD_DICT.get(user_input)()
 
             else:
                 CMD_DICT.get("unknown")()

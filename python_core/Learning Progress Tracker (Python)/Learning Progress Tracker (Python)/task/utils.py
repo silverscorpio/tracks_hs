@@ -15,6 +15,10 @@ SCORES_REGEX = re.compile(r"^\d{1,}( \d{1,}){4}$", flags=re.ASCII)
 ID_REGEX = re.compile(r"\d{1,}", flags=re.ASCII)
 
 
+def get_student_data():
+    pprint(STUDENT_DATA, indent=4)
+
+
 # funcs
 def exit_cmd():
     print("Bye!")
@@ -95,6 +99,7 @@ def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
 
 def store_scores(scores_str: str, student_id: str) -> bool:
     scores_int = [int(i.strip()) for i in scores_str.split()]
+    STUDENT_DATA[student_id]["submissions"].append(scores_int)
     for sub, score in zip(STUDENT_DATA[student_id]["scores"].keys(), scores_int):
         STUDENT_DATA[student_id]["scores"][sub] += score
     print("Points updated.")
@@ -173,6 +178,7 @@ class Student:
         self.last_name: str = last_name
         self.email: str = email
         self.scores: dict = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
+        self.submissions: list = []
         self.student_id = str(Student.student_count)
 
     def save_student(self) -> None:
@@ -181,7 +187,8 @@ class Student:
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
-            "scores": self.scores
+            "scores": self.scores,
+            "submissions": self.submissions
         }
         print("The student has been added.")
 
@@ -299,13 +306,22 @@ class InputParser:
 
 if __name__ == '__main__':
     x = Student("panda", "dodo", "chaku@gmail.com")
+    x.save_student()
     y = Student("chu", "champ", "alpha@gmail.com")
+    y.save_student()
     z = Student("dragon", "lulu", "psider@gmail.com")
-    print(x.student_id)
-    print(y.student_id)
-    print(z.student_id)
-    # x.save_student()
-    # y.save_student()
-    # z.save_student()
-    # print(Student.total_students())
-    # pprint(STUDENT_DATA, indent=2)
+    z.save_student()
+    STUDENT_DATA['1']['scores'] = {'py': 1, 'dsa': 2, 'db': 3, 'flask': 4}
+    STUDENT_DATA['1']['scores'] = {'py': 0, 'dsa': 9, 'db': 10, 'flask': 6}
+    STUDENT_DATA['2']['scores'] = {'py': 10, 'dsa': 20, 'db': 30, 'flask': 50}
+    STUDENT_DATA['3']['scores'] = {'py': 35, 'dsa': 9, 'db': 78, 'flask': 90}
+    pprint(STUDENT_DATA, indent=4)
+    # most popular
+    enrollments = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
+    for k, v in STUDENT_DATA.items():
+        for subject in enrollments.keys():
+            if v["scores"][subject] > 0:
+                enrollments[subject] += 1
+
+    # py_scores = {k: v['scores']["py"] for k, v in STUDENT_DATA.items()}
+    print(enrollments)
