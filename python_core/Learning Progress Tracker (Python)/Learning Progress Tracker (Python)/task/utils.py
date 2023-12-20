@@ -140,32 +140,47 @@ def check_id(given_id: str):
         return
 
 
-def stats():
-    if not STUDENT_DATA:
-        print("""
+# classes
+class Statistic:
+    def __init__(self):
+        if not STUDENT_DATA:
+            print("""
 Most popular: n/a
 Least popular: n/a
 Highest activity: n/a
 Lowest activity: n/a
 Easiest course: n/a
 Hardest course: n/a
-        """)
+""")
+        else:
+            print(f"""
+Most popular: {self.most_popular()}
+Least popular: {self.least_popular()}
+Highest activity: {self.highest_activity()}
+Lowest activity: {self.lowest_activity()}
+Easiest course: {self.easiest()}
+Hardest course: {self.hardest()}
+""")
 
-    # most popular - sum over each subjects (max)
-    # least popular - min
+    def most_popular(self) -> str:
+        pass
 
-    # highest activity -
-    # lowest activity
+    def least_popular(self) -> str:
+        pass
 
-    # easiest course
-    # hardest course
+    def highest_activity(self) -> str:
+        pass
+
+    def lowest_activity(self) -> str:
+        pass
+
+    def easiest(self) -> str:
+        pass
+
+    def hardest(self) -> str:
+        pass
 
 
-def subject_stats(subject: str):
-    pass
-
-
-# classes
 class Student:
     student_count: int = 0
 
