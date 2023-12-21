@@ -140,6 +140,10 @@ def check_id(given_id: str):
         return
 
 
+def stats():
+    stat = Statistic()
+
+
 # classes
 class Statistic:
     def __init__(self):
@@ -151,23 +155,19 @@ Highest activity: n/a
 Lowest activity: n/a
 Easiest course: n/a
 Hardest course: n/a
-""")
+                """)
         else:
-            pass
-
-    #             self.get_subject_submissions()
-    #             most_pop, least_pop = self.most_and_least_popular()
-    #             high_act, low_act = self.highest_and_lowest_activity()
-    #             hard, easiest = self.hardest_and_easiest()
-    #
-    #             print(f"""
-    # Most popular: {most_pop}
-    # Least popular: {least_pop}
-    # Highest activity: {high_act}
-    # Lowest activity: {low_act}
-    # Easiest course: {easiest}
-    # Hardest course: {hard}
-    # """)
+            most_pop, least_pop = Statistic.most_and_least_popular()
+            high_act, low_act = self.highest_and_lowest_activity()
+            hard, easiest = self.hardest_and_easiest()
+            print(f"""
+    Most popular: {most_pop}
+    Least popular: {least_pop}
+    Highest activity: {high_act}
+    Lowest activity: {low_act}
+    Easiest course: {easiest}
+    Hardest course: {hard}
+    """)
 
     @staticmethod
     def most_and_least_popular() -> tuple[str, str]:
@@ -185,20 +185,24 @@ Hardest course: n/a
         # for every submission of each student
         activity = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
         for v in STUDENT_DATA.values():
-            student_submissions = v["submissions"]
-            for i in student_submissions:
-                if vals := [k for k, v in i.items() if v > 0]:
-                    for subject in vals:
-                        activity[subject] += 1
+            student_submissions: dict = v["submissions"]
+            for k, v in student_submissions.items():
+                activity[k] += sum([1 for i in v if i > 0])
         sorted_activity = sorted(activity.items(), key=lambda p: p[1], reverse=True)
         return sorted_activity[0][0], sorted_activity[-1][0]
 
     @staticmethod
     def hardest_and_easiest() -> tuple[str, str]:
-        avg_scores = {"py": round(sum([v["scores"]["py"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-                      "dsa": round(sum([v["scores"]["dsa"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-                      "db": round(sum([v["scores"]["db"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-                      "flask": round(sum([v["scores"]["flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1)
+        # avg_scores = {"py": round(sum([v["scores"]["py"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+        #               "dsa": round(sum([v["scores"]["dsa"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+        #               "db": round(sum([v["scores"]["db"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+        #               "flask": round(sum([v["scores"]["flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1)
+        #               }
+
+        avg_scores = {"py": round(max([v["scores"]["py"] for v in STUDENT_DATA.values()]), 1),
+                      "dsa": round(max([v["scores"]["dsa"] for v in STUDENT_DATA.values()]), 1),
+                      "db": round(max([v["scores"]["db"] for v in STUDENT_DATA.values()]), 1),
+                      "flask": round(max([v["scores"]["flask"] for v in STUDENT_DATA.values()]), 1)
                       }
         sorted_avg_scores = sorted(avg_scores.items(), key=lambda p: p[1], reverse=True)
         return sorted_avg_scores[0][0], sorted_avg_scores[-1][0]

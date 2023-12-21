@@ -10,6 +10,7 @@ from utils import (exit_cmd,
                    process_id_scores,
                    check_id,
                    get_student_data,
+                   stats,
                    )
 
 CMD_DICT = {
@@ -22,7 +23,7 @@ CMD_DICT = {
     "list": get_all_students,
     "add points": process_id_scores,
     "find": check_id,
-    # "statistics": stats,
+    "statistics": stats,
     "data": get_student_data,
 }
 
@@ -93,7 +94,7 @@ def main():
                             elif subject not in ("Python", "DSA", "Databases", "Flask"):
                                 print("Unknown course")
                             else:
-                                subject_stats(subject)
+                                pass
 
                     case "data":
                         CMD_DICT.get(user_input)()
