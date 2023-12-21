@@ -159,14 +159,14 @@ Hardest course: n/a
         else:
             most_pop, least_pop = Statistic.most_and_least_popular()
             high_act, low_act = self.highest_and_lowest_activity()
-            hard, easiest = self.hardest_and_easiest()
+            easiest, hardest = self.hardest_and_easiest()
             print(f"""
-    Most popular: {most_pop}
-    Least popular: {least_pop}
-    Highest activity: {high_act}
-    Lowest activity: {low_act}
-    Easiest course: {easiest}
-    Hardest course: {hard}
+Most popular: {most_pop}
+Least popular: {least_pop}
+Highest activity: {high_act}
+Lowest activity: {low_act}
+Easiest course: {easiest}
+Hardest course: {hardest}
     """)
 
     @staticmethod
