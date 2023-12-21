@@ -195,10 +195,10 @@ Hardest course: n/a
 
     @staticmethod
     def hardest_and_easiest() -> tuple[str, str]:
-        avg_scores = {"py": round(sum([v["scores"]["py"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3),
-                      "dsa": round(sum([v["scores"]["dsa"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3),
-                      "db": round(sum([v["scores"]["db"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3),
-                      "flask": round(sum([v["scores"]["flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3)
+        avg_scores = {"py": round(sum([v["scores"]["py"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+                      "dsa": round(sum([v["scores"]["dsa"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+                      "db": round(sum([v["scores"]["db"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+                      "flask": round(sum([v["scores"]["flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1)
                       }
         sorted_avg_scores = sorted(avg_scores.items(), key=lambda p: p[1], reverse=True)
         return sorted_avg_scores[0][0], sorted_avg_scores[-1][0]
