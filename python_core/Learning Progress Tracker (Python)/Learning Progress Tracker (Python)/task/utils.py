@@ -99,9 +99,9 @@ def check_id_scores_regex(score_str: str) -> tuple[str, str] | bool:
 
 def store_scores(scores_str: str, student_id: str) -> bool:
     scores_int = [int(i.strip()) for i in scores_str.split()]
-    STUDENT_DATA[student_id]["submissions"].append(scores_int)
     for sub, score in zip(STUDENT_DATA[student_id]["scores"].keys(), scores_int):
         STUDENT_DATA[student_id]["scores"][sub] += score
+        STUDENT_DATA[student_id]["submissions"][sub].append(score)
     print("Points updated.")
     return True
 
@@ -153,31 +153,57 @@ Easiest course: n/a
 Hardest course: n/a
 """)
         else:
-            print(f"""
-Most popular: {self.most_popular()}
-Least popular: {self.least_popular()}
-Highest activity: {self.highest_activity()}
-Lowest activity: {self.lowest_activity()}
-Easiest course: {self.easiest()}
-Hardest course: {self.hardest()}
-""")
+            pass
 
-    def most_popular(self) -> str:
-        pass
+    #             self.get_subject_submissions()
+    #             most_pop, least_pop = self.most_and_least_popular()
+    #             high_act, low_act = self.highest_and_lowest_activity()
+    #             hard, easiest = self.hardest_and_easiest()
+    #
+    #             print(f"""
+    # Most popular: {most_pop}
+    # Least popular: {least_pop}
+    # Highest activity: {high_act}
+    # Lowest activity: {low_act}
+    # Easiest course: {easiest}
+    # Hardest course: {hard}
+    # """)
 
-    def least_popular(self) -> str:
-        pass
+    @staticmethod
+    def most_and_least_popular() -> tuple[str, str]:
+        enrollments = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
+        student_scores: list[dict] = [v["scores"] for v in STUDENT_DATA.values()]
+        for i in student_scores:
+            if vals := [k for k, v in i.items() if v > 0]:
+                for subject in vals:
+                    enrollments[subject] += 1
+        sorted_enrollments = sorted(enrollments.items(), key=lambda p: p[1], reverse=True)
+        return sorted_enrollments[0][0], sorted_enrollments[-1][0]
 
-    def highest_activity(self) -> str:
-        pass
+    @staticmethod
+    def highest_and_lowest_activity() -> tuple[str, str]:
+        # for every submission of each student
+        activity = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
+        for v in STUDENT_DATA.values():
+            student_submissions = v["submissions"]
+            for i in student_submissions:
+                if vals := [k for k, v in i.items() if v > 0]:
+                    for subject in vals:
+                        activity[subject] += 1
+        sorted_activity = sorted(activity.items(), key=lambda p: p[1], reverse=True)
+        return sorted_activity[0][0], sorted_activity[-1][0]
 
-    def lowest_activity(self) -> str:
-        pass
+    @staticmethod
+    def hardest_and_easiest() -> tuple[str, str]:
+        avg_scores = {"py": round(sum([v["scores"]["py"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3),
+                      "dsa": round(sum([v["scores"]["dsa"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3),
+                      "db": round(sum([v["scores"]["db"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3),
+                      "flask": round(sum([v["scores"]["flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 3)
+                      }
+        sorted_avg_scores = sorted(avg_scores.items(), key=lambda p: p[1], reverse=True)
+        return sorted_avg_scores[0][0], sorted_avg_scores[-1][0]
 
-    def easiest(self) -> str:
-        pass
-
-    def hardest(self) -> str:
+    def top_learners(self):
         pass
 
 
@@ -193,7 +219,7 @@ class Student:
         self.last_name: str = last_name
         self.email: str = email
         self.scores: dict = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
-        self.submissions: list = []
+        self.submissions: dict = {"py": [], "dsa": [], "db": [], "flask": []}
         self.student_id = str(Student.student_count)
 
     def save_student(self) -> None:

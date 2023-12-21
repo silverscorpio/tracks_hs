@@ -9,8 +9,6 @@ from utils import (exit_cmd,
                    get_all_students,
                    process_id_scores,
                    check_id,
-                   stats,
-                   subject_stats,
                    get_student_data,
                    )
 
@@ -24,7 +22,7 @@ CMD_DICT = {
     "list": get_all_students,
     "add points": process_id_scores,
     "find": check_id,
-    "statistics": stats,
+    # "statistics": stats,
     "data": get_student_data,
 }
 
