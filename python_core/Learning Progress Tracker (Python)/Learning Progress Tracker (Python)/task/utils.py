@@ -1,6 +1,6 @@
+from itertools import groupby
 import re
 from re import Pattern
-import uuid
 from pprint import pprint
 from collections import defaultdict
 
@@ -177,8 +177,17 @@ Hardest course: {hardest}
             if vals := [k for k, v in i.items() if v > 0]:
                 for subject in vals:
                     enrollments[subject] += 1
-        sorted_enrollments = sorted(enrollments.items(), key=lambda p: p[1], reverse=True)
-        return sorted_enrollments[0][0], sorted_enrollments[-1][0]
+        # sorted_enrollments = sorted(enrollments.items(), key=lambda p: p[1], reverse=True)
+        # TODO - get all subjects for the max value - groupby itertools
+        grouped_enrollments = groupby(enrollments.items(), key=lambda p: p[1])
+        values, groups = [], []
+        for v, g in grouped_enrollments:
+            values.append(v)
+            groups.append(list(g))
+        max_value, min_value = max(values), min(values)
+        most_popular = [i for i in groups if i[0][1] == max_value]
+        least_popular = [i for i in groups if i[0][1] == min_value]
+        return ', '.join([i[0][0] for i in most_popular]), ', '.join([i[0][0] for i in least_popular])
 
     @staticmethod
     def highest_and_lowest_activity() -> tuple[str, str]:
