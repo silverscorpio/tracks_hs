@@ -134,7 +134,7 @@ def check_id(given_id: str):
             print(f"No student is found for id={student_id}")
             return
         sc1, sc2, sc3, sc4 = STUDENT_DATA[student_id]["scores"].values()
-        print(f"{student_id} points: Python={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
+        print(f"{student_id} points: Pythonthon={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
     elif not id_match:
         print(f"No student is found for id={given_id}")
         return
@@ -171,7 +171,7 @@ Hardest course: n/a
 
     @staticmethod
     def most_and_least_popular() -> tuple[str, str]:
-        enrollments = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
+        enrollments = {"Python": 0, "DSA": 0, "Databases": 0, "Flask": 0}
         student_scores: list[dict] = [v["scores"] for v in STUDENT_DATA.values()]
         for i in student_scores:
             if vals := [k for k, v in i.items() if v > 0]:
@@ -183,7 +183,7 @@ Hardest course: n/a
     @staticmethod
     def highest_and_lowest_activity() -> tuple[str, str]:
         # for every submission of each student
-        activity = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
+        activity = {"Python": 0, "DSA": 0, "Databases": 0, "Flask": 0}
         for v in STUDENT_DATA.values():
             student_submissions: dict = v["submissions"]
             for k, v in student_submissions.items():
@@ -193,16 +193,16 @@ Hardest course: n/a
 
     @staticmethod
     def hardest_and_easiest() -> tuple[str, str]:
-        # avg_scores = {"py": round(sum([v["scores"]["py"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-        #               "dsa": round(sum([v["scores"]["dsa"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-        #               "db": round(sum([v["scores"]["db"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-        #               "flask": round(sum([v["scores"]["flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1)
+        # avg_scores = {"Python": round(sum([v["scores"]["Python"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+        #               "DSA": round(sum([v["scores"]["DSA"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+        #               "Databases": round(sum([v["scores"]["Databases"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
+        #               "Flask": round(sum([v["scores"]["Flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1)
         #               }
 
-        avg_scores = {"py": round(max([v["scores"]["py"] for v in STUDENT_DATA.values()]), 1),
-                      "dsa": round(max([v["scores"]["dsa"] for v in STUDENT_DATA.values()]), 1),
-                      "db": round(max([v["scores"]["db"] for v in STUDENT_DATA.values()]), 1),
-                      "flask": round(max([v["scores"]["flask"] for v in STUDENT_DATA.values()]), 1)
+        avg_scores = {"Python": round(max([v["scores"]["Python"] for v in STUDENT_DATA.values()]), 1),
+                      "DSA": round(max([v["scores"]["DSA"] for v in STUDENT_DATA.values()]), 1),
+                      "Databases": round(max([v["scores"]["Databases"] for v in STUDENT_DATA.values()]), 1),
+                      "Flask": round(max([v["scores"]["Flask"] for v in STUDENT_DATA.values()]), 1)
                       }
         sorted_avg_scores = sorted(avg_scores.items(), key=lambda p: p[1], reverse=True)
         return sorted_avg_scores[0][0], sorted_avg_scores[-1][0]
@@ -222,8 +222,8 @@ class Student:
         self.first_name: str = first_name
         self.last_name: str = last_name
         self.email: str = email
-        self.scores: dict = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
-        self.submissions: dict = {"py": [], "dsa": [], "db": [], "flask": []}
+        self.scores: dict = {"Python": 0, "DSA": 0, "Databases": 0, "Flask": 0}
+        self.submissions: dict = {"Python": [], "DSA": [], "Databases": [], "Flask": []}
         self.student_id = str(Student.student_count)
 
     def save_student(self) -> None:
@@ -356,17 +356,17 @@ if __name__ == '__main__':
     y.save_student()
     z = Student("dragon", "lulu", "psider@gmail.com")
     z.save_student()
-    STUDENT_DATA['1']['scores'] = {'py': 1, 'dsa': 2, 'db': 3, 'flask': 4}
-    STUDENT_DATA['1']['scores'] = {'py': 0, 'dsa': 9, 'db': 10, 'flask': 6}
-    STUDENT_DATA['2']['scores'] = {'py': 10, 'dsa': 20, 'db': 30, 'flask': 50}
-    STUDENT_DATA['3']['scores'] = {'py': 35, 'dsa': 9, 'db': 78, 'flask': 90}
+    STUDENT_DATA['1']['scores'] = {'Python': 1, 'DSA': 2, 'Databases': 3, 'Flask': 4}
+    STUDENT_DATA['1']['scores'] = {'Python': 0, 'DSA': 9, 'Databases': 10, 'Flask': 6}
+    STUDENT_DATA['2']['scores'] = {'Python': 10, 'DSA': 20, 'Databases': 30, 'Flask': 50}
+    STUDENT_DATA['3']['scores'] = {'Python': 35, 'DSA': 9, 'Databases': 78, 'Flask': 90}
     pprint(STUDENT_DATA, indent=4)
     # most popular
-    enrollments = {"py": 0, "dsa": 0, "db": 0, "flask": 0}
+    enrollments = {"Python": 0, "DSA": 0, "Databases": 0, "Flask": 0}
     for k, v in STUDENT_DATA.items():
         for subject in enrollments.keys():
             if v["scores"][subject] > 0:
                 enrollments[subject] += 1
 
-    # py_scores = {k: v['scores']["py"] for k, v in STUDENT_DATA.items()}
+    # Python_scores = {k: v['scores']["Python"] for k, v in STUDENT_DATA.items()}
     print(enrollments)
