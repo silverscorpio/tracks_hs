@@ -226,10 +226,10 @@ Hardest course: {hardest}""")
             col3 = round(sum(v["submissions"][subject]) / Statistic.TOTAL_POINTS[subject], 1)
             req_data.append((col1, col2, col3))
 
-        sorted_req_data_col2 = sorted(req_data, key=lambda x: x[1], reverse=True)
-        sorted_req_data_col1 = sorted(sorted_req_data_col2, key=lambda x: x[0])
-        for c1, c2, c3 in sorted_req_data_col1:
-            print("{:<6}{:<10}{:5}".format(c1, c2, c3))
+        sorted_req_data_col2_points = sorted(req_data, key=lambda x: x[1], reverse=True)
+        sorted_req_data_col1_id = sorted(sorted_req_data_col2_points, key=lambda x: x[0])
+        for c1, c2, c3 in sorted_req_data_col1_id:
+            print("{:<6}{:<10}{:5}%".format(c1, c2, c3))
 
     @classmethod
     def _grouper(cls, iterable) -> tuple[str, str]:

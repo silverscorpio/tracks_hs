@@ -1136,13 +1136,13 @@ feedback:
     Learning Progress Tracker
     > add students
     Enter student credentials or 'back' to return
-    > Trixie Winer address0@mail.com
+    > Shoshana Utica address0@mail.com
     The student has been added.
-    > Roxi Hett address1@mail.com
+    > Amye Uriisa address1@mail.com
     The student has been added.
-    > Dolley Panther address2@mail.com
+    > Francesca Francis address2@mail.com
     The student has been added.
-    > Natka Herculie address3@mail.com
+    > Van Fawnia address3@mail.com
     The student has been added.
     > back
     Total 4 students have been added.
@@ -1174,54 +1174,30 @@ feedback:
     > Python
     Python
     id    points    completed
-    1     10          0.0
-    2     5           0.0
-    3     5           0.0
-    4     2           0.0
-    Most popular: Python, DSA, Databases, Flask
-    Least popular: n/a
-    Highest activity: Python, DSA, Databases, Flask
-    Lowest activity: n/a
-    Easiest course: Python
-    Hardest course: Flask
+    1     10          0.0%
+    2     5           0.0%
+    3     5           0.0%
+    4     2           0.0%
     > DSA
     DSA
     id    points    completed
-    1     10          0.0
-    2     5           0.0
-    3     5           0.0
-    4     2           0.0
-    Most popular: Python, DSA, Databases, Flask
-    Least popular: n/a
-    Highest activity: Python, DSA, Databases, Flask
-    Lowest activity: n/a
-    Easiest course: Python
-    Hardest course: Flask
+    1     10          0.0%
+    2     5           0.0%
+    3     5           0.0%
+    4     2           0.0%
     > Databases
     Databases
     id    points    completed
-    1     10          0.0
-    2     5           0.0
-    3     5           0.0
-    4     2           0.0
-    Most popular: Python, DSA, Databases, Flask
-    Least popular: n/a
-    Highest activity: Python, DSA, Databases, Flask
-    Lowest activity: n/a
-    Easiest course: Python
-    Hardest course: Flask
+    1     10          0.0%
+    2     5           0.0%
+    3     5           0.0%
+    4     2           0.0%
     > Flask
     Flask
     id    points    completed
-    1     10          0.0
-    2     5           0.0
-    3     5           0.0
-    4     2           0.0
-    Most popular: Python, DSA, Databases, Flask
-    Least popular: n/a
-    Highest activity: Python, DSA, Databases, Flask
-    Lowest activity: n/a
-    Easiest course: Python
-    Hardest course: Flask
-  time: "Fri, 22 Dec 2023 02:36:41 UTC"
+    1     10          0.0%
+    2     5           0.0%
+    3     5           0.0%
+    4     2           0.0%
+  time: "Fri, 22 Dec 2023 02:50:02 UTC"
 record: -1
