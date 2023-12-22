@@ -188,19 +188,6 @@ Hardest course: {hardest}""")
                     enrollments[subject] += 1
 
         return Statistic._grouper(iterable=enrollments)
-        # sorted_enrollments = sorted(enrollments.items(), key=lambda p: p[1], reverse=True)
-        # grouped_enrollments = groupby(sorted_enrollments, key=lambda p: p[1])
-        # group_stuff = []
-        # for i, j in grouped_enrollments:
-        #     group_stuff.append((i, list(j)))
-        # max_stuff, min_stuff = group_stuff[0], group_stuff[-1]
-        # most_popular = [i[0] for i in max_stuff[1]]
-        # least_popular = [i[0] for i in min_stuff[1] if i[0] not in most_popular]
-        #
-        # result_most_popular = ', '.join(most_popular) if most_popular else "n/a"
-        # result_least_popular = ', '.join(least_popular) if least_popular else "n/a"
-        #
-        # return result_most_popular, result_least_popular
 
     @staticmethod
     def highest_and_lowest_activity() -> tuple[str, str]:
@@ -212,8 +199,6 @@ Hardest course: {hardest}""")
                 activity[k] += sum([1 for i in v if i > 0])
 
         return Statistic._grouper(iterable=activity)
-        # sorted_activity = sorted(activity.items(), key=lambda p: p[1], reverse=True)
-        # return sorted_activity[0][0], sorted_activity[-1][0]
 
     @staticmethod
     def hardest_and_easiest() -> tuple[str, str]:
