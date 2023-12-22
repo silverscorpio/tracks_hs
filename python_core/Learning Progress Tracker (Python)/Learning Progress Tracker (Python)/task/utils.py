@@ -224,12 +224,18 @@ Hardest course: {hardest}""")
         subject = subject.capitalize()
         print(subject)
         print("{:<6}{:<10}{:5}".format("id", "points", "completed"))
+        req_data = []
         for k, v in STUDENT_DATA.items():
             "{:<6}{:<10}{:5}".format("id", "points", "completed")
             col1 = k
             col2 = v["scores"][subject]
             col3 = round(sum(v["submissions"][subject]) / Statistic.TOTAL_POINTS[subject], 1)
-            print("{:<6}{:<10}{:5}".format(col1, col2, col3))
+            req_data.append((col1, col2, col3))
+
+        sorted_req_data_col2 = sorted(req_data, key=lambda x: x[1], reverse=True)
+        sorted_req_data_col1 = sorted(sorted_req_data_col2, key=lambda x: x[0])
+        for c1, c2, c3 in sorted_req_data_col1:
+            print("{:<6}{:<10}{:5}".format(c1, c2, c3))
 
 
 class Student:
