@@ -100,7 +100,6 @@ def main():
 
                     case "data":
                         CMD_DICT.get(user_input)()
-
                     case "notify":
                         CMD_DICT.get(user_input)()
 

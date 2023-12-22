@@ -150,27 +150,30 @@ def stats():
 
 def notify():
     successful_student_data = []
+    subjects_list = ["Python", "DSA", "Databases", "Flask"]
     for k, v in STUDENT_DATA.items():
-        req_data = {"id": k,
-                    "full_name": ' '.join([v["first_name"], v["last_name"]]),
-                    "email": v["email"],
-                    "notify_status": v["notified"],
-                    "subjects_passed": []}
+        if any([sum(v["submissions"][sub]) == Statistic.TOTAL_POINTS[sub] for sub in subjects_list]):
+            req_data = {"id": k,
+                        "full_name": ' '.join([v["first_name"], v["last_name"]]),
+                        "email": v["email"],
+                        "notify_status": v["notified"],
+                        "subjects_passed": [],
+                        }
+        
+            for sub in subjects_list:
+                if sum(v["submissions"][sub]) == Statistic.TOTAL_POINTS[sub]:
+                    req_data["subjects_passed"].append(sub)
 
-        for sub in ["Python", "DSA", "Databases", "Flask"]:
-            if sum(v["submissions"][sub]) == Statistic.TOTAL_POINTS[sub]:
-                req_data["subjects_passed"].append(sub)
-
-        successful_student_data.append(req_data)
+            successful_student_data.append(req_data)
 
     for student in successful_student_data:
-        for sub in student["subjects_passed"]:
-            if not student["notify_status"]:
+        if not student["notify_status"]:
+            for sub in student["subjects_passed"]:
                 msg = f"""To: {student["email"]}
 Re: Your Learning Progress
 Hello, {student["full_name"]}! You have accomplished our {sub} course!"""
                 print(msg)
-        STUDENT_DATA[student["id"]]["notified"] = True
+            STUDENT_DATA[student["id"]]["notified"] = True
     print(f"Total {len(successful_student_data)} students have been notified.")
 
 
