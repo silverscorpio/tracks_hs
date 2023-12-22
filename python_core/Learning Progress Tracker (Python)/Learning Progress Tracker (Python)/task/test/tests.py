@@ -12,6 +12,7 @@ CheckResult.correct = lambda: CheckResult(True, '')
 CheckResult.wrong = lambda feedback: CheckResult(False, feedback)
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
+
 def any_missing_keywords(output: str, *keywords: str):
     tokens = re.split("\\W+", output.lower())
     return not all(el.casefold() in tokens for el in keywords)
@@ -799,8 +800,8 @@ class LearningProgressTrackerTest(StageTest):
                                      "or is incorrectly sorted")
 
         if len(lines_flask) < 4 or (not re.match(".+\\s+12\\s+2\\.2\\s?%.*", lines_flask[2]) or
-                                 not re.match(".+\\s+11\\s+2\\.0\\s?%.*", lines_flask[3]) or
-                                 not lines_flask[2].startswith(ids[0]) or not lines_flask[3].startswith(ids[1])):
+                                    not re.match(".+\\s+11\\s+2\\.0\\s?%.*", lines_flask[3]) or
+                                    not lines_flask[2].startswith(ids[0]) or not lines_flask[3].startswith(ids[1])):
             return CheckResult.wrong("Your Flask student list either contains incorrect data "
                                      "or is incorrectly sorted")
 

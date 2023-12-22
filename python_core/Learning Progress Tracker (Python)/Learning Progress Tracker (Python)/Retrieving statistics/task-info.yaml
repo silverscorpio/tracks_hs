@@ -1121,5 +1121,25 @@ files:
           # pprint(STUDENT_DATA, indent=2)
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/26938#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: "Wrong answer in test #29\n\nYour first line should be python, but your\
+    \ output was Unknown course\n\nPlease find below the output of your program during\
+    \ this failed test.\nNote that the '>' character indicates the beginning of the\
+    \ input line.\n\n---\n\nLearning Progress Tracker\n> statistics\nType the name\
+    \ of a course to see details or 'back' to quit\n\nMost popular: n/a\nLeast popular:\
+    \ n/a\nHighest activity: n/a\nLowest activity: n/a\nEasiest course: n/a\nHardest\
+    \ course: n/a\n                \n> Python\nPython\nid    points    completed\n\
+    \nMost popular: n/a\nLeast popular: n/a\nHighest activity: n/a\nLowest activity:\
+    \ n/a\nEasiest course: n/a\nHardest course: n/a\n                \n> DSA\nDsa\n\
+    id    points    completed\n\nMost popular: n/a\nLeast popular: n/a\nHighest activity:\
+    \ n/a\nLowest activity: n/a\nEasiest course: n/a\nHardest course: n/a\n      \
+    \          \n> Databases\nDatabases\nid    points    completed\n\nMost popular:\
+    \ n/a\nLeast popular: n/a\nHighest activity: n/a\nLowest activity: n/a\nEasiest\
+    \ course: n/a\nHardest course: n/a\n                \n> Flask\nFlask\nid    points\
+    \    completed\n\nMost popular: n/a\nLeast popular: n/a\nHighest activity: n/a\n\
+    Lowest activity: n/a\nEasiest course: n/a\nHardest course: n/a\n             \
+    \   \n> python\nUnknown course\n\nMost popular: n/a\nLeast popular: n/a\nHighest\
+    \ activity: n/a\nLowest activity: n/a\nEasiest course: n/a\nHardest course: n/a"
+  time: "Fri, 22 Dec 2023 00:50:55 UTC"
 record: -1

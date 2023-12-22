@@ -134,7 +134,7 @@ def check_id(given_id: str):
             print(f"No student is found for id={student_id}")
             return
         sc1, sc2, sc3, sc4 = STUDENT_DATA[student_id]["scores"].values()
-        print(f"{student_id} points: Pythonthon={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
+        print(f"{student_id} points: Python={sc1}; DSA={sc2}; Databases={sc3}; Flask={sc4}")
     elif not id_match:
         print(f"No student is found for id={given_id}")
         return

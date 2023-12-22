@@ -94,7 +94,7 @@ def main():
                             elif subject not in ("Python", "DSA", "Databases", "Flask"):
                                 print("Unknown course")
                             else:
-                                stat_obj.top_learners(subject=subject)
+                                stat_obj.top_learners(subject=subject.capitalize())
 
                     case "data":
                         CMD_DICT.get(user_input)()
