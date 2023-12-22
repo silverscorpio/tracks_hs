@@ -212,9 +212,10 @@ Hardest course: {hardest}""")
 
     @staticmethod
     def top_learners(subject: str):
-        if subject == "dsa":
+        if subject in ("dsa", "DSA", "Dsa"):
             subject = subject.upper()
-        subject = subject.capitalize()
+        else:
+            subject = subject.capitalize()
         print(subject)
         print("{:<6}{:<10}{:5}".format("id", "points", "completed"))
         req_data = []
