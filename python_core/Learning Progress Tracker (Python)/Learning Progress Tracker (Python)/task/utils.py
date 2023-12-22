@@ -194,7 +194,11 @@ Hardest course: {hardest}""")
         max_stuff, min_stuff = group_stuff[0], group_stuff[-1]
         most_popular = [i[0] for i in max_stuff[1]]
         least_popular = [i[0] for i in min_stuff[1] if i[0] not in most_popular]
-        return ', '.join(most_popular), ', '.join(least_popular)
+
+        result_most_popular = ', '.join(most_popular) if most_popular else "n/a"
+        result_least_popular = ', '.join(least_popular) if least_popular else "n/a"
+
+        return result_most_popular, result_least_popular
 
     @staticmethod
     def highest_and_lowest_activity() -> tuple[str, str]:

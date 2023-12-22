@@ -1123,19 +1123,53 @@ files:
 feedback_link: https://hyperskill.org/learn/step/26938#comment
 status: Failed
 feedback:
-  message: "Wrong answer in test #31\n\nExpected least popular: n/a, but your output\
-    \ was: Least popular:\n\nPlease find below the output of your program during this\
-    \ failed test.\nNote that the '>' character indicates the beginning of the input\
-    \ line.\n\n---\n\nLearning Progress Tracker\n> add students\nEnter student credentials\
-    \ or 'back' to return\n> Barbara-Anne Chicky address0@mail.com\nThe student has\
-    \ been added.\n> Emelia Annnora address1@mail.com\nThe student has been added.\n\
-    > Carmella Campman address2@mail.com\nThe student has been added.\n> Alexina Belcher\
-    \ address3@mail.com\nThe student has been added.\n> back\nTotal 4 students have\
-    \ been added.\n> list\nStudents:\n1\n2\n3\n4\n> add points\nEnter an id and points\
-    \ or 'back' to return\n> 1 5 4 3 1\nPoints updated.\n> 2 5 4 3 1\nPoints updated.\n\
-    > 3 5 4 3 1\nPoints updated.\n> 4 5 4 3 1\nPoints updated.\n> back\n> statistics\n\
-    Type the name of a course to see details or 'back' to quit\nMost popular: Python,\
-    \ DSA, Databases, Flask\nLeast popular: \nHighest activity: Python\nLowest activity:\
-    \ Flask\nEasiest course: Python\nHardest course: Flask"
-  time: "Fri, 22 Dec 2023 02:20:54 UTC"
+  message: |-
+    Wrong answer in test #31
+
+    Expected highest activity: Python, DSA, Databases, Flask, but your output was: Highest activity: Python
+
+    Please find below the output of your program during this failed test.
+    Note that the '>' character indicates the beginning of the input line.
+
+    ---
+
+    Learning Progress Tracker
+    > add students
+    Enter student credentials or 'back' to return
+    > Beatrisa Jegar address0@mail.com
+    The student has been added.
+    > Elwira Florrie address1@mail.com
+    The student has been added.
+    > Charlena Girardo address2@mail.com
+    The student has been added.
+    > Dolley Panther address3@mail.com
+    The student has been added.
+    > back
+    Total 4 students have been added.
+    > list
+    Students:
+    1
+    2
+    3
+    4
+    > add points
+    Enter an id and points or 'back' to return
+    > 1 5 4 3 1
+    Points updated.
+    > 2 5 4 3 1
+    Points updated.
+    > 3 5 4 3 1
+    Points updated.
+    > 4 5 4 3 1
+    Points updated.
+    > back
+    > statistics
+    Type the name of a course to see details or 'back' to quit
+    Most popular: Python, DSA, Databases, Flask
+    Least popular: n/a
+    Highest activity: Python
+    Lowest activity: Flask
+    Easiest course: Python
+    Hardest course: Flask
+  time: "Fri, 22 Dec 2023 02:24:25 UTC"
 record: -1
