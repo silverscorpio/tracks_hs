@@ -1126,14 +1126,7 @@ feedback:
   message: |-
     Wrong answer in test #31
 
-    Expected header: Type the name of a course to see details or 'back' to quit and six lines with the following information: Most popular, Least popular, Highest activity, Lowest activity, Easiest course, Hardest course, but your output was: Type the name of a course to see details or 'back' to quit
-
-    Most popular: Python
-    Least popular: Python
-    Highest activity: Python
-    Lowest activity: Flask
-    Easiest course: Python
-    Hardest course: Flask
+    Expected most popular: Python, DSA, Databases, Flask, but your output was: Most popular: Python
 
     Please find below the output of your program during this failed test.
     Note that the '>' character indicates the beginning of the input line.
@@ -1143,13 +1136,13 @@ feedback:
     Learning Progress Tracker
     > add students
     Enter student credentials or 'back' to return
-    > Dalia Gleeson address0@mail.com
+    > Emelia Annnora address0@mail.com
     The student has been added.
-    > Amye Uriisa address1@mail.com
+    > Trixie Winer address1@mail.com
     The student has been added.
-    > Carmella Campman address2@mail.com
+    > Gwenette Kironde address2@mail.com
     The student has been added.
-    > Toby Bleier address3@mail.com
+    > Natka Herculie address3@mail.com
     The student has been added.
     > back
     Total 4 students have been added.
@@ -1172,12 +1165,11 @@ feedback:
     > back
     > statistics
     Type the name of a course to see details or 'back' to quit
-
     Most popular: Python
     Least popular: Python
     Highest activity: Python
     Lowest activity: Flask
     Easiest course: Python
     Hardest course: Flask
-  time: "Fri, 22 Dec 2023 01:14:19 UTC"
+  time: "Fri, 22 Dec 2023 01:24:47 UTC"
 record: -1

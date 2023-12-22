@@ -161,26 +161,22 @@ class Statistic:
 
     def __init__(self):
         if not STUDENT_DATA:
-            print("""
-Most popular: n/a
+            print("""Most popular: n/a
 Least popular: n/a
 Highest activity: n/a
 Lowest activity: n/a
 Easiest course: n/a
-Hardest course: n/a
-                """)
+Hardest course: n/a""")
         else:
             most_pop, least_pop = Statistic.most_and_least_popular()
             high_act, low_act = self.highest_and_lowest_activity()
             easiest, hardest = self.hardest_and_easiest()
-            print(f"""
-Most popular: {most_pop}
+            print(f"""Most popular: {most_pop}
 Least popular: {least_pop}
 Highest activity: {high_act}
 Lowest activity: {low_act}
 Easiest course: {easiest}
-Hardest course: {hardest}
-    """)
+Hardest course: {hardest}""")
 
     @staticmethod
     def most_and_least_popular() -> tuple[str, str]:
@@ -190,16 +186,15 @@ Hardest course: {hardest}
             if vals := [k for k, v in i.items() if v > 0]:
                 for subject in vals:
                     enrollments[subject] += 1
-        # sorted_enrollments = sorted(enrollments.items(), key=lambda p: p[1], reverse=True)
-        grouped_enrollments = groupby(enrollments.items(), key=lambda p: p[1])
-        values, groups = [], []
-        for v, g in grouped_enrollments:
-            values.append(v)
-            groups.append(list(g))
-        max_value, min_value = max(values), min(values)
-        most_popular = [i for i in groups if i[0][1] == max_value]
-        least_popular = [i for i in groups if i[0][1] == min_value]
-        return ', '.join([i[0][0] for i in most_popular]), ', '.join([i[0][0] for i in least_popular])
+        sorted_enrollments = sorted(enrollments.items(), key=lambda p: p[1], reverse=True)
+        grouped_enrollments = groupby(sorted_enrollments, key=lambda p: p[1])
+        group_stuff = []
+        for i, j in grouped_enrollments:
+            group_stuff.append((i, list(j)))
+        max_stuff, min_stuff = group_stuff[0], group_stuff[-1]
+        most_popular = [i[0] for i in max_stuff[1]]
+        least_popular = [i[0] for i in min_stuff[1] if i[0] not in most_popular]
+        return ', '.join(most_popular), ', '.join(least_popular)
 
     @staticmethod
     def highest_and_lowest_activity() -> tuple[str, str]:
