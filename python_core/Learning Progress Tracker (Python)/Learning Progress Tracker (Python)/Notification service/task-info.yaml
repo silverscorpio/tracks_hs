@@ -1332,5 +1332,37 @@ files:
           # print(enrollments)
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/26939#comment
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #35
+
+    Expected output with 2 notifications should consist of 7 lines, but your output was: 1 lines
+
+    Please find below the output of your program during this failed test.
+    Note that the '>' character indicates the beginning of the input line.
+
+    ---
+
+    Learning Progress Tracker
+    > add students
+    Enter student credentials or 'back' to return
+    > John Doe johnd@email.net
+    The student has been added.
+    > Jane Spark jspark@yahoo.com
+    The student has been added.
+    > back
+    Total 2 students have been added.
+    > list
+    Students:
+    1
+    2
+    > add points
+    Enter an id and points or 'back' to return
+    > 1 600 400 0 0
+    Points updated.
+    > back
+    > notify
+    Total 2 students have been notified.
+  time: "Fri, 22 Dec 2023 05:58:52 UTC"
 record: -1
