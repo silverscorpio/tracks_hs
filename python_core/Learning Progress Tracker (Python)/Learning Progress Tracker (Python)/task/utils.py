@@ -148,6 +148,32 @@ def stats():
     return stat_obj
 
 
+def notify():
+    successful_student_data = []
+    for k, v in STUDENT_DATA.items():
+        req_data = {"id": k,
+                    "full_name": ' '.join([v["first_name"], v["last_name"]]),
+                    "email": v["email"],
+                    "notify_status": v["notified"],
+                    "subjects_passed": []}
+
+        for sub in ["Python", "DSA", "Databases", "Flask"]:
+            if sum(v["submissions"][sub]) == Statistic.TOTAL_POINTS[sub]:
+                req_data["subjects_passed"].append(sub)
+
+        successful_student_data.append(req_data)
+
+    for student in successful_student_data:
+        for sub in student["subjects_passed"]:
+            if student["notify_status"]:
+                msg = f"""To: {student["email"]}
+Re: Your Learning Progress
+Hello, {student["full_name"]}! You have accomplished our {student[sub]} course!"""
+                print(msg)
+                STUDENT_DATA[student["id"]]["notified"] = True
+        print(f"Total {len(successful_student_data)} students have been notified.")
+
+
 ##################################################################
 
 # Classes
@@ -270,7 +296,8 @@ class Student:
             "last_name": self.last_name,
             "email": self.email,
             "scores": self.scores,
-            "submissions": self.submissions
+            "submissions": self.submissions,
+            "notified": False,
         }
         print("The student has been added.")
 

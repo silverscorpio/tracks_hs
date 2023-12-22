@@ -11,6 +11,7 @@ from utils import (exit_cmd,
                    check_id,
                    get_student_data,
                    stats,
+                   notify,
                    )
 
 CMD_DICT = {
@@ -25,6 +26,7 @@ CMD_DICT = {
     "find": check_id,
     "statistics": stats,
     "data": get_student_data,
+    "notify": notify,
 }
 
 
@@ -97,6 +99,9 @@ def main():
                                 stats_obj.top_learners(subject=subject)
 
                     case "data":
+                        CMD_DICT.get(user_input)()
+
+                    case "notify":
                         CMD_DICT.get(user_input)()
 
             else:
