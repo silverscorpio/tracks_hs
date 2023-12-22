@@ -168,7 +168,7 @@ def notify():
             if not student["notify_status"]:
                 msg = f"""To: {student["email"]}
 Re: Your Learning Progress
-Hello, {student["full_name"]}! You have accomplished our {student["subjects_passed"][sub]} course!"""
+Hello, {student["full_name"]}! You have accomplished our {sub} course!"""
                 print(msg)
         STUDENT_DATA[student["id"]]["notified"] = True
     print(f"Total {len(successful_student_data)} students have been notified.")

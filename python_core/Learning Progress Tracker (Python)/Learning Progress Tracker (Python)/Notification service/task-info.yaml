@@ -1335,9 +1335,17 @@ feedback_link: https://hyperskill.org/learn/step/26939#comment
 status: Failed
 feedback:
   message: |-
-    Wrong answer in test #35
+    Exception in test #35
 
-    Expected output with 2 notifications should consist of 7 lines, but your output was: 1 lines
+    Traceback (most recent call last):
+      File "task.py", line 116, in <module>
+        main()
+      File "task.py", line 105, in main
+        CMD_DICT.get(user_input)()
+      File "utils.py", line 171, in notify
+        Hello, {student["full_name"]}! You have accomplished our {student["subjects_passed"][sub]} course!"""
+                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+    TypeError: list indices must be integers or slices, not str
 
     Please find below the output of your program during this failed test.
     Note that the '>' character indicates the beginning of the input line.
@@ -1363,6 +1371,5 @@ feedback:
     Points updated.
     > back
     > notify
-    Total 2 students have been notified.
-  time: "Fri, 22 Dec 2023 05:58:52 UTC"
+  time: "Fri, 22 Dec 2023 06:00:46 UTC"
 record: -1
