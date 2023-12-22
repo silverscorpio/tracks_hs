@@ -222,13 +222,13 @@ Hardest course: {hardest}""")
         for k, v in STUDENT_DATA.items():
             "{:<6}{:<10}{:5}".format("id", "points", "completed")
             col1 = k
-            col2 = v["scores"][subject]
-            col3 = round(sum(v["submissions"][subject]) / Statistic.TOTAL_POINTS[subject], 1)
+            col2 = sum(v["submissions"][subject])
+            col3 = round((col2 / Statistic.TOTAL_POINTS[subject]) * 100, 1)
             req_data.append((col1, col2, col3))
 
-        sorted_req_data_col2_points = sorted(req_data, key=lambda x: x[1], reverse=True)
-        sorted_req_data_col1_id = sorted(sorted_req_data_col2_points, key=lambda x: x[0])
-        for c1, c2, c3 in sorted_req_data_col1_id:
+        sorted_req_data_col1_id = sorted(req_data, key=lambda x: x[0])
+        sorted_req_data_col2_points = sorted(sorted_req_data_col1_id, key=lambda x: x[1], reverse=True)
+        for c1, c2, c3 in sorted_req_data_col2_points:
             print("{:<6}{:<10}{:5}%".format(c1, c2, c3))
 
     @classmethod
