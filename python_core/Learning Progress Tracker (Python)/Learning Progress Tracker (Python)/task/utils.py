@@ -159,22 +159,24 @@ def notify():
                         "notify_status": v["notified"],
                         "subjects_passed": [],
                         }
-        
+
             for sub in subjects_list:
                 if sum(v["submissions"][sub]) == Statistic.TOTAL_POINTS[sub]:
                     req_data["subjects_passed"].append(sub)
 
             successful_student_data.append(req_data)
 
+    notified_students = 0
     for student in successful_student_data:
         if not student["notify_status"]:
+            notified_students += 1
             for sub in student["subjects_passed"]:
                 msg = f"""To: {student["email"]}
 Re: Your Learning Progress
 Hello, {student["full_name"]}! You have accomplished our {sub} course!"""
                 print(msg)
             STUDENT_DATA[student["id"]]["notified"] = True
-    print(f"Total {len(successful_student_data)} students have been notified.")
+    print(f"Total {notified_students} students have been notified.")
 
 
 ##################################################################
