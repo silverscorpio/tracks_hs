@@ -87,14 +87,14 @@ def main():
                     case "statistics":
                         print("Type the name of a course to see details or 'back' to quit")
                         while True:
-                            CMD_DICT.get(user_input)()
+                            stat_obj = CMD_DICT.get(user_input)()
                             subject = input()
                             if subject == "back":
                                 break
                             elif subject not in ("Python", "DSA", "Databases", "Flask"):
                                 print("Unknown course")
                             else:
-                                pass
+                                stat_obj.top_learners(subject=subject)
 
                     case "data":
                         CMD_DICT.get(user_input)()

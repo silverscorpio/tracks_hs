@@ -141,11 +141,19 @@ def check_id(given_id: str):
 
 
 def stats():
-    stat = Statistic()
+    stat_obj = Statistic()
+    return stat_obj
 
 
 # classes
 class Statistic:
+    TOTAL_POINTS = {
+        "Python": 600,
+        "DSA": 400,
+        "Databases": 480,
+        "Flask": 550,
+    }
+
     def __init__(self):
         if not STUDENT_DATA:
             print("""
@@ -178,7 +186,6 @@ Hardest course: {hardest}
                 for subject in vals:
                     enrollments[subject] += 1
         # sorted_enrollments = sorted(enrollments.items(), key=lambda p: p[1], reverse=True)
-        # TODO - get all subjects for the max value - groupby itertools
         grouped_enrollments = groupby(enrollments.items(), key=lambda p: p[1])
         values, groups = [], []
         for v, g in grouped_enrollments:
@@ -202,12 +209,6 @@ Hardest course: {hardest}
 
     @staticmethod
     def hardest_and_easiest() -> tuple[str, str]:
-        # avg_scores = {"Python": round(sum([v["scores"]["Python"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-        #               "DSA": round(sum([v["scores"]["DSA"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-        #               "Databases": round(sum([v["scores"]["Databases"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1),
-        #               "Flask": round(sum([v["scores"]["Flask"] for v in STUDENT_DATA.values()]) / len(STUDENT_DATA), 1)
-        #               }
-
         avg_scores = {"Python": round(max([v["scores"]["Python"] for v in STUDENT_DATA.values()]), 1),
                       "DSA": round(max([v["scores"]["DSA"] for v in STUDENT_DATA.values()]), 1),
                       "Databases": round(max([v["scores"]["Databases"] for v in STUDENT_DATA.values()]), 1),
@@ -216,8 +217,16 @@ Hardest course: {hardest}
         sorted_avg_scores = sorted(avg_scores.items(), key=lambda p: p[1], reverse=True)
         return sorted_avg_scores[0][0], sorted_avg_scores[-1][0]
 
-    def top_learners(self):
-        pass
+    @staticmethod
+    def top_learners(subject):
+        print(subject)
+        print("{:<6}{:<10}{:5}".format("id", "points", "completed"))
+        for k, v in STUDENT_DATA.items():
+            "{:<6}{:<10}{:5}".format("id", "points", "completed")
+            col1 = k
+            col2 = v["scores"][subject]
+            col3 = round(sum(v["submissions"][subject]) / Statistic.TOTAL_POINTS[subject], 1)
+            print("{:<6}{:<10}{:5}".format(col1, col2, col3))
 
 
 class Student:
@@ -359,23 +368,24 @@ class InputParser:
 
 
 if __name__ == '__main__':
-    x = Student("panda", "dodo", "chaku@gmail.com")
-    x.save_student()
-    y = Student("chu", "champ", "alpha@gmail.com")
-    y.save_student()
-    z = Student("dragon", "lulu", "psider@gmail.com")
-    z.save_student()
-    STUDENT_DATA['1']['scores'] = {'Python': 1, 'DSA': 2, 'Databases': 3, 'Flask': 4}
-    STUDENT_DATA['1']['scores'] = {'Python': 0, 'DSA': 9, 'Databases': 10, 'Flask': 6}
-    STUDENT_DATA['2']['scores'] = {'Python': 10, 'DSA': 20, 'Databases': 30, 'Flask': 50}
-    STUDENT_DATA['3']['scores'] = {'Python': 35, 'DSA': 9, 'Databases': 78, 'Flask': 90}
-    pprint(STUDENT_DATA, indent=4)
-    # most popular
-    enrollments = {"Python": 0, "DSA": 0, "Databases": 0, "Flask": 0}
-    for k, v in STUDENT_DATA.items():
-        for subject in enrollments.keys():
-            if v["scores"][subject] > 0:
-                enrollments[subject] += 1
-
-    # Python_scores = {k: v['scores']["Python"] for k, v in STUDENT_DATA.items()}
-    print(enrollments)
+    pass
+    # x = Student("panda", "dodo", "chaku@gmail.com")
+    # x.save_student()
+    # y = Student("chu", "champ", "alpha@gmail.com")
+    # y.save_student()
+    # z = Student("dragon", "lulu", "psider@gmail.com")
+    # z.save_student()
+    # STUDENT_DATA['1']['scores'] = {'Python': 1, 'DSA': 2, 'Databases': 3, 'Flask': 4}
+    # STUDENT_DATA['1']['scores'] = {'Python': 0, 'DSA': 9, 'Databases': 10, 'Flask': 6}
+    # STUDENT_DATA['2']['scores'] = {'Python': 10, 'DSA': 20, 'Databases': 30, 'Flask': 50}
+    # STUDENT_DATA['3']['scores'] = {'Python': 35, 'DSA': 9, 'Databases': 78, 'Flask': 90}
+    # pprint(STUDENT_DATA, indent=4)
+    # # most popular
+    # enrollments = {"Python": 0, "DSA": 0, "Databases": 0, "Flask": 0}
+    # for k, v in STUDENT_DATA.items():
+    #     for subject in enrollments.keys():
+    #         if v["scores"][subject] > 0:
+    #             enrollments[subject] += 1
+    #
+    # # Python_scores = {k: v['scores']["Python"] for k, v in STUDENT_DATA.items()}
+    # print(enrollments)
