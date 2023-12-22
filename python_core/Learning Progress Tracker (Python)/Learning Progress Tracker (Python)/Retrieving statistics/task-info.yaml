@@ -1124,9 +1124,17 @@ feedback_link: https://hyperskill.org/learn/step/26938#comment
 status: Failed
 feedback:
   message: |-
-    Wrong answer in test #31
+    Exception in test #32
 
-    Expected highest activity: Python, DSA, Databases, Flask, but your output was: Highest activity: Python
+    Traceback (most recent call last):
+      File "task.py", line 111, in <module>
+        main()
+      File "task.py", line 97, in main
+        stat_obj.top_learners(subject=subject)
+      File "utils.py", line 239, in top_learners
+        col2 = v["scores"][subject]
+               ~~~~~~~~~~~^^^^^^^^^
+    KeyError: 'Dsa'
 
     Please find below the output of your program during this failed test.
     Note that the '>' character indicates the beginning of the input line.
@@ -1136,13 +1144,13 @@ feedback:
     Learning Progress Tracker
     > add students
     Enter student credentials or 'back' to return
-    > Beatrisa Jegar address0@mail.com
+    > Olga Rosanne address0@mail.com
     The student has been added.
-    > Elwira Florrie address1@mail.com
+    > Amye Uriisa address1@mail.com
     The student has been added.
-    > Charlena Girardo address2@mail.com
+    > Natka Herculie address2@mail.com
     The student has been added.
-    > Dolley Panther address3@mail.com
+    > Tasha Chem address3@mail.com
     The student has been added.
     > back
     Total 4 students have been added.
@@ -1154,22 +1162,38 @@ feedback:
     4
     > add points
     Enter an id and points or 'back' to return
-    > 1 5 4 3 1
+    > 1 10 10 10 10
     Points updated.
-    > 2 5 4 3 1
+    > 2 5 5 5 5
     Points updated.
-    > 3 5 4 3 1
+    > 3 5 5 5 5
     Points updated.
-    > 4 5 4 3 1
+    > 4 2 2 2 2
     Points updated.
     > back
     > statistics
     Type the name of a course to see details or 'back' to quit
     Most popular: Python, DSA, Databases, Flask
     Least popular: n/a
-    Highest activity: Python
-    Lowest activity: Flask
+    Highest activity: Python, DSA, Databases, Flask
+    Lowest activity: n/a
     Easiest course: Python
     Hardest course: Flask
-  time: "Fri, 22 Dec 2023 02:24:25 UTC"
+    > Python
+    Python
+    id    points    completed
+    1     10          0.0
+    2     5           0.0
+    3     5           0.0
+    4     2           0.0
+    Most popular: Python, DSA, Databases, Flask
+    Least popular: n/a
+    Highest activity: Python, DSA, Databases, Flask
+    Lowest activity: n/a
+    Easiest course: Python
+    Hardest course: Flask
+    > DSA
+    Dsa
+    id    points    completed
+  time: "Fri, 22 Dec 2023 02:31:15 UTC"
 record: -1
