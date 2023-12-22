@@ -15,6 +15,9 @@ SCORES_REGEX = re.compile(r"^\d{1,}( \d{1,}){4}$", flags=re.ASCII)
 ID_REGEX = re.compile(r"\d{1,}", flags=re.ASCII)
 
 
+##################################################################
+
+# Functions
 def get_student_data():
     pprint(STUDENT_DATA, indent=4)
 
@@ -145,7 +148,9 @@ def stats():
     return stat_obj
 
 
-# classes
+##################################################################
+
+# Classes
 class Statistic:
     TOTAL_POINTS = {
         "Python": 600,
@@ -218,7 +223,10 @@ Hardest course: {hardest}
         return sorted_avg_scores[0][0], sorted_avg_scores[-1][0]
 
     @staticmethod
-    def top_learners(subject):
+    def top_learners(subject: str):
+        if subject == "dsa":
+            subject = subject.upper()
+        subject = subject.capitalize()
         print(subject)
         print("{:<6}{:<10}{:5}".format("id", "points", "completed"))
         for k, v in STUDENT_DATA.items():

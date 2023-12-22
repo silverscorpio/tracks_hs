@@ -1123,23 +1123,61 @@ files:
 feedback_link: https://hyperskill.org/learn/step/26938#comment
 status: Failed
 feedback:
-  message: "Wrong answer in test #29\n\nYour first line should be python, but your\
-    \ output was Unknown course\n\nPlease find below the output of your program during\
-    \ this failed test.\nNote that the '>' character indicates the beginning of the\
-    \ input line.\n\n---\n\nLearning Progress Tracker\n> statistics\nType the name\
-    \ of a course to see details or 'back' to quit\n\nMost popular: n/a\nLeast popular:\
-    \ n/a\nHighest activity: n/a\nLowest activity: n/a\nEasiest course: n/a\nHardest\
-    \ course: n/a\n                \n> Python\nPython\nid    points    completed\n\
-    \nMost popular: n/a\nLeast popular: n/a\nHighest activity: n/a\nLowest activity:\
-    \ n/a\nEasiest course: n/a\nHardest course: n/a\n                \n> DSA\nDsa\n\
-    id    points    completed\n\nMost popular: n/a\nLeast popular: n/a\nHighest activity:\
-    \ n/a\nLowest activity: n/a\nEasiest course: n/a\nHardest course: n/a\n      \
-    \          \n> Databases\nDatabases\nid    points    completed\n\nMost popular:\
-    \ n/a\nLeast popular: n/a\nHighest activity: n/a\nLowest activity: n/a\nEasiest\
-    \ course: n/a\nHardest course: n/a\n                \n> Flask\nFlask\nid    points\
-    \    completed\n\nMost popular: n/a\nLeast popular: n/a\nHighest activity: n/a\n\
-    Lowest activity: n/a\nEasiest course: n/a\nHardest course: n/a\n             \
-    \   \n> python\nUnknown course\n\nMost popular: n/a\nLeast popular: n/a\nHighest\
-    \ activity: n/a\nLowest activity: n/a\nEasiest course: n/a\nHardest course: n/a"
-  time: "Fri, 22 Dec 2023 00:50:55 UTC"
+  message: |-
+    Wrong answer in test #31
+
+    Expected header: Type the name of a course to see details or 'back' to quit and six lines with the following information: Most popular, Least popular, Highest activity, Lowest activity, Easiest course, Hardest course, but your output was: Type the name of a course to see details or 'back' to quit
+
+    Most popular: Python
+    Least popular: Python
+    Highest activity: Python
+    Lowest activity: Flask
+    Easiest course: Python
+    Hardest course: Flask
+
+    Please find below the output of your program during this failed test.
+    Note that the '>' character indicates the beginning of the input line.
+
+    ---
+
+    Learning Progress Tracker
+    > add students
+    Enter student credentials or 'back' to return
+    > Dalia Gleeson address0@mail.com
+    The student has been added.
+    > Amye Uriisa address1@mail.com
+    The student has been added.
+    > Carmella Campman address2@mail.com
+    The student has been added.
+    > Toby Bleier address3@mail.com
+    The student has been added.
+    > back
+    Total 4 students have been added.
+    > list
+    Students:
+    1
+    2
+    3
+    4
+    > add points
+    Enter an id and points or 'back' to return
+    > 1 5 4 3 1
+    Points updated.
+    > 2 5 4 3 1
+    Points updated.
+    > 3 5 4 3 1
+    Points updated.
+    > 4 5 4 3 1
+    Points updated.
+    > back
+    > statistics
+    Type the name of a course to see details or 'back' to quit
+
+    Most popular: Python
+    Least popular: Python
+    Highest activity: Python
+    Lowest activity: Flask
+    Easiest course: Python
+    Hardest course: Flask
+  time: "Fri, 22 Dec 2023 01:14:19 UTC"
 record: -1
