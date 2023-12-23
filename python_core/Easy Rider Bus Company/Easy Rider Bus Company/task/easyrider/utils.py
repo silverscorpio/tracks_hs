@@ -20,7 +20,7 @@ class Validator:
          self.stop_types,
          self.a_times) = self.extract_fields()
 
-        self.errors = defaultdict(dict)
+        self.errors = defaultdict(lambda: defaultdict(int))
 
     def extract_fields(self):
         return (
