@@ -168,6 +168,9 @@ files:
       
       if __name__ == '__main__':    EasyRiderStage1('easyrider.easyrider').run_tests()
     learner_created: false
+  - name: easyrider/utils.py
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/128/stages/680/implement#comment
 status: Unchecked
 record: -1
