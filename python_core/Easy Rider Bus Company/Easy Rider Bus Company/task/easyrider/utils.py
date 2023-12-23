@@ -10,13 +10,8 @@ class Validator:
     def validate_data_types(self):
         pass
 
+    def validate_required_fields(self):
+        pass
 
-g
-
-
-def validate_required_fields(self):
-    pass
-
-
-def get_validation_result(self):
-    pass
+    def get_validation_result(self):
+        pass
