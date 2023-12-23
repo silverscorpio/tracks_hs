@@ -1,6 +1,6 @@
 from utils import Validator
 
-sample_json_data: str = '''
+SAMPLE_JSON_DATA: str = '''
 [
     {
         "bus_id": 128,
@@ -87,7 +87,8 @@ sample_json_data: str = '''
 
 
 def main():
-    json_data_input = input()
+    json_data_input = SAMPLE_JSON_DATA
+    # json_data_input = input() # for final implementation
     validator = Validator(json_data=json_data_input)
 
 
