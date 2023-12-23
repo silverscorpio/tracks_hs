@@ -95,10 +95,11 @@ a_time: {field_errors["a_time"]}""")
                 self.errors["next_stop"]["required"] += 1
 
     def stop_type_validator(self):
-        # char (string)
+        # char (string of len 1)
         for val in self.stop_types:
-            if val[1] and not isinstance(val[1], str):
-                self.errors["stop_type"]["type"] += 1
+            if val[1]:
+                if (not isinstance(val[1], str)) or (isinstance(val[1], str) and len(val[1]) != 1):
+                    self.errors["stop_type"]["type"] += 1
 
     def a_time_validator(self):
         # string
