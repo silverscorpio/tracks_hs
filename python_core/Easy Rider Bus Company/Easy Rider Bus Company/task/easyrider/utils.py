@@ -32,6 +32,14 @@ class Validator:
             [(idx, val["a_time"]) for idx, val in enumerate(self.json)]
         )
 
+    def validate_fields(self):
+        self.bus_id_validator()
+        self.stop_id_validator()
+        self.stop_name_validator()
+        self.next_stop_validator()
+        self.stop_type_validator()
+        self.a_time_validator()
+
     def report_errors(self):
         total_type_errors = sum([v["type"] for v in self.errors.values()])
         total_required_errors = sum([v["required"] for v in self.errors.values()])
