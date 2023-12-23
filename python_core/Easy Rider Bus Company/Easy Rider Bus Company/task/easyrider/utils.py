@@ -61,53 +61,50 @@ a_time: {field_errors["a_time"]}""")
     def bus_id_validator(self):
         # integer
         for val in self.bus_ids:
-            if not isinstance(val[1], int):
+            if val[1] and not isinstance(val[1], int):
                 self.errors["bus_id"]["type"] += 1
 
-            if not val[1]:
+            if val[1] == "":
                 self.errors["bus_id"]["required"] += 1
 
     def stop_id_validator(self):
         # integer
         for val in self.stop_ids:
-            if not isinstance(val[1], int):
+            if val[1] and not isinstance(val[1], int):
                 self.errors["stop_id"]["type"] += 1
 
-            if not val[1]:
+            if val[1] == "":
                 self.errors["stop_id"]["required"] += 1
 
     def stop_name_validator(self):
         # string
         for val in self.stop_names:
-            if not isinstance(val[1], str):
+            if val[1] and not isinstance(val[1], str):
                 self.errors["stop_name"]["type"] += 1
 
-            if not val[1]:
+            if val[1] == "":
                 self.errors["stop_name"]["required"] += 1
 
     def next_stop_validator(self):
         # integer
         for val in self.next_stops:
-            if not isinstance(val[1], int):
+            if val[1] and not isinstance(val[1], int):
                 self.errors["next_stop"]["type"] += 1
 
-            if not val[1]:
+            if val[1] == "":
                 self.errors["next_stop"]["required"] += 1
 
     def stop_type_validator(self):
         # char (string)
         for val in self.stop_types:
-            if not isinstance(val[1], str):
+            if val[1] and not isinstance(val[1], str):
                 self.errors["stop_type"]["type"] += 1
-
-            if not val[1]:
-                self.errors["stop_type"]["required"] += 1
 
     def a_time_validator(self):
         # string
         for val in self.a_times:
-            if not isinstance(val[1], str):
+            if val[1] and not isinstance(val[1], str):
                 self.errors["a_time"]["type"] += 1
 
-            if not val[1]:
+            if val[1] == "":
                 self.errors["a_time"]["required"] += 1
