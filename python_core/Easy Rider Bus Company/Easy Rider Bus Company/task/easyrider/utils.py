@@ -16,7 +16,7 @@ class Validator:
     STOP_NAME_REGEX = re.compile(r"[A-Z]{1}. Road|Avenue|Boulevard|Street", flags=re.ASCII)
     NEXT_STOP_REGEX = ""
     STOP_TYPE_REGEX = re.compile(r"[SOF]{1}", flags=re.ASCII)
-    A_TIME_REGEX = re.compile(r"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$", flags=re.ASCII)
+    A_TIME_REGEX = re.compile(r"^([0-1]{1}[0-9]|2[0-3]):[0-5][0-9]$", flags=re.ASCII)
 
     def __init__(self, json_data: str):
         self.raw_json = json_data
@@ -127,8 +127,8 @@ a_time: {field_errors["a_time"]}""")
                     self.errors["stop_type"]["type"] += 1
 
                 # format errors
-                stop_name_match = match_regex(template=Validator.STOP_NAME_REGEX, given_str=val[1])
-                if not stop_name_match:
+                stop_type_match = match_regex(template=Validator.STOP_TYPE_REGEX, given_str=val[1])
+                if not stop_type_match:
                     self.errors["stop_type"]["format"] += 1
 
     def a_time_validator(self):
@@ -141,6 +141,6 @@ a_time: {field_errors["a_time"]}""")
                 self.errors["a_time"]["required"] += 1
 
             # format errors
-            arrival_time_match = match_regex(template=Validator.A_TIME_REGEX, given_str=val[1])
-            if not arrival_time_match:
+            a_time_match = match_regex(template=Validator.A_TIME_REGEX, given_str=val[1])
+            if not a_time_match:
                 self.errors["a_time"]["format"] += 1
