@@ -18,12 +18,6 @@ class Validator:
     STOP_TYPE_REGEX = re.compile(r"^[SOF]{1}$", flags=re.ASCII)
     A_TIME_REGEX = re.compile(r"^([0-1]{1}[0-9]|2[0-3]):[0-5][0-9]$", flags=re.ASCII)
 
-    BUS_DATA = {
-        128: 4,
-        256: 4,
-        512: 2
-    }
-
     def __init__(self, json_data: str):
         self.raw_json = json_data
         self.json: list = json.loads(self.raw_json)
@@ -82,10 +76,12 @@ stop_type: {field_errors["stop_type"]}
 a_time: {field_errors["a_time"]}""")
 
     def report_bus_data(self):
-        unique_bus_ids = {i[1] for i in self.bus_ids}
+        bus_data = defaultdict(list)
+        for i in self.json:
+            bus_data[i["bus_id"]].append(i["stop_id"])
         print("Line names and number of stops:")
-        for id_bus in unique_bus_ids:
-            print(f"bus_id: {id_bus}, stops: {Validator.BUS_DATA[id_bus]}")
+        for k, v in bus_data.items():
+            print(f"bus_id: {k}, stops: {len(v)}")
 
     # field/db column validators
     def bus_id_validator(self):

@@ -255,8 +255,8 @@ SAMPLE_JSON_DATA_BUS: str = '''
 
 
 def main():
-    json_data_input = SAMPLE_JSON_DATA_BUS
-    # json_data_input = input()  # for final implementation
+    # json_data_input = SAMPLE_JSON_DATA_BUS
+    json_data_input = input()  # for final implementation
     validator = Validator(json_data=json_data_input)
     validator.validate_fields()
     # validator.report_errors(format_errors=True)
