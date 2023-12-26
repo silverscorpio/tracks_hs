@@ -1,6 +1,8 @@
+from datetime import datetime
 import re
 import json
 from collections import defaultdict
+from pprint import pprint
 
 
 def match_regex(template: re.Pattern[str], given_str: str) -> bool:
@@ -44,6 +46,34 @@ class Validator:
         self.next_stop_validator()
         self.stop_type_validator()
         self.a_time_validator()
+
+    def check_a_time(self):
+        bus_stop_time_data = defaultdict(list)
+        for i in self.json:
+            bus_stop_time_data[i["bus_id"]].append((i["stop_name"], i["next_stop"], i["a_time"]))
+        bus_stop_time_data_sorted = {k: v for k, v in sorted(bus_stop_time_data.items(), key=lambda v: v[1][1])}
+        wrong_a_times = defaultdict(tuple)
+        for k, v in bus_stop_time_data_sorted.items():
+            if result_tuple := Validator.cumulative_diff_times(sequence=v):
+                wrong_a_times[k] = result_tuple
+        if wrong_a_times:
+            print("Arrival time test:")
+            for k, v in wrong_a_times.items():
+                print(f"""bus_id line {k}: wrong time on station {v[0]}""")
+
+        else:
+            print("""
+Arrival time test:
+OK""")
+
+    @classmethod
+    def cumulative_diff_times(cls, sequence: list[tuple[str, str, str]]) -> tuple:
+        sequence_datetime = [(j[0], j[1], datetime.strptime(j[2], "%H:%M")) for j in sequence]
+        for idx, val in enumerate(sequence_datetime[:-1]):
+            if sequence_datetime[idx + 1][2] <= val[2]:
+                sequence_datetime[idx + 1] = (sequence_datetime[idx + 1][0], sequence_datetime[idx + 1][1],
+                                              sequence_datetime[idx + 1][2].strftime("%H:%M"))
+                return sequence_datetime[idx + 1]
 
     def determine_bus_stops(self):
         bus_stop_data = defaultdict(list)
@@ -181,3 +211,7 @@ a_time: {field_errors["a_time"]}""")
             a_time_match = match_regex(template=Validator.A_TIME_REGEX, given_str=val[1])
             if not a_time_match:
                 self.errors["a_time"]["format"] += 1
+
+
+if __name__ == '__main__':
+    pass

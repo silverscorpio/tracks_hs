@@ -384,5 +384,8 @@ files:
                       self.errors["a_time"]["format"] += 1
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/10892#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Tue, 26 Dec 2023 08:28:59 UTC"
 record: -1
