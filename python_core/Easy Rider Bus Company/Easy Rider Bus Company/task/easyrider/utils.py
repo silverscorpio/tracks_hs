@@ -26,6 +26,7 @@ class Validator:
          self.next_stops,
          self.stop_types,
          self.a_times) = self.extract_fields()
+        self.start_stops, self.finish_stops, self.transfer_stops = set(), set(), set()
 
         self.errors = defaultdict(lambda: defaultdict(int))
 
@@ -75,7 +76,7 @@ OK""")
                                               sequence_datetime[idx + 1][2].strftime("%H:%M"))
                 return sequence_datetime[idx + 1]
 
-    def determine_bus_stops(self):
+    def determine_bus_stops(self, report_stops_data: bool = False):
         bus_stop_data = defaultdict(list)
         all_stops = defaultdict(int)
         for i in self.json:
@@ -86,13 +87,12 @@ OK""")
                 print(f"There is no start or end stop for the line: {k}.")
                 return
 
-        start_stops, finish_stops = set(), set()
         for v in bus_stop_data.values():
             for i in v:
                 if i[0] == "S":
-                    start_stops.add(i[1])
+                    self.start_stops.add(i[1])
                 elif i[0] == "F":
-                    finish_stops.add(i[1])
+                    self.finish_stops.add(i[1])
 
         stops_for_bus = {k: set([i[1] for i in v]) for k, v in bus_stop_data.items()}
         for k1 in all_stops:
@@ -100,12 +100,30 @@ OK""")
                 if k1 in v:
                     all_stops[k1] += 1
 
-        transfer_stops = {k for k, v in all_stops.items() if v >= 2}
+        self.transfer_stops = {k for k, v in all_stops.items() if v >= 2}
 
-        print(f"""
-Start stops: {len(start_stops)} {sorted(start_stops)}
-Transfer stops: {len(transfer_stops)} {sorted(transfer_stops)}
-Finish stops: {len(finish_stops)} {sorted(finish_stops)}""")
+        if report_stops_data:
+            print(f"""
+Start stops: {len(self.start_stops)} {sorted(self.start_stops)}
+Transfer stops: {len(self.transfer_stops)} {sorted(self.transfer_stops)}
+Finish stops: {len(self.finish_stops)} {sorted(self.finish_stops)}""")
+
+    def check_on_demand_stops(self):
+        start_transfer_finish_stops = self.start_stops.union(self.transfer_stops, self.finish_stops)
+        on_demand_stops = []
+        for i in self.json:
+            if i["stop_name"] in start_transfer_finish_stops and i["stop_type"] == "O":
+                on_demand_stops.append(i["stop_name"])
+
+        if on_demand_stops:
+            print(f"""
+On demand stops test:
+Wrong stop type: {sorted(on_demand_stops)}""")
+
+        elif not on_demand_stops:
+            print("""
+On demand stops test:
+OK""")
 
     def report_errors(self, format_errors=False):
         total_type_errors = sum([v["type"] for v in self.errors.values()])

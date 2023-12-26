@@ -4,7 +4,7 @@ hyperskill_project:
   is_template_based: false
   use_ide: true
   environment: unittest
-update_date: "Tue, 26 Dec 2023 03:38:24 UTC"
+update_date: "Tue, 26 Dec 2023 08:40:23 UTC"
 stages:
   - id: 680
     step: 10888
@@ -23,7 +23,7 @@ stages:
     is_completed: true
   - id: 685
     step: 10893
-    is_completed: false
+    is_completed: true
 topics:
   0:
     - title: Operating systems
