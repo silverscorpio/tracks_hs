@@ -13,7 +13,7 @@ def match_regex(template: re.Pattern[str], given_str: str) -> bool:
 class Validator:
     BUS_ID_REGEX = ""
     STOP_ID_REGEX = ""
-    STOP_NAME_REGEX = re.compile(r"[A-Z]{1}. Road|Avenue|Boulevard|Street", flags=re.ASCII)
+    STOP_NAME_REGEX = re.compile(r"[A-Z].* \b(?:Road|Avenue|Boulevard|Street)\b$", flags=re.ASCII)
     NEXT_STOP_REGEX = ""
     STOP_TYPE_REGEX = re.compile(r"^[SOF]{1}$", flags=re.ASCII)
     A_TIME_REGEX = re.compile(r"^([0-1]{1}[0-9]|2[0-3]):[0-5][0-9]$", flags=re.ASCII)
