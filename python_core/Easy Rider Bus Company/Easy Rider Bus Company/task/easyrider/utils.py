@@ -18,6 +18,12 @@ class Validator:
     STOP_TYPE_REGEX = re.compile(r"^[SOF]{1}$", flags=re.ASCII)
     A_TIME_REGEX = re.compile(r"^([0-1]{1}[0-9]|2[0-3]):[0-5][0-9]$", flags=re.ASCII)
 
+    BUS_DATA = {
+        128: 4,
+        256: 4,
+        512: 2
+    }
+
     def __init__(self, json_data: str):
         self.raw_json = json_data
         self.json: list = json.loads(self.raw_json)
@@ -48,7 +54,7 @@ class Validator:
         self.stop_type_validator()
         self.a_time_validator()
 
-    def report_errors(self, format_errors: False):
+    def report_errors(self, format_errors=False):
         total_type_errors = sum([v["type"] for v in self.errors.values()])
         total_required_errors = sum([v["required"] for v in self.errors.values()])
         total_format_errors = sum([v["format"] for v in self.errors.values()])
@@ -74,6 +80,12 @@ stop_name: {field_errors["stop_name"]}
 next_stop: {field_errors["next_stop"]}
 stop_type: {field_errors["stop_type"]}
 a_time: {field_errors["a_time"]}""")
+
+    def report_bus_data(self):
+        unique_bus_ids = {i[1] for i in self.bus_ids}
+        print("Line names and number of stops:")
+        for id_bus in unique_bus_ids:
+            print(f"bus_id: {id_bus}, stops: {Validator.BUS_DATA[id_bus]}")
 
     # field/db column validators
     def bus_id_validator(self):
