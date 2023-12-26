@@ -4,7 +4,7 @@ hyperskill_project:
   is_template_based: false
   use_ide: true
   environment: unittest
-update_date: "Sat, 23 Dec 2023 03:37:12 UTC"
+update_date: "Mon, 25 Dec 2023 22:19:55 UTC"
 stages:
   - id: 680
     step: 10888
@@ -54,10 +54,10 @@ topics:
       theory_id: 5926
     - title: While loop
       theory_id: 5940
-    - title: Documentation
-      theory_id: 12069
     - title: Files
       theory_id: 13025
+    - title: Documentation
+      theory_id: 12069
     - title: File types
       theory_id: 13017
     - title: JSON
