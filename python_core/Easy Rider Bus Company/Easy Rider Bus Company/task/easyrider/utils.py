@@ -11,10 +11,7 @@ def match_regex(template: re.Pattern[str], given_str: str) -> bool:
 
 
 class Validator:
-    BUS_ID_REGEX = ""
-    STOP_ID_REGEX = ""
     STOP_NAME_REGEX = re.compile(r"[A-Z].* \b(?:Road|Avenue|Boulevard|Street)\b$", flags=re.ASCII)
-    NEXT_STOP_REGEX = ""
     STOP_TYPE_REGEX = re.compile(r"^[SOF]{1}$", flags=re.ASCII)
     A_TIME_REGEX = re.compile(r"^([0-1]{1}[0-9]|2[0-3]):[0-5][0-9]$", flags=re.ASCII)
 
@@ -47,6 +44,26 @@ class Validator:
         self.next_stop_validator()
         self.stop_type_validator()
         self.a_time_validator()
+
+    def determine_bus_stops(self):
+        bus_stop_data = defaultdict(list)
+        for i in self.json:
+            if i["stop_type"]:
+                bus_stop_data[i["bus_id"]].append((i["stop_type"], i["stop_name"]))
+        print(bus_stop_data)
+        for k, v in bus_stop_data.items():
+            if any([i not in [i[0] for i in v] for i in ["S", "F"]]):
+                print(f"There is no start or end stop for the line: {k}.")
+                break
+
+        start_stops, finish_stops = set(), set()
+        for v in bus_stop_data.values():
+            for i in v:
+                if i[0] == "S":
+                    start_stops.add(i[1])
+                elif i[0] == "F":
+                    finish_stops.add(i[1])
+        print(sorted(start_stops), sorted(finish_stops))
 
     def report_errors(self, format_errors=False):
         total_type_errors = sum([v["type"] for v in self.errors.values()])
