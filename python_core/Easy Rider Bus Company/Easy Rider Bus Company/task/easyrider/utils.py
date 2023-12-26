@@ -47,14 +47,14 @@ class Validator:
 
     def determine_bus_stops(self):
         bus_stop_data = defaultdict(list)
+        all_stops = defaultdict(int)
         for i in self.json:
-            if i["stop_type"]:
-                bus_stop_data[i["bus_id"]].append((i["stop_type"], i["stop_name"]))
-        print(bus_stop_data)
+            bus_stop_data[i["bus_id"]].append((i["stop_type"], i["stop_name"]))
+            all_stops[i["stop_name"]] = 0
         for k, v in bus_stop_data.items():
             if any([i not in [i[0] for i in v] for i in ["S", "F"]]):
                 print(f"There is no start or end stop for the line: {k}.")
-                break
+                return
 
         start_stops, finish_stops = set(), set()
         for v in bus_stop_data.values():
@@ -63,7 +63,19 @@ class Validator:
                     start_stops.add(i[1])
                 elif i[0] == "F":
                     finish_stops.add(i[1])
-        print(sorted(start_stops), sorted(finish_stops))
+
+        stops_for_bus = {k: set([i[1] for i in v]) for k, v in bus_stop_data.items()}
+        for k1 in all_stops:
+            for v in stops_for_bus.values():
+                if k1 in v:
+                    all_stops[k1] += 1
+
+        transfer_stops = {k for k, v in all_stops.items() if v >= 2}
+
+        print(f"""
+Start stops: {len(start_stops)} {sorted(start_stops)}
+Transfer stops: {len(transfer_stops)} {sorted(transfer_stops)}
+Finish stops: {len(finish_stops)} {sorted(finish_stops)}""")
 
     def report_errors(self, format_errors=False):
         total_type_errors = sum([v["type"] for v in self.errors.values()])

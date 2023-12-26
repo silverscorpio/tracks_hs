@@ -390,8 +390,8 @@ SAMPLE_JSON_DATA_STOP_2: str = '''
 
 
 def main():
-    json_data_input = SAMPLE_JSON_DATA_STOP_2
-    # json_data_input = input()  # for final implementation
+    # json_data_input = SAMPLE_JSON_DATA_STOP_1
+    json_data_input = input()  # for final implementation
     validator = Validator(json_data=json_data_input)
     validator.validate_fields()
     # validator.report_errors(format_errors=True)
