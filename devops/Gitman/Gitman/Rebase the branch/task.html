@@ -1,0 +1,16 @@
+<div class="step-text">
+<h5 id="description">Description</h5>
+<p>For now, we don't have any new features for the development, so you can finish the work and apply the changes to the <code class="language-bash">main</code> branch. Keep in mind that it's important to preserve the history of commits in the <code class="language-bash">main</code>. You can do it through the <strong>merge</strong> or <strong>rebase</strong>. You've already tried the merge operation, so let's get acquainted with rebase.</p>
+<p>This stage requires the exact sequence of git commands, but you can always abort the rebase and try the task again with the following command:</p>
+<pre><code class="language-bash">git rebase --abort</code></pre>
+<h5 id="objectives">Objectives</h5>
+<ul>
+<li>First, go to the <code class="language-bash">develop</code> branch and start the rebase on main with the command <code class="language-bash">git rebase main</code>;</li>
+<li>Oops! It seems that git has problems with auto-merging the <em>main.py</em> file and warns you about it:<br/>
+<code class="language-bash">CONFLICT (content): Merge conflict in main.py</code></li>
+<li>Open the <em>main.py</em> in an editor, fix the conflicts, and save the file. (Remove the lines with the conflict markers, <code class="language-bash">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code class="language-bash">=======</code>, <code class="language-bash">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>)</li>
+<li>Then add the file to the git index (staging area), commit, and continue the rebase:<br/>
+<code class="language-bash">git rebase --continue</code></li>
+</ul>
+<p>Now, your task is finished.</p>
+</div>

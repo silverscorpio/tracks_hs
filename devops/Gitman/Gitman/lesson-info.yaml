@@ -1,0 +1,9 @@
+type: framework
+content:
+  - Initialize repo
+  - Create a branch
+  - Modify a commit
+  - Make a hotfix
+  - Rebase the branch
+  - Publish your work to GitHub
+current_task: 1
