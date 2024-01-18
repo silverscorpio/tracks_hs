@@ -14,16 +14,16 @@ stages:
     is_completed: true
   - id: 1553
     step: 23063
-    is_completed: false
+    is_completed: true
   - id: 1554
     step: 23064
-    is_completed: false
+    is_completed: true
   - id: 1555
     step: 23065
-    is_completed: false
+    is_completed: true
   - id: 1556
     step: 23066
-    is_completed: false
+    is_completed: true
 topics:
   0:
     - title: Starting with git
